@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Cơ sở y tế - Bản đồ y tế thông minh | EduHealth AI</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-primary: #3b82f6;
+            --blue-deep: #2563eb;
+            --pink-primary: #f472b6;
+            --pink-deep: #ec489a;
+            --grad-blue-pink: linear-gradient(135deg, var(--blue-primary), var(--pink-primary));
+            --grad-pink-blue: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
+            --bg-body: #ffffff;
+            --bg-surface: #fef9ff;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-mid: #334155;
+            --text-dim: #64748b;
+            --border-light: #ffe4f0;
+            --border-soft: #f1f5f9;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            --hover-glow: rgba(59, 130, 246, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.92);
+            --tag-bg: #fce7f3;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body.dark {
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --card-bg: #1e293b;
+            --text-dark: #f1f5f9;
+            --text-mid: #cbd5e1;
+            --text-dim: #94a3b8;
+            --border-light: #334155;
+            --border-soft: #2d3a4e;
+            --nav-bg: rgba(15, 23, 42, 0.94);
+            --tag-bg: #2d3a4e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-dark);
+            overflow: hidden;
+            height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--border-soft); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-primary); border-radius: 10px; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            height: 74px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.25s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 42px;
+            height: 42px;
+            background: var(--grad-blue-pink);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .logo-mark:hover { transform: scale(1.02); }
+
+        .logo-type {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            text-decoration: none;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link i {
+            font-size: 14px;
+            color: var(--pink-primary);
+        }
+
+        .nav-link:hover {
+            color: var(--blue-primary);
+        }
+        .nav-link:hover i { color: var(--blue-primary); }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .theme-toggle:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--pink-primary);
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+            align-items: center;
+            gap: 8px;
+        }
+        .menu-toggle:hover {
+            background: var(--grad-pink-blue);
+            color: white;
+            border-color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Mobile menu panel - positioned below nav, above map and sidebar */
+        .mobile-menu-panel {
+            position: fixed;
+            top: 74px;
+            left: 0;
+            right: 0;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 99;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
+            box-shadow: var(--shadow-md);
+        }
+        .mobile-menu-panel.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mobile-menu-panel .nav-links-mobile {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 6%;
+            gap: 20px;
+        }
+        .mobile-menu-panel .nav-link-mobile {
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-menu-panel .nav-link-mobile i {
+            width: 28px;
+            color: var(--blue-primary);
+            font-size: 18px;
+        }
+        .mobile-menu-panel .nav-link-mobile:hover {
+            color: var(--pink-primary);
+        }
+
+        /* Map Container */
+        .map-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            padding-top: 74px;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            top: 94px;
+            right: 20px;
+            width: 380px;
+            background: var(--card-bg);
+            border-radius: 28px;
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            max-height: calc(100vh - 114px);
+            overflow-y: auto;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-header {
+            background: var(--grad-blue-pink);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 28px 28px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .sidebar-header h5 {
+            font-family: 'Fraunces', serif;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .sidebar-header small {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .search-box {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--card-bg);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-body);
+            color: var(--text-dark);
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-buttons::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--grad-blue-pink);
+            border-color: transparent;
+            color: white;
+        }
+
+        .location-list {
+            padding: 8px 0;
+        }
+
+        .location-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .location-item:hover {
+            background: var(--tag-bg);
+            transform: translateX(-5px);
+        }
+
+        .location-name {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .location-name i {
+            font-size: 16px;
+        }
+
+        .location-address {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .distance-badge {
+            font-size: 11px;
+            background: var(--tag-bg);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
+        /* Detail Card */
+        .detail-card {
+            padding: 24px;
+        }
+
+        .detail-card h6 {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-info {
+            margin: 14px 0;
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-mid);
+            align-items: flex-start;
+        }
+
+        .detail-info i {
+            width: 22px;
+            color: var(--blue-primary);
+            margin-top: 2px;
+        }
+
+        .btn-google-maps {
+            display: block;
+            background: var(--grad-blue-pink);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-google-maps:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-mid);
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+
+        /* Custom marker - fixed centering */
+        .custom-marker {
+            background: transparent !important;
+            border: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .marker-hospital {
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            border: 2px solid white;
+        }
+        .marker-hospital i {
+            font-size: 18px;
+            color: #ef4444;
+        }
+        
+        .marker-pharmacy {
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            border: 2px solid white;
+        }
+        .marker-pharmacy i {
+            font-size: 18px;
+            color: #10b981;
+        }
+        
+        .marker-user {
+            background: var(--blue-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            border: 2px solid white;
+        }
+        .marker-user i {
+            font-size: 20px;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-dim);
+        }
+
+        /* Current location button */
+        .locate-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            color: var(--text-mid);
+        }
+        .locate-btn:hover {
+            background: var(--grad-blue-pink);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Overlay for mobile menu when open */
+        .menu-overlay {
+            position: fixed;
+            top: 74px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 98;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 340px;
+                right: 10px;
+                top: 84px;
+                max-height: calc(100vh - 100px);
+            }
+            .nav-menu { display: none; }
+            .menu-toggle { display: flex; }
+            .filter-buttons {
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar { width: calc(100% - 20px); right: 10px; left: 10px; }
+            .sidebar-header h5 { font-size: 18px; }
+            .detail-card h6 { font-size: 18px; }
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <a href="index.html" class="logo">
+            <div class="logo-mark"><i class="fas fa-heartbeat"></i></div>
+            <div class="logo-type">EduHealth AI</div>
+        </a>
+        
+        <div class="nav-menu">
+            <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+        </div>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
+            <button class="menu-toggle" id="menuToggleBtn"><i class="fas fa-bars"></i> Menu</button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu panel - slides down from nav -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="nav-links-mobile">
+            <a href="#" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
+            <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+        </div>
+    </div>
+
+    <!-- Overlay when mobile menu is open -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="map-container">
+        <div id="map"></div>
+        
+        <button class="locate-btn" id="locateBtn">
+            <i class="fas fa-location-dot"></i> Vị trí của tôi
+        </button>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-map-marked-alt"></i> Cơ sở Y tế gần bạn</h5>
+                <small>🔍 Nhấp vào biểu tượng hoặc danh sách để xem chi tiết</small>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên hoặc địa chỉ...">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">📌 Tất cả</button>
+                    <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện</button>
+                    <button class="filter-btn" data-filter="pharmacy">💊 Hiệu thuốc</button>
+                </div>
+            </div>
+            <div id="locationListSidebar" class="location-list">
+                <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Đang tải dữ liệu...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+            authDomain: "eduhealth-4bcab.firebaseapp.com",
+            projectId: "eduhealth-4bcab",
+            storageBucket: "eduhealth-4bcab.firebasestorage.app",
+            messagingSenderId: "390541255938",
+            appId: "1:390541255938:web:aa7b5beca0105c28f70e1b",
+            measurementId: "G-GSP46EVLYG"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let map;
+        let markers = [];
+        let locations = [];
+        let currentFilter = 'all';
+        let userLocation = null;
+        let userMarker = null;
+
+        function initMap() {
+            map = L.map('map').setView([21.0285, 105.8542], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = [position.coords.latitude, position.coords.longitude];
+                        map.setView(userLocation, 14);
+                        updateUserMarker();
+                    },
+                    (error) => {
+                        console.log('Không thể lấy vị trí:', error);
+                        showToast('⚠️ Không thể lấy vị trí của bạn', true);
+                    }
+                );
+            }
+
+            loadLocations();
+        }
+
+        function updateUserMarker() {
+            if (userMarker) map.removeLayer(userMarker);
+            if (userLocation) {
+                const userIcon = L.divIcon({
+                    className: 'custom-marker',
+                    html: '<div class="marker-user"><i class="fas fa-user"></i></div>',
+                    iconSize: [40, 40],
+                    popupAnchor: [0, -20],
+                    iconAnchor: [20, 20]
+                });
+                userMarker = L.marker(userLocation, { icon: userIcon })
+                    .bindPopup('📍 Vị trí của bạn')
+                    .addTo(map);
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '80px';
+            toast.style.left = '20px';
+            toast.style.right = '20px';
+            toast.style.maxWidth = '300px';
+            toast.style.background = isError ? 'var(--danger)' : 'var(--success)';
+            toast.style.color = 'white';
+            toast.style.padding = '12px 20px';
+            toast.style.borderRadius = '50px';
+            toast.style.zIndex = '2000';
+            toast.style.fontSize = '14px';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function createCustomIcon(type) {
+            const iconHtml = type === 'hospital' 
+                ? '<div class="marker-hospital"><i class="fas fa-hospital"></i></div>'
+                : '<div class="marker-pharmacy"><i class="fas fa-prescription-bottle"></i></div>';
+            return L.divIcon({
+                className: 'custom-marker',
+                html: iconHtml,
+                iconSize: [36, 36],
+                popupAnchor: [0, -18],
+                iconAnchor: [18, 18]
+            });
+        }
+
+        async function loadLocations() {
+            try {
+                const querySnapshot = await db.collection('medicalLocations').get();
+                locations = [];
+                querySnapshot.forEach((doc) => {
+                    locations.push({ id: doc.id, ...doc.data() });
+                });
+                displayMarkers();
+                displaySidebarList();
+                updateLocationCount();
+            } catch (error) {
+                console.error('Lỗi tải dữ liệu:', error);
+                document.getElementById('locationListSidebar').innerHTML = '<div class="empty-state">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại sau.</div>';
+            }
+        }
+
+        function updateLocationCount() {
+            const total = locations.length;
+            const header = document.querySelector('.sidebar-header small');
+            if (header) header.innerHTML = `📍 ${total} cơ sở y tế · Nhấp để xem chi tiết`;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function displayMarkers() {
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            const filteredLocations = currentFilter === 'all' 
+                ? locations 
+                : locations.filter(loc => loc.type === currentFilter);
+
+            filteredLocations.forEach(location => {
+                if (location.lat && location.lng) {
+                    const marker = L.marker([location.lat, location.lng], {
+                        icon: createCustomIcon(location.type)
+                    }).addTo(map);
+
+                    const distanceHtml = userLocation ? 
+                        `<div style="font-size:11px; margin-top:4px;">📏 ${calculateDistance(userLocation[0], userLocation[1], location.lat, location.lng).toFixed(1)} km</div>` : '';
+
+                    marker.bindPopup(`
+                        <div style="min-width: 240px;">
+                            <strong style="font-size:15px;">${location.type === 'hospital' ? '🏥' : '💊'} ${escapeHtml(location.shortNote)}</strong>
+                            <div style="font-size:12px; color:#64748b; margin:6px 0;">${escapeHtml(location.address)}</div>
+                            <div class="rating-stars">
+                                ${'★'.repeat(Math.floor(location.rating))}${location.rating % 1 ? '½' : ''} (${location.rating})
+                            </div>
+                            ${distanceHtml}
+                            <button onclick="showLocationDetail('${location.id}')" style="margin-top:10px; padding:8px 16px; background:#3b82f6; color:white; border:none; border-radius:30px; cursor:pointer; width:100%; font-weight:500;">
+                                Xem chi tiết →
+                            </button>
+                        </div>
+                    `);
+
+                    marker.on('click', () => showLocationDetail(location.id));
+                    markers.push(marker);
+                }
+            });
+        }
+
+        function displaySidebarList() {
+            const container = document.getElementById('locationListSidebar');
+            let filteredLocations = currentFilter === 'all' 
+                ? locations 
+                : locations.filter(loc => loc.type === currentFilter);
+
+            if (userLocation) {
+                filteredLocations = [...filteredLocations].sort((a, b) => {
+                    const distA = calculateDistance(userLocation[0], userLocation[1], a.lat, a.lng);
+                    const distB = calculateDistance(userLocation[0], userLocation[1], b.lat, b.lng);
+                    return distA - distB;
+                });
+            }
+
+            if (filteredLocations.length === 0) {
+                container.innerHTML = '<div class="empty-state">🔍 Không tìm thấy cơ sở y tế nào</div>';
+                return;
+            }
+
+            container.innerHTML = filteredLocations.map(loc => {
+                const distance = userLocation ? 
+                    `<span class="distance-badge">📏 ${calculateDistance(userLocation[0], userLocation[1], loc.lat, loc.lng).toFixed(1)} km</span>` : '';
+                return `
+                    <div class="location-item" onclick="showLocationDetail('${loc.id}')">
+                        <div class="location-name">
+                            ${loc.type === 'hospital' ? '<i class="fas fa-hospital" style="color:#ef4444;"></i>' : '<i class="fas fa-prescription-bottle" style="color:#10b981;"></i>'} 
+                            ${escapeHtml(loc.shortNote)}
+                            ${distance}
+                        </div>
+                        <div class="location-address">
+                            <i class="fas fa-map-marker-alt" style="font-size:10px;"></i> ${escapeHtml(loc.address)}
+                        </div>
+                        <div class="rating-stars">${'★'.repeat(Math.floor(loc.rating))} (${loc.rating})</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showLocationDetail(id) {
+            const location = locations.find(loc => loc.id === id);
+            if (!location) return;
+
+            const sidebar = document.getElementById('sidebar');
+            const distance = userLocation ? 
+                `<div class="detail-info"><i class="fas fa-location-dot"></i> Cách bạn: ${calculateDistance(userLocation[0], userLocation[1], location.lat, location.lng).toFixed(1)} km</div>` : '';
+
+            sidebar.innerHTML = `
+                <div class="sidebar-header">
+                    <h5><i class="fas fa-info-circle"></i> Chi tiết cơ sở</h5>
+                    <small>Thông tin liên hệ và đánh giá</small>
+                </div>
+                <div class="detail-card">
+                    <h6>${location.type === 'hospital' ? '🏥' : '💊'} ${escapeHtml(location.shortNote)}</h6>
+                    <div class="detail-info"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(location.address)}</div>
+                    ${distance}
+                    <div class="detail-info"><i class="fas fa-star" style="color:#fbbf24;"></i> ${location.rating} / 5 sao</div>
+                    ${location.phone ? `<div class="detail-info"><i class="fas fa-phone"></i> <a href="tel:${location.phone}" style="color: var(--blue-primary); text-decoration: none;">${escapeHtml(location.phone)}</a></div>` : ''}
+                    ${location.openingHours ? `<div class="detail-info"><i class="far fa-clock"></i> ${escapeHtml(location.openingHours)}</div>` : ''}
+                    ${location.longNote ? `<div class="detail-info"><i class="fas fa-info-circle"></i> ${escapeHtml(location.longNote)}</div>` : ''}
+                    ${location.googleMapsLink ? `<a href="${location.googleMapsLink}" target="_blank" class="btn-google-maps"><i class="fab fa-google"></i> Mở trong Google Maps</a>` : ''}
+                    <button class="back-btn" onclick="reloadSidebar()"><i class="fas fa-arrow-left"></i> Quay lại danh sách</button>
+                </div>
+            `;
+
+            map.setView([location.lat, location.lng], 16);
+        }
+
+        function reloadSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = `
+                <div class="sidebar-header">
+                    <h5><i class="fas fa-map-marked-alt"></i> Cơ sở Y tế gần bạn</h5>
+                    <small>🔍 Nhấp vào biểu tượng hoặc danh sách để xem chi tiết</small>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên hoặc địa chỉ...">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">📌 Tất cả</button>
+                        <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện</button>
+                        <button class="filter-btn" data-filter="pharmacy">💊 Hiệu thuốc</button>
+                    </div>
+                </div>
+                <div id="locationListSidebar" class="location-list"></div>
+            `;
+            
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => filterLocations(btn.dataset.filter));
+            });
+            
+            displaySidebarList();
+            updateLocationCount();
+        }
+
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = locations.filter(loc => 
+                loc.shortNote?.toLowerCase().includes(searchTerm) || 
+                loc.address?.toLowerCase().includes(searchTerm)
+            );
+            
+            const container = document.getElementById('locationListSidebar');
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state">🔍 Không tìm thấy kết quả</div>';
+                return;
+            }
+            
+            let sortedFiltered = [...filtered];
+            if (userLocation) {
+                sortedFiltered.sort((a, b) => {
+                    const distA = calculateDistance(userLocation[0], userLocation[1], a.lat, a.lng);
+                    const distB = calculateDistance(userLocation[0], userLocation[1], b.lat, b.lng);
+                    return distA - distB;
+                });
+            }
+
+            container.innerHTML = sortedFiltered.map(loc => `
+                <div class="location-item" onclick="showLocationDetail('${loc.id}')">
+                    <div class="location-name">
+                        ${loc.type === 'hospital' ? '🏥' : '💊'} ${escapeHtml(loc.shortNote)}
+                    </div>
+                    <div class="location-address">${escapeHtml(loc.address)}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterLocations(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === type) btn.classList.add('active');
+            });
+            displayMarkers();
+            displaySidebarList();
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Mobile menu functions
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const mobilePanel = document.getElementById('mobileMenuPanel');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function closeMobileMenu() {
+            if (mobilePanel) mobilePanel.classList.remove('open');
+            if (menuOverlay) menuOverlay.classList.remove('active');
+            if (menuToggle) {
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        function openMobileMenu() {
+            if (mobilePanel) mobilePanel.classList.add('open');
+            if (menuOverlay) menuOverlay.classList.add('active');
+            if (menuToggle) {
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (mobilePanel.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+        }
+
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        // Close menu when clicking on a mobile nav link
+        document.querySelectorAll('.nav-link-mobile').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        document.getElementById('locateBtn')?.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = [position.coords.latitude, position.coords.longitude];
+                        map.setView(userLocation, 15);
+                        updateUserMarker();
+                        showToast('📍 Đã cập nhật vị trí của bạn');
+                        displaySidebarList();
+                        displayMarkers();
+                    },
+                    () => showToast('⚠️ Không thể lấy vị trí', true)
+                );
+            } else {
+                showToast('⚠️ Trình duyệt không hỗ trợ định vị', true);
+            }
+        });
+
+        window.showLocationDetail = showLocationDetail;
+        window.filterLocations = filterLocations;
+        window.reloadSidebar = reloadSidebar;
+
+        initMap();
+
+        // Theme toggle
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const body = document.body;
+        function setTheme(theme) {
+            body.classList.toggle('dark', theme === 'dark');
+            localStorage.setItem('eduhealth-theme', theme);
+            const icon = themeBtn.querySelector('i');
+            const span = themeBtn.querySelector('span');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+                span.innerText = 'Chế độ sáng';
+            } else {
+                icon.className = 'fas fa-moon';
+                span.innerText = 'Chế độ tối';
+            }
+        }
+        const savedTheme = localStorage.getItem('eduhealth-theme');
+        if (savedTheme === 'dark') setTheme('dark');
+        else setTheme('light');
+        themeBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+
+        setTimeout(() => {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => filterLocations(btn.dataset.filter));
+            });
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.addEventListener('input', handleSearch);
+        }, 500);
+    </script>
+</body>
+</html>

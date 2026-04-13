@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>EduHealth AI — Sức khỏe học đường thông minh</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --blue-primary: #3b82f6;
+  --blue-deep: #2563eb;
+  --pink-primary: #f472b6;
+  --pink-deep: #ec489a;
+  --grad-blue-pink: linear-gradient(135deg, var(--blue-primary), var(--pink-primary));
+  --grad-pink-blue: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
+  
+  --bg-body: #ffffff;
+  --bg-surface: #fef9ff;
+  --card-bg: #ffffff;
+  --text-dark: #0f172a;
+  --text-mid: #334155;
+  --text-dim: #64748b;
+  --border-light: #ffe4f0;
+  --border-soft: #f1f5f9;
+  --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+  --hover-glow: rgba(59, 130, 246, 0.12);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --tag-bg: #fce7f3;
+  --news-bg: #f1f5f9;
+  --icon-soft: #e0f2fe;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+body.dark {
+  --bg-body: #0f172a;
+  --bg-surface: #1e293b;
+  --card-bg: #1e293b;
+  --text-dark: #f1f5f9;
+  --text-mid: #cbd5e1;
+  --text-dim: #94a3b8;
+  --border-light: #334155;
+  --border-soft: #2d3a4e;
+  --shadow-sm: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
+  --hover-glow: rgba(244, 114, 182, 0.2);
+  --nav-bg: rgba(15, 23, 42, 0.94);
+  --tag-bg: #2d3a4e;
+  --news-bg: #1e293b;
+  --icon-soft: #2d3a4e;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-body);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.2s ease;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--border-soft);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--pink-primary);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-primary);
+}
+
+/* ========== NAVIGATION ========== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  height: 74px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.25s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 42px;
+  height: 42px;
+  background: var(--grad-blue-pink);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+  color: white;
+  transition: transform 0.2s;
+}
+
+.logo-mark:hover {
+  transform: scale(1.02);
+}
+
+.logo-type {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.nav-link i {
+  font-size: 14px;
+  color: var(--pink-primary);
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--blue-primary);
+}
+.nav-link:hover i {
+  color: var(--blue-primary);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: 40px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.theme-toggle:hover {
+  border-color: var(--blue-primary);
+  color: var(--blue-primary);
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pink-primary);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  align-items: center;
+  gap: 8px;
+}
+.menu-toggle:hover {
+  background: var(--grad-pink-blue);
+  color: white;
+  border-color: transparent;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  top: 74px;
+  left: 0;
+  right: 0;
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 99;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  pointer-events: none;
+}
+.mobile-menu-panel.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu-panel .nav-links-mobile {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 6%;
+  gap: 20px;
+}
+.mobile-menu-panel .nav-link-mobile {
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.mobile-menu-panel .nav-link-mobile i {
+  width: 28px;
+  color: var(--blue-primary);
+  font-size: 18px;
+}
+.mobile-menu-panel .nav-link-mobile:hover {
+  color: var(--pink-primary);
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 6% 80px;
+  position: relative;
+  z-index: 2;
+  background: radial-gradient(circle at 10% 20%, var(--bg-surface) 0%, var(--bg-body) 100%);
+}
+.hero-h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  max-width: 950px;
+  opacity: 0;
+  animation: riseUp 0.85s ease 0.2s forwards;
+  background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-mid);
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: riseUp 0.85s ease 0.35s forwards;
+  max-width: 620px;
+  background: var(--tag-bg);
+  padding: 10px 24px;
+  border-radius: 60px;
+  display: inline-block;
+}
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: riseUp 0.9s ease 0.5s forwards;
+}
+.btn-main {
+  background: var(--grad-blue-pink);
+  color: white;
+  padding: 15px 38px;
+  border-radius: 60px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+  transition: all 0.25s;
+}
+.btn-main:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.02);
+  box-shadow: 0 15px 25px -8px rgba(59, 130, 246, 0.4);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-mid);
+  padding: 15px 32px;
+  border-radius: 60px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s;
+}
+.btn-ghost:hover {
+  color: var(--blue-primary);
+  border-color: var(--blue-primary);
+  background: var(--hover-glow);
+}
+
+/* ========== BẢN TIN Y TẾ ========== */
+.news-section {
+  padding: 60px 6% 80px;
+  position: relative;
+  z-index: 2;
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue-primary);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, var(--pink-primary), transparent);
+  max-width: 100px;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.news-card {
+  background: var(--card-bg);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.news-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--pink-primary);
+  box-shadow: var(--shadow-md);
+}
+.news-cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: var(--tag-bg);
+}
+.news-content {
+  padding: 20px;
+}
+.news-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  color: var(--text-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-excerpt {
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-dim);
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.news-stats span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.load-more-btn {
+  text-align: center;
+  margin-top: 48px;
+}
+.btn-load-more {
+  background: transparent;
+  border: 2px solid var(--border-light);
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-load-more:hover {
+  border-color: var(--blue-primary);
+  color: var(--blue-primary);
+  transform: translateY(-2px);
+}
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-dim);
+}
+.empty-news {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-dim);
+  grid-column: span 3;
+}
+
+/* ========== CẨM NANG + DIỄN ĐÀN ========== */
+.health-lib {
+  padding: 40px 6% 90px;
+  position: relative;
+  z-index: 2;
+}
+.health-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.health-card {
+  background: var(--card-bg);
+  border-radius: 42px;
+  padding: 32px 34px;
+  border: 1px solid var(--border-light);
+  transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: var(--shadow-sm);
+}
+.health-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue-primary);
+  box-shadow: var(--shadow-md);
+}
+.health-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--icon-soft);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 22px;
+  color: var(--blue-primary);
+  transition: all 0.4s;
+}
+.health-card:hover .health-icon {
+  background: var(--grad-pink-blue);
+  color: white;
+}
+.health-title {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.health-badge {
+  display: inline-flex;
+  gap: 12px;
+  background: var(--tag-bg);
+  border-radius: 30px;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pink-primary);
+  margin: 14px 0 16px;
+}
+.news-meta {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 16px 0 12px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.news-loading {
+  background: var(--news-bg);
+  border-radius: 28px;
+  padding: 20px;
+  text-align: center;
+  color: var(--blue-primary);
+  font-weight: 500;
+}
+.forum-preview {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-light);
+}
+.forum-topic {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  color: var(--text-mid);
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.forum-topic:hover {
+  color: var(--blue-primary);
+  transform: translateX(5px);
+}
+.forum-topic i {
+  color: var(--pink-primary);
+  width: 24px;
+}
+
+/* ========== STATS ========== */
+.stats-section {
+  padding: 60px 6% 80px;
+  background: linear-gradient(135deg, var(--bg-surface), var(--bg-body));
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: 'Fraunces', serif;
+  background: var(--grad-blue-pink);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 14px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* ========== CTA ========== */
+.cta-section {
+  padding: 80px 6%;
+  text-align: center;
+}
+.cta-card {
+  background: var(--grad-blue-pink);
+  border-radius: 48px;
+  padding: 60px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: white;
+}
+.cta-card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+.cta-card p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+.cta-btn {
+  background: white;
+  color: var(--blue-primary);
+  border: none;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.modal-content {
+  background: var(--card-bg);
+  border-radius: 32px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.modal-header {
+  flex-shrink: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h3 { font-family: 'Fraunces', serif; font-size: 24px; color: var(--blue-primary); }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-dim);
+}
+.modal-close:hover { color: var(--pink-primary); }
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.modal-content-text {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.modal-content-text img { 
+  max-width: 100%; 
+  border-radius: 16px;
+  height: auto;
+}
+.modal-content-text p {
+  margin-bottom: 16px;
+}
+.modal-content-text h1, .modal-content-text h2, .modal-content-text h3, 
+.modal-content-text h4, .modal-content-text h5, .modal-content-text h6 {
+  margin: 20px 0 12px 0;
+  font-family: 'Fraunces', serif;
+}
+.news-modal-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-dim);
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 24px;
+}
+.news-modal-stats span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  border-top: 1px solid var(--border-light);
+  padding: 48px 6% 38px;
+  background: var(--bg-body);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-links {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.footer-links a:hover {
+  color: var(--pink-primary);
+}
+.footer-copyright {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1), transform 0.7s ease;
+}
+.rise.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 950px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .health-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 780px) {
+  .nav-menu { display: none; }
+  .menu-toggle { display: flex; }
+  .hero-h1 { font-size: 48px; }
+  .hero-sub { font-size: 16px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .stat-number { font-size: 36px; }
+  .cta-card h2 { font-size: 28px; }
+  .cta-card { padding: 40px 24px; }
+  .news-grid { grid-template-columns: 1fr; }
+  .empty-news { grid-column: span 1; }
+}
+@media (max-width: 520px) {
+  .hero-actions { flex-direction: column; align-items: center; }
+  .btn-main, .btn-ghost { width: 100%; justify-content: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .health-card { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="logo">
+    <div class="logo-mark"><i class="fas fa-heartbeat"></i></div>
+    <div class="logo-type">EduHealth AI</div>
+  </a>
+  
+  <div class="nav-menu">
+    <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
+    <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
+    <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+    <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+  </div>
+  
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
+    <button class="menu-toggle" id="menuToggleBtn"><i class="fas fa-bars"></i> Menu</button>
+  </div>
+</nav>
+
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <div class="nav-links-mobile">
+    <a href="handbook.html" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
+    <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
+    <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+    <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+  </div>
+</div>
+
+<section class="hero">
+  <h1 class="hero-h1">EduHealth AI</h1>
+  <div class="hero-sub">🧠 Hỗ trợ chăm sóc & chẩn đoán sức khỏe học đường</div>
+  <div class="hero-actions">
+    <button class="btn-main" onclick="window.location.href='checkin.html'">
+      <i class="fas fa-stethoscope"></i> Khám triệu chứng
+    </button>
+    <button class="btn-ghost" onclick="document.getElementById('news-section').scrollIntoView({behavior:'smooth'})"><i class="fas fa-newspaper"></i> Xem bản tin y tế ↓</button>
+  </div>
+</section>
+
+<!-- BẢN TIN Y TẾ - Thay thế phần features -->
+<section class="news-section" id="news-section">
+  <div class="section-label rise"><i class="fas fa-newspaper"></i> Bản tin y tế học đường</div>
+  <div id="newsGridContainer" class="news-grid">
+    <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải bản tin...</div>
+  </div>
+  <div class="load-more-btn" id="loadMoreBtn" style="display: none;">
+    <button class="btn-load-more" onclick="loadMoreNews()"><i class="fas fa-arrow-down"></i> Xem thêm bản tin</button>
+  </div>
+</section>
+
+<section class="health-lib">
+  <div class="health-grid">
+    <div class="health-card rise">
+      <div class="health-icon"><i class="fas fa-book-medical"></i></div>
+      <div class="health-title">📚 Cẩm nang y tế học đường</div>
+      <div class="health-badge"><i class="fas fa-file-alt"></i> Bài viết chuyên sâu · Kiến thức y khoa</div>
+      <p class="feat-p">Nội dung giáo dục sức khỏe, không thay thế tư vấn chuyên môn. Cẩm nang bỏ túi cho học sinh, phụ huynh về các dấu hiệu thường gặp và cách bảo vệ sức khỏe trong trường học.</p>
+      <div class="forum-preview">
+        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Cách nhận biết sốt xuất huyết ở trẻ</div>
+        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Hướng dẫn sơ cứu khi trẻ bị ngất</div>
+        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Thực đơn dinh dưỡng mùa thi</div>
+      </div>
+      <a href="handbook.html" style="display: inline-block; margin-top: 20px; color: var(--blue-primary); text-decoration: none; font-weight: 500;">Xem thêm →</a>
+    </div>
+    <div class="health-card rise">
+      <div class="health-icon"><i class="fas fa-comments"></i></div>
+      <div class="health-title">💬 Diễn đàn y tế học đường</div>
+      <div class="news-meta"><i class="far fa-calendar-alt"></i> Hoạt động: 200+ thành viên · Chia sẻ kinh nghiệm</div>
+      <div class="news-loading"><i class="fas fa-users"></i> Thảo luận gần đây: "Phòng chống cúm mùa trong lớp học", "Chế độ dinh dưỡng cho mùa thi"</div>
+      <p class="feat-p" style="margin-top: 16px;"><i class="fas fa-shield-alt"></i> Cộng đồng y tế học đường – Hỏi đáp, chia sẻ kiến thức chăm sóc sức khỏe an toàn.</p>
+      <a href="forum.html" style="display: inline-block; margin-top: 20px; color: var(--blue-primary); text-decoration: none; font-weight: 500;">Tham gia diễn đàn →</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Cơ sở y tế</div></div>
+    <div class="stat-item"><div class="stat-number">200+</div><div class="stat-label">Bài viết y khoa</div></div>
+    <div class="stat-item"><div class="stat-number">1.2k+</div><div class="stat-label">Thành viên</div></div>
+    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Hỗ trợ</div></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-card">
+    <h2>🏥 Cần tìm cơ sở y tế gần bạn?</h2>
+    <p>Hệ thống bản đồ y tế thông minh giúp bạn tìm bệnh viện, phòng khám, hiệu thuốc nhanh chóng</p>
+    <button class="cta-btn" onclick="window.location.href='map.html'"><i class="fas fa-map-marked-alt"></i> Tìm cơ sở y tế ngay</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copyright"><i class="far fa-copyright"></i> 2026 EduHealth AI — Nền tảng chăm sóc sức khỏe học đường. Không thay thế bác sĩ.</div>
+    <div class="footer-links">
+      <a href="#">Giới thiệu</a>
+      <a href="#">Chính sách bảo mật</a>
+      <a href="#">Hợp tác y tế</a>
+      <a href="#"><i class="fas fa-envelope"></i> Liên hệ</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal xem bản tin -->
+<div id="newsModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Bản tin y tế</h3>
+      <button class="modal-close" onclick="closeNewsModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+    authDomain: "eduhealth-4bcab.firebaseapp.com",
+    projectId: "eduhealth-4bcab",
+    storageBucket: "eduhealth-4bcab.firebasestorage.app",
+    messagingSenderId: "390541255938",
+    appId: "1:390541255938:web:aa7b5beca0105c28f70e1b",
+    measurementId: "G-GSP46EVLYG"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  let allNews = [];
+  let displayedCount = 3;
+  let isLoading = false;
+
+  function truncateHtml(html, maxLength = 120) {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    const text = temp.textContent || temp.innerText || '';
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  async function loadNews() {
+    try {
+      const querySnapshot = await db.collection('news').orderBy('createdAt', 'desc').get();
+      allNews = [];
+      querySnapshot.forEach((doc) => {
+        allNews.push({ id: doc.id, ...doc.data() });
+      });
+      displayedCount = 3;
+      displayNews();
+    } catch (error) {
+      console.error('Lỗi tải bản tin:', error);
+      document.getElementById('newsGridContainer').innerHTML = '<div class="empty-news">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại sau.</div>';
+    }
+  }
+
+  function displayNews() {
+    const container = document.getElementById('newsGridContainer');
+    const newsToShow = allNews.slice(0, displayedCount);
+    
+    if (allNews.length === 0) {
+      container.innerHTML = '<div class="empty-news">📭 Chưa có bản tin y tế nào. Hãy quay lại sau!</div>';
+      document.getElementById('loadMoreBtn').style.display = 'none';
+      return;
+    }
+    
+    if (newsToShow.length === 0) {
+      container.innerHTML = '<div class="empty-news">📭 Không có bản tin nào</div>';
+      document.getElementById('loadMoreBtn').style.display = 'none';
+      return;
+    }
+    
+    container.innerHTML = newsToShow.map(news => `
+      <div class="news-card" onclick="openNews('${news.id}')">
+        <img class="news-cover" src="${news.coverImage}" alt="${escapeHtml(news.title)}" onerror="this.src='https://placehold.co/400x200?text=No+Image'">
+        <div class="news-content">
+          <h3 class="news-title">${escapeHtml(news.title)}</h3>
+          <div class="news-excerpt">${truncateHtml(news.content || '', 100)}</div>
+          <div class="news-stats">
+            <span><i class="far fa-eye"></i> ${news.views || 0} lượt xem</span>
+            <span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    // Hiển thị nút "Xem thêm" nếu còn bài viết
+    if (allNews.length > displayedCount) {
+      document.getElementById('loadMoreBtn').style.display = 'block';
+    } else {
+      document.getElementById('loadMoreBtn').style.display = 'none';
+    }
+  }
+
+  function loadMoreNews() {
+    if (isLoading) return;
+    isLoading = true;
+    
+    const loadMoreBtn = document.querySelector('#loadMoreBtn .btn-load-more');
+    const originalText = loadMoreBtn.innerHTML;
+    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang tải...';
+    
+    setTimeout(() => {
+      displayedCount += 3;
+      displayNews();
+      isLoading = false;
+      loadMoreBtn.innerHTML = originalText;
+    }, 500);
+  }
+
+  async function openNews(newsId) {
+    const news = allNews.find(n => n.id === newsId);
+    if (!news) return;
+    
+    // Tăng lượt xem
+    await db.collection('news').doc(newsId).update({
+      views: firebase.firestore.FieldValue.increment(1)
+    });
+    news.views = (news.views || 0) + 1;
+    
+    const modal = document.getElementById('newsModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    modalBody.innerHTML = `
+      <div class="modal-content-text">${news.content || ''}</div>
+      <div class="news-modal-stats">
+        <span><i class="far fa-eye"></i> ${news.views || 0} lượt xem</span>
+        <span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span>
+      </div>
+    `;
+    
+    document.getElementById('modalTitle').innerText = news.title || 'Bản tin y tế';
+    modal.classList.add('active');
+  }
+
+  function closeNewsModal() {
+    document.getElementById('newsModal').classList.remove('active');
+  }
+
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggleBtn');
+  const body = document.body;
+  
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      body.classList.add('dark');
+      themeBtn.innerHTML = '<i class="fas fa-sun"></i> <span>Chế độ sáng</span>';
+      localStorage.setItem('eduhealth-theme', 'dark');
+    } else {
+      body.classList.remove('dark');
+      themeBtn.innerHTML = '<i class="fas fa-moon"></i> <span>Chế độ tối</span>';
+      localStorage.setItem('eduhealth-theme', 'light');
+    }
+  }
+  
+  const savedTheme = localStorage.getItem('eduhealth-theme');
+  if (savedTheme === 'dark') setTheme('dark');
+  else if (savedTheme === 'light') setTheme('light');
+  else {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
+    else setTheme('light');
+  }
+  
+  themeBtn.addEventListener('click', () => {
+    setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+  });
+  
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggleBtn');
+  const mobilePanel = document.getElementById('mobileMenuPanel');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      mobilePanel.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      if (mobilePanel.classList.contains('open')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  }
+  
+  document.querySelectorAll('.nav-link-mobile').forEach(link => {
+    link.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      if (menuToggle) {
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  });
+  
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), idx * 60);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  document.querySelectorAll('.rise').forEach(el => observer.observe(el));
+  
+  // Nav background scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('nav');
+    if (nav) {
+      if (window.scrollY > 40) nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.96)' : 'rgba(255, 255, 255, 0.96)';
+      else nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.92)';
+    }
+  });
+  
+  // Đóng modal khi click ra ngoài
+  document.getElementById('newsModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('newsModal')) closeNewsModal();
+  });
+  
+  // Khởi tạo
+  loadNews();
+  
+  // Export functions cho global
+  window.openNews = openNews;
+  window.closeNewsModal = closeNewsModal;
+  window.loadMoreNews = loadMoreNews;
+</script>
+</body>
+</html>
