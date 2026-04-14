@@ -1,19 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>AI Sức Khỏe - Phân tích da & mụn thông minh</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AI Sức Khỏe - Phân tích da & mụn thông minh | EduHealth AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
             --blue-primary: #3b82f6;
             --blue-deep: #2563eb;
@@ -21,7 +14,6 @@
             --pink-deep: #ec489a;
             --grad-blue-pink: linear-gradient(135deg, var(--blue-primary), var(--pink-primary));
             --grad-pink-blue: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
-            
             --bg-body: #ffffff;
             --bg-surface: #fef9ff;
             --card-bg: #ffffff;
@@ -30,11 +22,12 @@
             --text-dim: #64748b;
             --border-light: #ffe4f0;
             --border-soft: #f1f5f9;
-            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
             --hover-glow: rgba(59, 130, 246, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.92);
             --tag-bg: #fce7f3;
-            --icon-soft: #e0f2fe;
+            --input-bg: #ffffff;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -49,39 +42,29 @@
             --text-dim: #94a3b8;
             --border-light: #334155;
             --border-soft: #2d3a4e;
-            --shadow-sm: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
-            --hover-glow: rgba(244, 114, 182, 0.2);
+            --nav-bg: rgba(15, 23, 42, 0.94);
             --tag-bg: #2d3a4e;
-            --icon-soft: #2d3a4e;
+            --input-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-body);
             color: var(--text-dark);
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.2s ease;
+            transition: background-color 0.3s ease;
+            min-height: 100vh;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--border-soft);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--pink-primary);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--blue-primary);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--border-soft); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-primary); border-radius: 10px; }
 
-        /* Navigation - GIỐNG HỆT CODE 2 */
         nav {
             position: fixed;
             top: 0;
@@ -93,20 +76,18 @@
             justify-content: space-between;
             padding: 0 6%;
             height: 74px;
-            background: rgba(255, 255, 255, 0.92);
+            background: var(--nav-bg);
             backdrop-filter: blur(18px);
             border-bottom: 1px solid var(--border-light);
-            transition: all 0.25s ease;
         }
-        body.dark nav {
-            background: rgba(15, 23, 42, 0.94);
-        }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
+
         .logo-mark {
             width: 42px;
             height: 42px;
@@ -116,69 +97,56 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
             color: white;
-            transition: transform 0.2s;
         }
-        .logo-mark:hover {
-            transform: scale(1.02);
-        }
+
         .logo-type {
             font-family: 'Fraunces', serif;
             font-size: 24px;
             font-weight: 700;
-            letter-spacing: -0.3px;
             background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .nav-menu {
             display: flex;
             align-items: center;
             gap: 32px;
         }
+
         .nav-link {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-mid);
             text-decoration: none;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 0;
         }
-        .nav-link i {
-            font-size: 14px;
-            color: var(--pink-primary);
-            transition: color 0.2s;
-        }
-        .nav-link:hover {
-            color: var(--blue-primary);
-        }
-        .nav-link:hover i {
-            color: var(--blue-primary);
-        }
+
+        .nav-link i { color: var(--pink-primary); }
+        .nav-link:hover { color: var(--blue-primary); }
+
         .theme-toggle {
             background: transparent;
             border: 1px solid var(--border-light);
             border-radius: 40px;
             padding: 8px 16px;
             font-size: 14px;
-            font-weight: 500;
-            color: var(--text-mid);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.2s;
+            color: var(--text-mid);
             font-family: 'DM Sans', sans-serif;
         }
         .theme-toggle:hover {
             border-color: var(--blue-primary);
             color: var(--blue-primary);
         }
+
         .menu-toggle {
             display: none;
             background: transparent;
@@ -189,8 +157,6 @@
             font-weight: 500;
             color: var(--pink-primary);
             cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.2s;
             align-items: center;
             gap: 8px;
         }
@@ -199,11 +165,13 @@
             color: white;
             border-color: transparent;
         }
+
         .nav-right {
             display: flex;
             align-items: center;
             gap: 16px;
         }
+
         .mobile-menu-panel {
             position: fixed;
             top: 74px;
@@ -229,7 +197,7 @@
             padding: 24px 6%;
             gap: 20px;
         }
-        .nav-link-mobile {
+        .mobile-menu-panel .nav-link-mobile {
             padding: 12px 0;
             font-size: 16px;
             font-weight: 500;
@@ -240,50 +208,67 @@
             gap: 14px;
             border-bottom: 1px solid var(--border-light);
         }
-        .nav-link-mobile i {
+        .mobile-menu-panel .nav-link-mobile i {
             width: 28px;
             color: var(--blue-primary);
             font-size: 18px;
         }
-        .nav-link-mobile:hover {
-            color: var(--pink-primary);
-        }
 
-        /* Main Container */
-        .app-container {
-            max-width: 1300px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 6% 60px;
+            padding: 100px 20px 60px;
         }
 
-        /* Card Style */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 32px;
-            padding: 34px 32px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            margin-bottom: 28px;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--pink-primary);
-            box-shadow: var(--shadow-md);
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
-        h3 {
+        .page-title {
             font-family: 'Fraunces', serif;
-            font-size: 26px;
+            font-size: 32px;
             font-weight: 500;
-            margin-bottom: 24px;
-            color: var(--text-dark);
+            background: var(--grad-blue-pink);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        h3 i {
-            color: var(--blue-primary);
+
+        .chat-nav-btn {
+            background: var(--grad-blue-pink);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .chat-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 28px 26px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            margin-bottom: 24px;
         }
 
         .upload-area {
@@ -297,7 +282,7 @@
             cursor: pointer;
         }
         .upload-area.drag-over {
-            background: var(--hover-glow);
+            background: var(--tag-bg);
             border-color: var(--blue-primary);
         }
         .upload-area i {
@@ -313,9 +298,9 @@
             flex-wrap: wrap;
         }
         .btn {
-            background: var(--tag-bg);
-            border: none;
-            padding: 12px 24px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            padding: 10px 20px;
             border-radius: 48px;
             font-weight: 600;
             cursor: pointer;
@@ -324,30 +309,30 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-mid);
             font-family: 'DM Sans', sans-serif;
-            color: var(--text-dark);
         }
         .btn-primary {
             background: var(--grad-blue-pink);
             color: white;
-            box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
+            border: none;
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.02);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
         .btn-outline {
-            border: 1px solid var(--border-light);
             background: transparent;
+            border: 1px solid var(--border-light);
         }
         .btn-outline:hover {
             border-color: var(--blue-primary);
             color: var(--blue-primary);
-            background: var(--hover-glow);
         }
         .btn-success {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: var(--success);
             color: white;
+            border: none;
         }
         .btn-success:hover {
             transform: translateY(-2px);
@@ -365,16 +350,15 @@
         }
         textarea {
             width: 100%;
-            padding: 14px 18px;
+            padding: 14px;
             border-radius: 28px;
             border: 1px solid var(--border-light);
-            background: var(--bg-body);
-            color: var(--text-dark);
             font-family: inherit;
             font-size: 0.95rem;
             resize: vertical;
             margin: 15px 0 10px;
-            transition: 0.2s;
+            background: var(--input-bg);
+            color: var(--text-dark);
         }
         textarea:focus {
             outline: none;
@@ -400,7 +384,7 @@
             margin-bottom: 18px;
             border-radius: 24px;
             padding: 12px 16px;
-            border: 1px solid var(--border-soft);
+            border: 1px solid var(--border-light);
         }
         .category-title {
             font-weight: bold;
@@ -422,7 +406,6 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
-            accent-color: var(--blue-primary);
         }
         .check-item label {
             font-size: 0.9rem;
@@ -435,6 +418,7 @@
             justify-content: center;
             gap: 16px;
             margin: 24px 0 10px;
+            flex-wrap: wrap;
         }
         .result-area {
             background: var(--bg-surface);
@@ -443,11 +427,11 @@
             margin-top: 0px;
         }
         .result-title {
-            font-family: 'Fraunces', serif;
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 15px;
             color: var(--text-dark);
+            font-family: 'Fraunces', serif;
         }
         .loading {
             text-align: center;
@@ -460,7 +444,7 @@
             border-radius: 24px;
             padding: 24px;
             margin: 8px 0;
-            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
             line-height: 1.55;
         }
         .analysis-card h1, .analysis-card h2, .analysis-card h3 {
@@ -471,22 +455,10 @@
         }
         .analysis-card p {
             margin-bottom: 0.75rem;
-            color: var(--text-mid);
         }
         .analysis-card ul, .analysis-card ol {
             margin-left: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--text-mid);
-        }
-        .step-buttons {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .back-info {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: 12px;
-            color: var(--text-dim);
         }
         .footer-note {
             text-align: center;
@@ -498,11 +470,15 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
-        .chat-btn-section {
+        .step-buttons {
             margin-top: 20px;
             text-align: center;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-light);
+        }
+        .back-info {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 12px;
+            color: var(--text-dim);
         }
         .markdown-content code {
             background: var(--tag-bg);
@@ -514,19 +490,81 @@
             border-left: 4px solid var(--pink-primary);
             margin: 0.8rem 0;
             padding-left: 1rem;
+            color: var(--text-mid);
+        }
+        .chat-btn-section {
+            margin-top: 20px;
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .history-list {
+            margin-top: 20px;
+            background: var(--bg-surface);
+            border-radius: 20px;
+            padding: 15px;
+            border: 1px solid var(--border-light);
+        }
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        .history-item {
+            background: var(--card-bg);
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            border: 1px solid var(--border-light);
+        }
+        .history-item:hover {
+            background: var(--tag-bg);
+            transform: translateX(5px);
+        }
+        .history-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .history-time {
+            font-size: 11px;
             color: var(--text-dim);
         }
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--grad-blue-pink);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        .admin-link:hover {
+            transform: translateY(-2px);
+        }
 
-        @media (max-width: 780px) {
+        @media (max-width: 768px) {
             .nav-menu { display: none; }
             .menu-toggle { display: flex; }
-            .app-container { padding: 90px 5% 40px; }
-            .card { padding: 24px; }
-            h3 { font-size: 22px; }
-        }
-        @media (max-width: 520px) {
-            .action-buttons { flex-direction: column; }
-            .btn { justify-content: center; }
+            .page-title { font-size: 24px; }
+            .card { padding: 20px; }
+            .container { padding: 90px 16px 40px; }
+            .chat-nav-btn { padding: 10px 20px; font-size: 14px; }
         }
     </style>
 </head>
@@ -538,7 +576,6 @@
         </a>
         
         <div class="nav-menu">
-            <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
             <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
             <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
@@ -552,18 +589,21 @@
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
-            <a href="#" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-shield-alt"></i> Quản trị</a>
+            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
     </div>
 
-    <div class="app-container">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-robot"></i> AI Health Analyzer | Da & Mụn</h1>
+            <a href="chatbox.html" class="chat-nav-btn"><i class="fas fa-comment-dots"></i> 💬 Trò chuyện với AI</a>
+        </div>
+
         <!-- BƯỚC 1: NHẬP ẢNH + MÔ TẢ -->
         <div id="step1Container" class="card">
-            <h3><i class="fas fa-camera-retro"></i> 1️⃣ Ảnh chụp & mô tả tình trạng</h3>
+            <h3 style="margin-bottom: 16px;"><i class="fas fa-camera-retro"></i> Ảnh chụp & mô tả tình trạng</h3>
             <div class="upload-area" id="dropZone">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Kéo thả ảnh vào đây hoặc bấm chọn file</p>
@@ -586,7 +626,7 @@
 
         <!-- BƯỚC 2: HIỂN THỊ CHECKLIST -->
         <div id="step2Container" class="card" style="display: none;">
-            <h3><i class="fas fa-check-square"></i> 2️⃣ Checklist triệu chứng (chọn các vấn đề bạn gặp)</h3>
+            <h3 style="margin-bottom: 16px;"><i class="fas fa-check-square"></i> 2️⃣ Checklist triệu chứng (chọn các vấn đề bạn gặp)</h3>
             <div id="checklistArea" class="checklist-container">
                 <div style="text-align:center; color: var(--text-dim); padding: 40px 20px;">
                     <i class="fas fa-spinner fa-pulse"></i> Đang tải checklist...
@@ -602,88 +642,32 @@
 
         <!-- BƯỚC 3: KẾT QUẢ PHÂN TÍCH -->
         <div id="step3Container" class="card" style="display: none;">
-            <div class="result-area">
+            <div class="result-area" style="padding: 0;">
                 <div class="result-title"><i class="fas fa-chart-line"></i> 📊 Kết quả phân tích sức khỏe</div>
                 <div id="analysisResult">✨ Đang xử lý kết quả...</div>
                 <div id="chatButtonSection" class="chat-btn-section" style="display: none;">
-                    <button class="btn btn-success chat-btn" id="openChatBtn">
-                        <i class="fas fa-comments"></i> 💬 Chat với cộng tác viên
+                    <button class="btn btn-primary" id="openNewChatBtn">
+                        <i class="fas fa-comment-dots"></i> 💬 Trò chuyện với AI về kết quả
                     </button>
                 </div>
             </div>
+            
+            <div id="historySection" class="history-list" style="display: none;">
+                <div class="history-title"><i class="fas fa-history"></i> 📋 Các cuộc trò chuyện trước đây</div>
+                <div id="chatHistoryList"></div>
+            </div>
+            
             <div class="step-buttons" style="margin-top: 20px;">
                 <button class="btn btn-outline" id="resetBtn"><i class="fas fa-redo-alt"></i> Phân tích lại từ đầu</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
+
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // Theme toggle (đồng bộ với Code 2)
-        const themeBtn = document.getElementById('themeToggleBtn');
-        const body = document.body;
-        function setTheme(theme) {
-            if (theme === 'dark') {
-                body.classList.add('dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i> <span>Chế độ sáng</span>';
-                localStorage.setItem('health-theme', 'dark');
-            } else {
-                body.classList.remove('dark');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i> <span>Chế độ tối</span>';
-                localStorage.setItem('health-theme', 'light');
-            }
-        }
-        const savedTheme = localStorage.getItem('health-theme');
-        if (savedTheme === 'dark') setTheme('dark');
-        else if (savedTheme === 'light') setTheme('light');
-        else {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
-            else setTheme('light');
-        }
-        themeBtn.addEventListener('click', () => {
-            setTheme(body.classList.contains('dark') ? 'light' : 'dark');
-        });
-
-        // Mobile menu
-        const menuToggle = document.getElementById('menuToggleBtn');
-        const mobilePanel = document.getElementById('mobileMenuPanel');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                mobilePanel.classList.toggle('open');
-                const icon = menuToggle.querySelector('i');
-                if (mobilePanel.classList.contains('open')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        }
-        document.querySelectorAll('.nav-link-mobile').forEach(link => {
-            link.addEventListener('click', () => {
-                mobilePanel.classList.remove('open');
-                if (menuToggle) {
-                    const icon = menuToggle.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        });
-
-        // Nav background scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('nav');
-            if (nav) {
-                if (window.scrollY > 40) nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.96)' : 'rgba(255, 255, 255, 0.96)';
-                else nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.92)';
-            }
-        });
-
-        // Firebase config
         const firebaseConfig = {
             apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
             authDomain: "eduhealth-4bcab.firebaseapp.com",
@@ -693,24 +677,24 @@
             appId: "1:390541255938:web:aa7b5beca0105c28f70e1b",
             measurementId: "G-GSP46EVLYG"
         };
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // API config
         const API_KEY = "sk-uQmI5tk7o5FdWLq852gCLO2xZTd5OmG2K9RKy7C3raEqGx6v";
         const BASE_URL = "https://api.shopaikey.com/v1";
         const API_URL = BASE_URL + "/chat/completions";
         const MODEL_NAME = "gpt-5.4-nano";
 
-        // State
         let currentImageBase64 = null;          
         let step1HiddenAnalysis = null;          
         let currentChecklistItems = [];           
         let isProcessing = false;
         let lastAnalysisResult = null;
         let lastCompressedImage = null;
+        let currentUserId = null;
+        let userChats = [];
         
-        // DOM elements
         const step1Container = document.getElementById('step1Container');
         const step2Container = document.getElementById('step2Container');
         const step3Container = document.getElementById('step3Container');
@@ -725,20 +709,27 @@
         const checklistArea = document.getElementById('checklistArea');
         const analysisResultDiv = document.getElementById('analysisResult');
         const resetBtn = document.getElementById('resetBtn');
-        const openChatBtn = document.getElementById('openChatBtn');
+        const openNewChatBtn = document.getElementById('openNewChatBtn');
         const chatButtonSection = document.getElementById('chatButtonSection');
+        const historySection = document.getElementById('historySection');
+        const chatHistoryList = document.getElementById('chatHistoryList');
         
-        // User localStorage
-        let currentUserId = localStorage.getItem('healthUserId');
-        if (!currentUserId) {
-            currentUserId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('healthUserId', currentUserId);
+        function initUser() {
+            let userId = localStorage.getItem('healthUserId');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('healthUserId', userId);
+            }
+            currentUserId = userId;
+            
+            let userName = localStorage.getItem('healthUserName');
+            if (!userName) {
+                userName = "Bệnh nhân " + currentUserId.substr(-6);
+                localStorage.setItem('healthUserName', userName);
+            }
+            return userName;
         }
-        let currentUserName = localStorage.getItem('healthUserName');
-        if (!currentUserName) {
-            currentUserName = "Bệnh nhân " + currentUserId.substr(-6);
-            localStorage.setItem('healthUserName', currentUserName);
-        }
+        const currentUserName = initUser();
         
         function compressImageTo720p(dataUrl, maxWidth = 720, quality = 0.7) {
             return new Promise((resolve) => {
@@ -875,6 +866,63 @@
             return data.choices[0].message.content;
         }
         
+        async function getKnowledgeByType(type) {
+            const snapshot = await db.collection('knowledge_base').where('type', '==', type).get();
+            let knowledgeText = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                knowledgeText += `\n--- ${data.question} ---\n${data.answer}\n`;
+            });
+            return knowledgeText || 'Không có kiến thức cụ thể. Hãy dựa trên chuyên môn của bạn.';
+        }
+        
+        function renderMarkdownToHtml(text) {
+            if (!text) return "";
+            let html = text;
+            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+            html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+            html = html.replace(/^---$/gm, '<hr>');
+            
+            const lines = html.split('\n');
+            let inList = false;
+            let processedLines = [];
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+                const bulletMatch = line.match(/^[\*\-]\s+(.*)$/);
+                if (bulletMatch) {
+                    if (!inList) {
+                        processedLines.push('<ul>');
+                        inList = true;
+                    }
+                    processedLines.push(`<li>${bulletMatch[1]}</li>`);
+                } else {
+                    if (inList) {
+                        processedLines.push('</ul>');
+                        inList = false;
+                    }
+                    processedLines.push(line);
+                }
+            }
+            if (inList) processedLines.push('</ul>');
+            html = processedLines.join('\n');
+            html = html.replace(/\n/g, '<br>');
+            html = html.replace(/<h1><br>/g, '<h1>');
+            html = html.replace(/<\/h1><br>/g, '</h1>');
+            html = html.replace(/<h2><br>/g, '<h2>');
+            html = html.replace(/<\/h2><br>/g, '</h2>');
+            html = html.replace(/<h3><br>/g, '<h3>');
+            html = html.replace(/<\/h3><br>/g, '</h3>');
+            html = html.replace(/<ul><br>/g, '<ul>');
+            html = html.replace(/<\/ul><br>/g, '</ul>');
+            html = html.replace(/<li><br>/g, '<li>');
+            return `<div class="markdown-content">${html}</div>`;
+        }
+        
         async function step1CreateChecklist() {
             if (!currentImageBase64) {
                 alert("Vui lòng upload hoặc chụp ảnh chân dung trước!");
@@ -891,10 +939,16 @@
             step1Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> AI đang phân tích & tạo checklist...';
             
             try {
+                const checklistKnowledge = await getKnowledgeByType('checklist');
+                
                 const contentParts = [
                     { type: "text", text: `Bạn là chuyên gia da liễu & sức khỏe. Người dùng cung cấp ảnh chân dung và mô tả: "${userSymptom}". 
+                    
+                    KIẾN THỨC THAM KHẢO ĐỂ TẠO CHECKLIST:
+                    ${checklistKnowledge}
+                    
                     Nhiệm vụ: 
-                    1. Đưa ra nhận xét nội bộ (ẩn, không cho người dùng thấy) về tình trạng da, các yếu tố liên quan mụn, dầu, viêm...
+                    1. Đưa ra nhận xét nội bộ (ẩn) về tình trạng da.
                     2. Tạo một JSON checklist chi tiết dựa trên các yếu tố môi trường, thói quen, chăm sóc da, giấc ngủ, căng thẳng, chế độ ăn uống.
                     Checklist cần có cấu trúc: mảng các item, mỗi item gồm "category", "text", "id". Hãy tạo 12-18 item.
                     Trả về DUY NHẤT một JSON object: {"internal_note": "...", "checklist": [{"id":1,"category":"...","text":"..."}]}
@@ -902,10 +956,12 @@
                     },
                     { type: "image_url", image_url: { url: currentImageBase64 } }
                 ];
+                
                 const messages = [
                     { role: "system", content: "Bạn là trợ lý y tế chuyên phân tích da. Luôn trả lời bằng JSON thuần túy." },
                     { role: "user", content: contentParts }
                 ];
+                
                 const rawJSON = await callAI(messages, 0.5);
                 let parsed;
                 try {
@@ -917,6 +973,7 @@
                 } catch(e) {
                     throw new Error("AI trả về JSON không hợp lệ: " + rawJSON.substring(0,200));
                 }
+                
                 if (!parsed.checklist || !Array.isArray(parsed.checklist)) throw new Error("Checklist missing");
                 step1HiddenAnalysis = parsed.internal_note || "Không có ghi chú nội bộ";
                 currentChecklistItems = parsed.checklist.map(item => ({
@@ -925,6 +982,7 @@
                     text: item.text,
                     checked: false
                 }));
+                
                 renderChecklistUI();
                 step1Container.style.display = "none";
                 step2Container.style.display = "block";
@@ -975,58 +1033,13 @@
         }
         
         function escapeHtml(str) {
+            if (!str) return '';
             return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
                 return m;
             });
-        }
-        
-        function renderMarkdownToHtml(text) {
-            if (!text) return "";
-            let html = text;
-            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-            html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
-            html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
-            html = html.replace(/^---$/gm, '<hr>');
-            const lines = html.split('\n');
-            let inList = false;
-            let processedLines = [];
-            for (let i = 0; i < lines.length; i++) {
-                let line = lines[i];
-                const bulletMatch = line.match(/^[\*\-]\s+(.*)$/);
-                if (bulletMatch) {
-                    if (!inList) {
-                        processedLines.push('<ul>');
-                        inList = true;
-                    }
-                    processedLines.push(`<li>${bulletMatch[1]}</li>`);
-                } else {
-                    if (inList) {
-                        processedLines.push('</ul>');
-                        inList = false;
-                    }
-                    processedLines.push(line);
-                }
-            }
-            if (inList) processedLines.push('</ul>');
-            html = processedLines.join('\n');
-            html = html.replace(/\n/g, '<br>');
-            html = html.replace(/<h1><br>/g, '<h1>');
-            html = html.replace(/<\/h1><br>/g, '</h1>');
-            html = html.replace(/<h2><br>/g, '<h2>');
-            html = html.replace(/<\/h2><br>/g, '</h2>');
-            html = html.replace(/<h3><br>/g, '<h3>');
-            html = html.replace(/<\/h3><br>/g, '</h3>');
-            html = html.replace(/<ul><br>/g, '<ul>');
-            html = html.replace(/<\/ul><br>/g, '</ul>');
-            html = html.replace(/<li><br>/g, '<li>');
-            return `<div class="markdown-content">${html}</div>`;
         }
         
         async function step2FinalAnalysis() {
@@ -1043,31 +1056,29 @@
             isProcessing = true;
             step2Btn.disabled = true;
             step2Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang phân tích chuyên sâu...';
+            
             step2Container.style.display = "none";
             step3Container.style.display = "block";
             analysisResultDiv.innerHTML = '<div class="loading"><i class="fas fa-brain"></i> AI đang phân tích... (15-30s)</div>';
             chatButtonSection.style.display = "none";
+            historySection.style.display = "none";
             
             try {
                 const selectedSymptomsText = selectedItems.map(i => `- ${i.text}`).join("\n");
-                const promptFinal = `Bạn là chuyên gia da liễu và sức khỏe tổng quát. Dựa trên:
-                - Ảnh chân dung (đã cung cấp)
+                const diagnosisKnowledge = await getKnowledgeByType('diagnosis');
+                
+                const promptFinal = `Bạn là chuyên gia da liễu. Dựa trên:
+                - Ảnh chân dung
                 - Nhận xét nội bộ: "${step1HiddenAnalysis}"
-                - Mô tả ban đầu: "${symptomTextarea.value.trim()}"
-                - Checklist người dùng đã chọn: ${selectedSymptomsText || "Không có triệu chứng nào được chọn"}
+                - Mô tả: "${symptomTextarea.value.trim()}"
+                - Checklist đã chọn: ${selectedSymptomsText || "Không có"}
                 
-                Yêu cầu: Đưa ra kết quả phân tích sức khỏe chi tiết.
+                KIẾN THỨC CHUYÊN MÔN THAM KHẢO:
+                ${diagnosisKnowledge}
                 
-                Nếu phát hiện các vấn đề về MỤN (mụn trứng cá, mụn viêm, mụn ẩn, mụn do nội tiết, tắc nghẽn lỗ chân lông...): Hãy phân tích đầy đủ bao gồm:
-                - Đánh giá tổng quan tình trạng mụn (vị trí, mức độ, loại mụn)
-                - Nhận xét nguyên nhân chính
-                - Khuyến cáo cụ thể: chăm sóc da, thay đổi lối sống, sản phẩm gợi ý, lưu ý môi trường.
-                
-                Nếu không phải bệnh về mụn: Hãy trả lời rõ ràng "Đây không phải vấn đề về mụn thông thường" và đưa ra nhận xét sơ bộ.
-                
+                Yêu cầu: Đưa ra kết quả phân tích chi tiết về tình trạng da/mụn.
                 Sử dụng markdown để trình bày đẹp: ###, ##, **, *, ---, bullet list.
-                Viết bằng tiếng Việt, dễ hiểu, chi tiết.
-                Trình bầy ngắn gọn nhưng đủ ý, viết vừa phải đừng quá dài lan mang.`;
+                Viết bằng tiếng Việt, dễ hiểu, chi tiết.`;
                 
                 const messages = [
                     { role: "system", content: "Bạn là bác sĩ da liễu AI, cung cấp phân tích có căn cứ và hữu ích. Hãy dùng markdown đẹp." },
@@ -1076,17 +1087,23 @@
                         { type: "image_url", image_url: { url: currentImageBase64 } }
                     ]}
                 ];
+                
                 const finalAnalysis = await callAI(messages, 0.75);
                 let formattedHtml = renderMarkdownToHtml(finalAnalysis);
                 lastAnalysisResult = finalAnalysis;
+                
                 analysisResultDiv.innerHTML = `<div class="analysis-card">${formattedHtml}</div>`;
-                const isAcne = finalAnalysis.toLowerCase().includes("mụn") || finalAnalysis.toLowerCase().includes("acne") || finalAnalysis.toLowerCase().includes("mụn trứng cá");
-                if (isAcne && lastCompressedImage) {
-                    chatButtonSection.style.display = "block";
+                
+                if (lastCompressedImage) {
+                    chatButtonSection.style.display = "flex";
+                    await loadUserChatHistory();
+                    if (userChats.length > 0) {
+                        historySection.style.display = "block";
+                    }
                 }
             } catch (error) {
                 console.error(error);
-                analysisResultDiv.innerHTML = `<div style="color:var(--danger);">⚠️ Lỗi phân tích: ${error.message}. Vui lòng thử lại.</div>`;
+                analysisResultDiv.innerHTML = `<div style="color: var(--danger);">⚠️ Lỗi phân tích: ${error.message}. Vui lòng thử lại.</div>`;
             } finally {
                 isProcessing = false;
                 step2Btn.disabled = false;
@@ -1094,20 +1111,50 @@
             }
         }
         
-        async function createHealthChat() {
+        async function loadUserChatHistory() {
+            const snapshot = await db.collection('health_chats')
+                .where('userId', '==', currentUserId)
+                .orderBy('createdAt', 'desc')
+                .get();
+            
+            userChats = [];
+            snapshot.forEach(doc => {
+                userChats.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            
+            if (userChats.length > 0) {
+                let historyHtml = '';
+                userChats.forEach(chat => {
+                    const date = chat.createdAt ? chat.createdAt.toDate() : new Date();
+                    historyHtml += `
+                        <div class="history-item" onclick="window.location.href='chatbox.html?chatId=${chat.id}'">
+                            <span class="history-name">${escapeHtml(chat.name || 'Cuộc trò chuyện')}</span>
+                            <span class="history-time">${date.toLocaleDateString('vi-VN')}</span>
+                        </div>
+                    `;
+                });
+                chatHistoryList.innerHTML = historyHtml;
+            }
+        }
+        
+        async function createNewChat() {
             if (!lastAnalysisResult || !lastCompressedImage) {
                 alert("Không có dữ liệu để tạo chat.");
                 return null;
             }
+            
             const chatId = 'SK_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-            const adminUserId = 'admin_support';
             const symptomSummary = symptomTextarea.value.trim().substring(0, 500);
+            
             try {
                 await db.collection('health_chats').doc(chatId).set({
                     id: chatId,
-                    name: `Bệnh nhân ${currentUserName} - ${new Date().toLocaleString('vi-VN')}`,
-                    participants: [currentUserId, adminUserId],
-                    createdBy: currentUserId,
+                    name: `Khám bệnh ${new Date().toLocaleString('vi-VN')}`,
+                    userId: currentUserId,
+                    userName: currentUserName,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     lastMessage: "Đã gửi kết quả phân tích da",
                     lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
@@ -1119,18 +1166,9 @@
                         analysisResult: lastAnalysisResult,
                         symptomDescription: symptomSummary,
                         imageBase64: lastCompressedImage
-                    },
-                    participantInfo: {
-                        [currentUserId]: {
-                            displayName: currentUserName,
-                            role: 'user'
-                        },
-                        [adminUserId]: {
-                            displayName: 'Cộng tác viên y tế',
-                            role: 'admin'
-                        }
                     }
                 });
+                
                 await db.collection('health_chats').doc(chatId).collection('messages').add({
                     text: `🏥 **KẾT QUẢ PHÂN TÍCH DA LIỄU AI**\n\n📋 **Thông tin bệnh nhân:**\n- Tên: ${currentUserName}\n- Mô tả: ${symptomSummary}\n\n📊 **Chẩn đoán AI:**\n${lastAnalysisResult}\n\n📸 **Hình ảnh da:**`,
                     senderId: 'system',
@@ -1140,6 +1178,7 @@
                     hasImage: true,
                     imageData: lastCompressedImage
                 });
+                
                 return chatId;
             } catch (error) {
                 console.error('Error creating chat:', error);
@@ -1148,16 +1187,15 @@
             }
         }
         
-        openChatBtn.addEventListener('click', async () => {
-            openChatBtn.disabled = true;
-            openChatBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang tạo phòng chat...';
-            const chatId = await createHealthChat();
+        openNewChatBtn.addEventListener('click', async () => {
+            openNewChatBtn.disabled = true;
+            openNewChatBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang tạo...';
+            const chatId = await createNewChat();
             if (chatId) {
-                localStorage.setItem('currentHealthChatId', chatId);
-                window.location.href = 'health-chatbox.html?chatId=' + chatId;
+                window.location.href = 'chatbox.html?chatId=' + chatId;
             } else {
-                openChatBtn.disabled = false;
-                openChatBtn.innerHTML = '<i class="fas fa-comments"></i> 💬 Chat với cộng tác viên';
+                openNewChatBtn.disabled = false;
+                openNewChatBtn.innerHTML = '<i class="fas fa-comment-dots"></i> 💬 Trò chuyện với AI về kết quả';
             }
         });
         
@@ -1167,7 +1205,7 @@
             currentChecklistItems = [];
             lastAnalysisResult = null;
             imagePreviewDiv.innerHTML = '';
-            symptomTextarea.value = "Da mình thường xuyên đổ dầu, nhất là vùng chữ T, hay nổi mụn nhỏ ở trán và cằm. Ngủ muộn, hay căng thẳng, thời tiết nóng ẩm.";
+            symptomTextarea.value = "";
             fileInput.value = '';
             step1Container.style.display = "block";
             step2Container.style.display = "none";
@@ -1176,12 +1214,50 @@
             step1Btn.innerHTML = '<i class="fas fa-magic"></i> ✨ Tạo checklist';
             analysisResultDiv.innerHTML = '✨ Hoàn thành bước 1 để tạo checklist, sau đó chọn triệu chứng và nhấn "Phân tích".';
             chatButtonSection.style.display = "none";
+            historySection.style.display = "none";
         }
         
         step1Btn.addEventListener('click', step1CreateChecklist);
         step2Btn.addEventListener('click', step2FinalAnalysis);
         resetBtn.addEventListener('click', resetToStep1);
+        
         window.onload = resetToStep1;
+        
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const body = document.body;
+        function setTheme(theme) {
+            body.classList.toggle('dark', theme === 'dark');
+            localStorage.setItem('eduhealth-theme', theme);
+            const icon = themeBtn.querySelector('i');
+            const span = themeBtn.querySelector('span');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+                span.innerText = 'Chế độ sáng';
+            } else {
+                icon.className = 'fas fa-moon';
+                span.innerText = 'Chế độ tối';
+            }
+        }
+        const savedTheme = localStorage.getItem('eduhealth-theme');
+        if (savedTheme === 'dark') setTheme('dark');
+        else setTheme('light');
+        themeBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+        
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const mobilePanel = document.getElementById('mobileMenuPanel');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                mobilePanel.classList.toggle('open');
+                const icon = menuToggle.querySelector('i');
+                if (mobilePanel.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
     </script>
 </body>
 </html>

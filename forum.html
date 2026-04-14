@@ -579,7 +579,7 @@
             color: var(--text-dim);
         }
 
-        /* Quill alignment styles - giữ căn lề */
+        /* Quill alignment styles */
         .ql-align-center {
             text-align: center !important;
         }
@@ -602,7 +602,6 @@
         .ql-indent-7 { padding-left: 21em !important; }
         .ql-indent-8 { padding-left: 24em !important; }
 
-        /* Modal content text styles - giữ định dạng căn lề */
         .modal-content-text {
             font-size: 16px;
             line-height: 1.6;
@@ -688,9 +687,8 @@
             <div class="logo-type">EduHealth AI</div>
         </a>
         <div class="nav-menu">
-            <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
         <div class="nav-right">
@@ -701,9 +699,8 @@
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
-            <a href="handbook.html" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
     </div>
@@ -711,7 +708,7 @@
     <div class="container">
         <div class="forum-header">
             <h1 class="forum-title"><i class="fas fa-comments"></i> Diễn đàn Y tế Học đường</h1>
-            <a href="create-post.html" class="btn-primary"><i class="fas fa-plus"></i> Đăng bài viết</a>
+            <a href="create-post.html" class="btn-primary"><i class="fas fa-plus"></i> Chia sẻ bài viết</a>
         </div>
 
         <!-- Search and Filter Bar -->
@@ -1137,7 +1134,7 @@
             if (!post?.pollData) return;
             
             if (userPollVotes.has(currentPostId)) {
-                alert('Bạn đã bình chọn cho bài khảo sát này rồi!');
+                alert('Bạn đã tham gia khảo sát này rồi!');
                 return;
             }
             

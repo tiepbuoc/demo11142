@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Cơ sở y tế - Bản đồ y tế thông minh | EduHealth AI</title>
+    <title>Tìm điểm hỗ trợ y tế gần bạn - EduHealth AI</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -191,7 +191,7 @@
             gap: 16px;
         }
 
-        /* Mobile menu panel - positioned below nav, above map and sidebar */
+        /* Mobile menu panel */
         .mobile-menu-panel {
             position: fixed;
             top: 74px;
@@ -252,7 +252,7 @@
             z-index: 1;
         }
 
-        /* Sidebar */
+        /* Sidebar - FIXED SCROLLBAR ISSUE */
         .sidebar {
             position: absolute;
             top: 94px;
@@ -267,6 +267,21 @@
             border: 1px solid var(--border-light);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Fix scrollbar inside rounded sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--pink-primary);
+            border-radius: 10px;
         }
 
         .sidebar-header {
@@ -277,6 +292,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            flex-shrink: 0;
         }
         .sidebar-header h5 {
             font-family: 'Fraunces', serif;
@@ -293,6 +309,7 @@
             padding: 20px;
             border-bottom: 1px solid var(--border-light);
             background: var(--card-bg);
+            flex-shrink: 0;
         }
 
         .search-box input {
@@ -353,6 +370,8 @@
 
         .location-list {
             padding: 8px 0;
+            flex: 1;
+            overflow-y: auto;
         }
 
         .location-item {
@@ -406,6 +425,8 @@
         /* Detail Card */
         .detail-card {
             padding: 24px;
+            overflow-y: auto;
+            flex: 1;
         }
 
         .detail-card h6 {
@@ -468,7 +489,7 @@
             color: var(--blue-primary);
         }
 
-        /* Custom marker - fixed centering */
+        /* Custom marker */
         .custom-marker {
             background: transparent !important;
             border: none !important;
@@ -556,7 +577,6 @@
             border-color: transparent;
         }
 
-        /* Overlay for mobile menu when open */
         .menu-overlay {
             position: fixed;
             top: 74px;
@@ -611,9 +631,8 @@
         </a>
         
         <div class="nav-menu">
-            <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
         
@@ -623,17 +642,14 @@
         </div>
     </nav>
 
-    <!-- Mobile menu panel - slides down from nav -->
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
-            <a href="#" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
     </div>
 
-    <!-- Overlay when mobile menu is open -->
     <div class="menu-overlay" id="menuOverlay"></div>
 
     <div class="map-container">
@@ -645,15 +661,15 @@
 
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h5><i class="fas fa-map-marked-alt"></i> Cơ sở Y tế gần bạn</h5>
+                <h5><i class="fas fa-map-marked-alt"></i> Điểm hỗ trợ y tế gần bạn</h5>
                 <small>🔍 Nhấp vào biểu tượng hoặc danh sách để xem chi tiết</small>
             </div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên hoặc địa chỉ...">
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">📌 Tất cả</button>
-                    <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện</button>
-                    <button class="filter-btn" data-filter="pharmacy">💊 Hiệu thuốc</button>
+                    <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện & Phòng khám</button>
+                    <button class="filter-btn" data-filter="pharmacy">💊 Nhà thuốc</button>
                 </div>
             </div>
             <div id="locationListSidebar" class="location-list">
@@ -702,7 +718,7 @@
                     },
                     (error) => {
                         console.log('Không thể lấy vị trí:', error);
-                        showToast('⚠️ Không thể lấy vị trí của bạn', true);
+                        showToastMessage('⚠️ Không thể lấy vị trí của bạn', true);
                     }
                 );
             }
@@ -726,7 +742,7 @@
             }
         }
 
-        function showToast(message, isError = false) {
+        function showToastMessage(message, isError = false) {
             const toast = document.createElement('div');
             toast.style.position = 'fixed';
             toast.style.bottom = '80px';
@@ -777,7 +793,7 @@
         function updateLocationCount() {
             const total = locations.length;
             const header = document.querySelector('.sidebar-header small');
-            if (header) header.innerHTML = `📍 ${total} cơ sở y tế · Nhấp để xem chi tiết`;
+            if (header) header.innerHTML = `📍 ${total} điểm hỗ trợ y tế · Nhấp để xem chi tiết`;
         }
 
         function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -843,7 +859,7 @@
             }
 
             if (filteredLocations.length === 0) {
-                container.innerHTML = '<div class="empty-state">🔍 Không tìm thấy cơ sở y tế nào</div>';
+                container.innerHTML = '<div class="empty-state">🔍 Không tìm thấy điểm hỗ trợ y tế nào</div>';
                 return;
             }
 
@@ -899,15 +915,15 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.innerHTML = `
                 <div class="sidebar-header">
-                    <h5><i class="fas fa-map-marked-alt"></i> Cơ sở Y tế gần bạn</h5>
+                    <h5><i class="fas fa-map-marked-alt"></i> Điểm hỗ trợ y tế gần bạn</h5>
                     <small>🔍 Nhấp vào biểu tượng hoặc danh sách để xem chi tiết</small>
                 </div>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên hoặc địa chỉ...">
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-filter="all">📌 Tất cả</button>
-                        <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện</button>
-                        <button class="filter-btn" data-filter="pharmacy">💊 Hiệu thuốc</button>
+                        <button class="filter-btn" data-filter="hospital">🏥 Bệnh viện & Phòng khám</button>
+                        <button class="filter-btn" data-filter="pharmacy">💊 Nhà thuốc</button>
                     </div>
                 </div>
                 <div id="locationListSidebar" class="location-list"></div>
@@ -1011,7 +1027,6 @@
             menuOverlay.addEventListener('click', closeMobileMenu);
         }
 
-        // Close menu when clicking on a mobile nav link
         document.querySelectorAll('.nav-link-mobile').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
@@ -1023,14 +1038,14 @@
                         userLocation = [position.coords.latitude, position.coords.longitude];
                         map.setView(userLocation, 15);
                         updateUserMarker();
-                        showToast('📍 Đã cập nhật vị trí của bạn');
+                        showToastMessage('📍 Đã cập nhật vị trí của bạn');
                         displaySidebarList();
                         displayMarkers();
                     },
-                    () => showToast('⚠️ Không thể lấy vị trí', true)
+                    () => showToastMessage('⚠️ Không thể lấy vị trí', true)
                 );
             } else {
-                showToast('⚠️ Trình duyệt không hỗ trợ định vị', true);
+                showToastMessage('⚠️ Trình duyệt không hỗ trợ định vị', true);
             }
         });
 

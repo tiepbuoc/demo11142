@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Trò chuyện cùng EduHealth AI - Hỗ trợ sức khỏe học đường</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-primary: #3b82f6;
+            --blue-deep: #2563eb;
+            --pink-primary: #f472b6;
+            --pink-deep: #ec489a;
+            --grad-blue-pink: linear-gradient(135deg, var(--blue-primary), var(--pink-primary));
+            --grad-pink-blue: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
+            --bg-body: #ffffff;
+            --bg-surface: #fef9ff;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-mid: #334155;
+            --text-dim: #64748b;
+            --border-light: #ffe4f0;
+            --border-soft: #f1f5f9;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            --hover-glow: rgba(59, 130, 246, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.92);
+            --tag-bg: #fce7f3;
+            --input-bg: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body.dark {
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --card-bg: #1e293b;
+            --text-dark: #f1f5f9;
+            --text-mid: #cbd5e1;
+            --text-dim: #94a3b8;
+            --border-light: #334155;
+            --border-soft: #2d3a4e;
+            --nav-bg: rgba(15, 23, 42, 0.94);
+            --tag-bg: #2d3a4e;
+            --input-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+            height: 100vh;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--border-soft); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-primary); border-radius: 10px; }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            height: 74px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 42px;
+            height: 42px;
+            background: var(--grad-blue-pink);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .logo-type {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link i { color: var(--pink-primary); }
+        .nav-link:hover { color: var(--blue-primary); }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-mid);
+            font-family: 'DM Sans', sans-serif;
+        }
+        .theme-toggle:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--pink-primary);
+            cursor: pointer;
+            align-items: center;
+            gap: 8px;
+        }
+        .menu-toggle:hover {
+            background: var(--grad-pink-blue);
+            color: white;
+            border-color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mobile-menu-panel {
+            position: fixed;
+            top: 74px;
+            left: 0;
+            right: 0;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 99;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
+        }
+        .mobile-menu-panel.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mobile-menu-panel .nav-links-mobile {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 6%;
+            gap: 20px;
+        }
+        .mobile-menu-panel .nav-link-mobile {
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-menu-panel .nav-link-mobile i {
+            width: 28px;
+            color: var(--blue-primary);
+            font-size: 18px;
+        }
+
+        .chat-app {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-body);
+        }
+
+        .chat-sidebar {
+            width: 320px;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            margin-top: 74px;
+        }
+
+        .sidebar-header {
+            background: var(--grad-blue-pink);
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .sidebar-header h3 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Fraunces', serif;
+        }
+
+        .new-chat-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 12px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+        .new-chat-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .chat-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-item:hover {
+            background: var(--tag-bg);
+        }
+
+        .chat-item.active {
+            background: var(--tag-bg);
+            border-left: 4px solid var(--blue-primary);
+        }
+
+        .chat-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chat-name i {
+            color: var(--pink-primary);
+            font-size: 12px;
+        }
+
+        .chat-preview {
+            font-size: 12px;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-time {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-body);
+            margin-top: 74px;
+        }
+
+        .chat-header {
+            background: var(--card-bg);
+            padding: 15px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .home-btn {
+            background: var(--grad-blue-pink);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .home-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .messages-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 22px;
+        }
+
+        .message.sent {
+            background: var(--grad-blue-pink);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message.received {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .message.ai-message {
+            background: var(--bg-surface);
+            border-left: 4px solid var(--success);
+        }
+
+        .message-system {
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--warning);
+            align-self: center;
+            max-width: 85%;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .message-sender {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+        }
+
+        .message-sent .message-sender {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .message-text h1, .message-text h2, .message-text h3, 
+        .message-text h4, .message-text h5, .message-text h6 {
+            margin: 8px 0;
+            font-family: 'Fraunces', serif;
+        }
+        .message-text h1 { font-size: 1.4em; }
+        .message-text h2 { font-size: 1.2em; }
+        .message-text h3 { font-size: 1.1em; }
+        .message-text ul, .message-text ol {
+            margin: 6px 0 6px 20px;
+        }
+        .message-text li {
+            margin: 2px 0;
+        }
+        .message-text p {
+            margin: 4px 0;
+        }
+        .message-text strong { font-weight: 700; }
+        .message-text em { font-style: italic; }
+        .message-text hr {
+            margin: 8px 0;
+            border: none;
+            border-top: 1px solid var(--border-light);
+        }
+        .message-text blockquote {
+            border-left: 3px solid var(--pink-primary);
+            padding-left: 12px;
+            margin: 8px 0;
+            color: var(--text-mid);
+        }
+        .message-text code {
+            background: var(--tag-bg);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .message-time {
+            font-size: 10px;
+            margin-top: 6px;
+            opacity: 0.6;
+            text-align: right;
+        }
+
+        .message-sent .message-time {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .message-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 12px;
+            margin-top: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+
+        .input-area {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            outline: none;
+            background: var(--input-bg);
+            color: var(--text-dark);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+        }
+        .input-area input:focus {
+            border-color: var(--blue-primary);
+        }
+
+        .input-area button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--grad-blue-pink);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .input-area button:hover {
+            transform: scale(1.02);
+        }
+        .input-area button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .image-btn {
+            background: var(--success) !important;
+        }
+
+        .no-chat {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-dim);
+            flex-direction: column;
+            gap: 16px;
+        }
+        .no-chat i {
+            font-size: 64px;
+            opacity: 0.5;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .typing-indicator {
+            display: flex;
+            padding: 12px 18px;
+            background: var(--card-bg);
+            border-radius: 22px;
+            width: fit-content;
+            gap: 6px;
+            align-self: flex-start;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-10px); opacity: 1; }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 74px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 98;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .ai-disabled-badge {
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin-left: 10px;
+        }
+
+        .health-card {
+            background: linear-gradient(135deg, var(--bg-surface), var(--card-bg));
+            border-radius: 20px;
+            padding: 16px;
+            margin: 8px 0;
+            border: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 768px) {
+            .chat-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                width: 280px;
+                margin-top: 74px;
+            }
+            .chat-sidebar.open {
+                left: 0;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .message {
+                max-width: 85%;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <a href="index.html" class="logo">
+            <div class="logo-mark"><i class="fas fa-heartbeat"></i></div>
+            <div class="logo-type">EduHealth AI</div>
+        </a>
+        
+        <div class="nav-menu">
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
+            <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+        </div>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
+            <button class="menu-toggle" id="menuToggleBtn"><i class="fas fa-bars"></i> Menu</button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="nav-links-mobile">
+            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
+            <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="chat-app">
+        <div class="chat-sidebar" id="chatSidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-comments"></i> Cuộc trò chuyện</h3>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <i class="fas fa-plus"></i> Bắt đầu trò chuyện mới
+                </button>
+            </div>
+            <div class="chat-list" id="chatList">
+                <div style="padding: 20px; text-align: center; color: var(--text-dim);">Đang tải...</div>
+            </div>
+        </div>
+        
+        <div class="chat-main">
+            <div class="chat-header">
+                <h3 id="currentChatName">Chọn một cuộc trò chuyện</h3>
+                <button class="home-btn" id="homeBtn"><i class="fas fa-home"></i> Trang chủ</button>
+            </div>
+            <div class="messages-area" id="messagesArea">
+                <div class="no-chat">
+                    <i class="fas fa-comment-dots"></i>
+                    <p>Chọn một cuộc trò chuyện để bắt đầu</p>
+                </div>
+            </div>
+            <div class="input-area" id="inputArea" style="display: none;">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <button class="image-btn" id="imageBtn"><i class="fas fa-image"></i></button>
+                <input type="text" id="messageInput" placeholder="Nhập câu hỏi của bạn...">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="image-modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="">
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+            authDomain: "eduhealth-4bcab.firebaseapp.com",
+            projectId: "eduhealth-4bcab",
+            storageBucket: "eduhealth-4bcab.firebasestorage.app",
+            messagingSenderId: "390541255938",
+            appId: "1:390541255938:web:aa7b5beca0105c28f70e1b",
+            measurementId: "G-GSP46EVLYG"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        const API_KEY = "sk-uQmI5tk7o5FdWLq852gCLO2xZTd5OmG2K9RKy7C3raEqGx6v";
+        const BASE_URL = "https://api.shopaikey.com/v1";
+        const API_URL = BASE_URL + "/chat/completions";
+        const MODEL_NAME = "gpt-5.4-nano";
+        
+        let currentChatId = null;
+        let currentUserId = null;
+        let currentChatData = null;
+        let messageListener = null;
+        let isSendingAI = false;
+        let aiEnabledCache = true;
+        
+        function getCurrentUser() {
+            let userId = localStorage.getItem('healthUserId');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('healthUserId', userId);
+            }
+            return {
+                uid: userId,
+                displayName: localStorage.getItem('healthUserName') || 'Bạn đọc'
+            };
+        }
+        
+        currentUserId = getCurrentUser().uid;
+        
+        async function loadChatKnowledge() {
+            const snapshot = await db.collection('knowledge_base').where('type', '==', 'chat_response').get();
+            let knowledgeText = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                knowledgeText += `\n--- ${data.question} ---\n${data.answer}\n`;
+            });
+            return knowledgeText || 'Không có kiến thức cụ thể. Hãy trả lời dựa trên hiểu biết chung về sức khỏe.';
+        }
+        
+        function compressImage(file, maxWidth = 720, quality = 0.7) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth) {
+                            height = (height * maxWidth) / width;
+                            width = maxWidth;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // Hàm xử lý markdown đầy đủ
+        function formatMarkdownToHtml(text) {
+            if (!text) return "";
+            
+            let html = text;
+            
+            // Headers
+            html = html.replace(/^### (.*?)$/gm, '<h4>$1</h4>');
+            html = html.replace(/^## (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^# (.*?)$/gm, '<h2>$1</h2>');
+            
+            // Bold và Italic
+            html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+            
+            // Horizontal rule
+            html = html.replace(/^---$/gm, '<hr>');
+            html = html.replace(/^\*\*\*$/gm, '<hr>');
+            
+            // Blockquote
+            html = html.replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>');
+            
+            // Code inline
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            
+            // Danh sách không thứ tự
+            let inUl = false;
+            const lines = html.split('\n');
+            const processedLines = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+                const bulletMatch = line.match(/^[\*\-]\s+(.*)$/);
+                const numberMatch = line.match(/^\d+\.\s+(.*)$/);
+                
+                if (bulletMatch) {
+                    if (!inUl) {
+                        processedLines.push('<ul>');
+                        inUl = true;
+                    }
+                    processedLines.push(`<li>${bulletMatch[1]}</li>`);
+                } else if (numberMatch) {
+                    if (inUl) {
+                        processedLines.push('</ul>');
+                        inUl = false;
+                    }
+                    if (!processedLines.includes('<ol>') || processedLines[processedLines.length-1] !== '<ol>') {
+                        processedLines.push('<ol>');
+                    }
+                    processedLines.push(`<li>${numberMatch[1]}</li>`);
+                } else {
+                    if (inUl) {
+                        processedLines.push('</ul>');
+                        inUl = false;
+                    }
+                    if (processedLines[processedLines.length-1] === '<ol>') {
+                        processedLines.push('</ol>');
+                    }
+                    processedLines.push(line);
+                }
+            }
+            if (inUl) processedLines.push('</ul>');
+            if (processedLines[processedLines.length-1] === '<ol>') processedLines.push('</ol>');
+            
+            html = processedLines.join('\n');
+            
+            // Xuống dòng
+            html = html.replace(/\n\n/g, '</p><p>');
+            html = html.replace(/\n/g, '<br>');
+            html = '<div class="message-text-content">' + html + '</div>';
+            
+            // Dọn dẹp
+            html = html.replace(/<p><\/p>/g, '');
+            html = html.replace(/<p><br><\/p>/g, '');
+            html = html.replace(/<\/h2><br>/g, '</h2>');
+            html = html.replace(/<\/h3><br>/g, '</h3>');
+            html = html.replace(/<\/h4><br>/g, '</h4>');
+            
+            return html;
+        }
+        
+        function displayMessage(message) {
+            const container = document.getElementById('messagesArea');
+            
+            if (document.querySelector(`[data-message-id="${message.id}"]`)) {
+                return;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.setAttribute('data-message-id', message.id);
+            
+            if (message.senderId === currentUserId) {
+                messageDiv.className = 'message sent';
+            } else if (message.senderId === 'ai') {
+                messageDiv.className = 'message received ai-message';
+            } else if (message.senderId === 'system') {
+                messageDiv.className = 'message message-system';
+            } else {
+                messageDiv.className = 'message received';
+            }
+            
+            if (message.senderId !== currentUserId && message.senderId !== 'system') {
+                const senderDiv = document.createElement('div');
+                senderDiv.className = 'message-sender';
+                if (message.senderId === 'ai') {
+                    senderDiv.innerHTML = '<i class="fas fa-robot"></i> EduHealth AI';
+                } else {
+                    senderDiv.innerHTML = '<i class="fas fa-user-md"></i> ' + (message.senderName || 'Cộng tác viên');
+                }
+                messageDiv.appendChild(senderDiv);
+            } else if (message.senderId === currentUserId) {
+                const senderDiv = document.createElement('div');
+                senderDiv.className = 'message-sender';
+                senderDiv.innerHTML = '<i class="fas fa-user"></i> Bạn';
+                messageDiv.appendChild(senderDiv);
+            }
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.innerHTML = formatMarkdownToHtml(message.text || '');
+            messageDiv.appendChild(textDiv);
+            
+            if (message.imageData) {
+                const img = document.createElement('img');
+                img.src = message.imageData;
+                img.className = 'message-image';
+                img.onclick = () => openImageModal(message.imageData);
+                messageDiv.appendChild(img);
+            }
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            if (message.timestamp) {
+                const date = message.timestamp.toDate();
+                timeDiv.textContent = date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+            }
+            messageDiv.appendChild(timeDiv);
+            
+            container.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        function showTyping() {
+            const container = document.getElementById('messagesArea');
+            removeTyping();
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            container.appendChild(typingDiv);
+            scrollToBottom();
+        }
+        
+        function removeTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+        
+        function scrollToBottom() {
+            const container = document.getElementById('messagesArea');
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 100);
+        }
+        
+        function openImageModal(src) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = src;
+        }
+        
+        document.querySelector('.close-modal').onclick = () => {
+            document.getElementById('imageModal').style.display = 'none';
+        };
+        
+        async function callShopAIKey(messages, temperature = 0.7) {
+            const payload = {
+                model: MODEL_NAME,
+                messages: messages,
+                temperature: temperature,
+                max_tokens: 2000,
+                top_p: 0.9,
+                stream: false
+            };
+            
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                let errDetail = `HTTP ${response.status}`;
+                try {
+                    const errData = await response.json();
+                    errDetail = errData.error?.message || errDetail;
+                } catch(e) {}
+                throw new Error(errDetail);
+            }
+            
+            const data = await response.json();
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Response không đúng định dạng');
+        }
+        
+        async function checkAIEnabled() {
+            if (!currentChatId) return true;
+            try {
+                const doc = await db.collection('health_chats').doc(currentChatId).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    aiEnabledCache = data.aiEnabled !== false;
+                    currentChatData = data;
+                    return aiEnabledCache;
+                }
+            } catch (error) {
+                console.error('Error checking AI status:', error);
+            }
+            return true;
+        }
+        
+        async function callAIAndRespond(userMessageId, userMessageText) {
+            const isAIEnabled = await checkAIEnabled();
+            
+            if (!isAIEnabled) {
+                console.log('AI đã được tạm dừng bởi quản trị viên');
+                return;
+            }
+            
+            if (isSendingAI) {
+                console.log('Đang xử lý, bỏ qua...');
+                return;
+            }
+            
+            isSendingAI = true;
+            showTyping();
+            
+            try {
+                const chatKnowledge = await loadChatKnowledge();
+                
+                const historySnapshot = await db.collection('health_chats')
+                    .doc(currentChatId)
+                    .collection('messages')
+                    .orderBy('timestamp', 'desc')
+                    .limit(12)
+                    .get();
+                
+                let chatHistory = [];
+                const historyMsgs = [];
+                historySnapshot.forEach(doc => {
+                    historyMsgs.unshift({ id: doc.id, ...doc.data() });
+                });
+                
+                for (const msg of historyMsgs) {
+                    if (msg.id === userMessageId) continue;
+                    const sender = msg.senderId === currentUserId ? 'Người dùng' : (msg.senderId === 'ai' ? 'AI' : 'Hệ thống');
+                    chatHistory.push(`${sender}: ${(msg.text || '').substring(0, 300)}`);
+                }
+                chatHistory = chatHistory.slice(-8);
+                
+                const userInfoText = currentChatData?.userInfo ? 
+                    `\n\nTHÔNG TIN ĐÃ CUNG CẤP:\n- Tên: ${currentChatData.userInfo.displayName || ''}\n- Kết quả phân tích: ${(currentChatData.userInfo.analysisResult || '').substring(0, 500)}` : '';
+                
+                const systemPrompt = `Bạn là trợ lý của EduHealth AI, chuyên hỗ trợ nhận biết sớm các vấn đề sức khỏe học đường. Hãy trả lời tin nhắn của người dùng một cách thân thiện và hữu ích.
+
+LỊCH SỬ TRÒ CHUYỆN (gần nhất):
+${chatHistory.join('\n')}
+
+THÔNG TIN NGƯỜI DÙNG:
+${userInfoText}
+
+KIẾN THỨC CHUYÊN MÔN:
+${chatKnowledge}
+
+HƯỚNG DẪN:
+1. Nếu câu hỏi KHÔNG LIÊN QUAN đến sức khỏe, hãy trả lời: "Xin lỗi, EduHealth AI chuyên hỗ trợ các câu hỏi về sức khỏe. Vui lòng đặt câu hỏi liên quan để được hỗ trợ tốt nhất."
+2. Nếu câu hỏi có trong kiến thức, hãy trả lời dựa trên kiến thức đó.
+3. Trả lời bằng tiếng Việt, dễ hiểu, thân thiện.
+4. Có thể sử dụng markdown nhẹ (**, *, #, -) để trình bày rõ ràng.
+
+Tin nhắn người dùng: ${userMessageText}
+
+Trả lời:`;
+                
+                const messages = [
+                    { role: "system", content: "Bạn là trợ lý y tế thân thiện của EduHealth AI. Hỗ trợ nhận biết sớm, không thay thế bác sĩ." },
+                    { role: "user", content: systemPrompt }
+                ];
+                
+                const aiText = await callShopAIKey(messages, 0.6);
+                
+                await db.collection('health_chats').doc(currentChatId).collection('messages').add({
+                    text: aiText,
+                    senderId: 'ai',
+                    senderName: 'EduHealth AI',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    isAI: true,
+                    inResponseTo: userMessageId
+                });
+                
+            } catch (error) {
+                console.error('AI error:', error);
+                await db.collection('health_chats').doc(currentChatId).collection('messages').add({
+                    text: 'Xin lỗi, EduHealth AI đang gặp sự cố. Vui lòng thử lại sau hoặc đợi cộng tác viên hỗ trợ nhé!',
+                    senderId: 'ai',
+                    senderName: 'EduHealth AI',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    isAI: true,
+                    isError: true
+                });
+            } finally {
+                isSendingAI = false;
+                removeTyping();
+            }
+        }
+        
+        let allChats = [];
+        
+        async function loadUserChats() {
+            const snapshot = await db.collection('health_chats')
+                .where('userId', '==', currentUserId)
+                .orderBy('lastMessageTime', 'desc')
+                .get();
+            
+            allChats = [];
+            snapshot.forEach(doc => {
+                allChats.push({ id: doc.id, ...doc.data() });
+            });
+            
+            const chatList = document.getElementById('chatList');
+            if (allChats.length === 0) {
+                chatList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dim);">Chưa có cuộc trò chuyện nào. Hãy bắt đầu nhé!</div>';
+                return;
+            }
+            
+            let html = '';
+            allChats.forEach(chat => {
+                const isActive = currentChatId === chat.id ? 'active' : '';
+                html += `
+                    <div class="chat-item ${isActive}" data-id="${chat.id}">
+                        <div class="chat-name">
+                            <i class="fas fa-comment"></i> ${escapeHtml(chat.name || 'Cuộc trò chuyện')}
+                        </div>
+                        <div class="chat-preview">${escapeHtml(chat.lastMessage || 'Chưa có tin nhắn')}</div>
+                        <div class="chat-time">${formatTime(chat.lastMessageTime)}</div>
+                    </div>
+                `;
+            });
+            chatList.innerHTML = html;
+            
+            document.querySelectorAll('.chat-item').forEach(item => {
+                item.addEventListener('click', () => selectChat(item.dataset.id));
+            });
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            const date = timestamp.toDate();
+            const now = new Date();
+            const diff = now - date;
+            if (diff < 3600000) return `${Math.floor(diff / 60000)} phút trước`;
+            if (diff < 86400000) return `${Math.floor(diff / 3600000)} giờ trước`;
+            return date.toLocaleDateString('vi-VN');
+        }
+        
+        async function selectChat(chatId) {
+            if (messageListener) {
+                messageListener();
+                messageListener = null;
+            }
+            
+            currentChatId = chatId;
+            
+            const doc = await db.collection('health_chats').doc(chatId).get();
+            currentChatData = doc.data();
+            aiEnabledCache = currentChatData.aiEnabled !== false;
+            
+            const chatName = currentChatData.name || 'Cuộc trò chuyện';
+            const aiBadge = !aiEnabledCache ? '<span class="ai-disabled-badge"><i class="fas fa-ban"></i> Tạm dừng AI</span>' : '';
+            document.getElementById('currentChatName').innerHTML = chatName + ' ' + aiBadge;
+            document.getElementById('inputArea').style.display = 'flex';
+            
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.innerHTML = '';
+            
+            loadMessagesOnly(chatId);
+            
+            document.querySelectorAll('.chat-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.id === chatId) item.classList.add('active');
+            });
+            
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        }
+        
+        function loadMessagesOnly(chatId) {
+            const messagesArea = document.getElementById('messagesArea');
+            
+            messageListener = db.collection('health_chats')
+                .doc(chatId)
+                .collection('messages')
+                .orderBy('timestamp', 'asc')
+                .onSnapshot((snapshot) => {
+                    if (snapshot.empty && messagesArea.children.length === 0) {
+                        messagesArea.innerHTML = '<div class="no-chat"><i class="fas fa-comment-dots"></i><p>Chưa có tin nhắn. Hãy gửi câu hỏi của bạn!</p></div>';
+                    } else if (!snapshot.empty) {
+                        const noChatDiv = messagesArea.querySelector('.no-chat');
+                        if (noChatDiv) noChatDiv.remove();
+                    }
+                    
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === 'added') {
+                            const message = { id: change.doc.id, ...change.doc.data() };
+                            if (!document.querySelector(`[data-message-id="${message.id}"]`)) {
+                                displayMessage(message);
+                            }
+                        }
+                    });
+                    
+                    scrollToBottom();
+                });
+        }
+        
+        async function sendMessageAndCallAI(text, imageData = null) {
+            if ((!text && !imageData) || !currentChatId) return;
+            
+            const isAIEnabled = await checkAIEnabled();
+            
+            if (!isAIEnabled) {
+                try {
+                    const messageData = {
+                        senderId: currentUserId,
+                        senderName: getCurrentUser().displayName,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    if (text) messageData.text = text;
+                    if (imageData) messageData.imageData = imageData;
+                    
+                    await db.collection('health_chats').doc(currentChatId).collection('messages').add(messageData);
+                    await db.collection('health_chats').doc(currentChatId).update({
+                        lastMessage: text || 'Đã gửi hình ảnh',
+                        lastMessageTime: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (error) {
+                    console.error('Send message error:', error);
+                    alert('Có lỗi xảy ra, vui lòng thử lại');
+                }
+                return;
+            }
+            
+            if (isSendingAI) {
+                alert('EduHealth AI đang xử lý tin nhắn trước, vui lòng đợi...');
+                return;
+            }
+            
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            
+            try {
+                const messageData = {
+                    senderId: currentUserId,
+                    senderName: getCurrentUser().displayName,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
+                if (text) messageData.text = text;
+                if (imageData) messageData.imageData = imageData;
+                
+                const docRef = await db.collection('health_chats').doc(currentChatId).collection('messages').add(messageData);
+                const userMessageId = docRef.id;
+                const userMessageText = text || '[Đã gửi hình ảnh]';
+                
+                await db.collection('health_chats').doc(currentChatId).update({
+                    lastMessage: text || 'Đã gửi hình ảnh',
+                    lastMessageTime: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                await callAIAndRespond(userMessageId, userMessageText);
+                
+            } catch (error) {
+                console.error('Send message error:', error);
+                alert('Có lỗi xảy ra, vui lòng thử lại');
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+        
+        async function createNewChat() {
+            const chatId = 'CHAT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+            
+            await db.collection('health_chats').doc(chatId).set({
+                id: chatId,
+                name: `Trò chuyện ${new Date().toLocaleString('vi-VN')}`,
+                userId: currentUserId,
+                userName: getCurrentUser().displayName,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                lastMessage: "Bắt đầu trò chuyện",
+                lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
+                isHealthChat: true,
+                aiEnabled: true
+            });
+            
+            return chatId;
+        }
+        
+        document.getElementById('sendBtn').onclick = () => {
+            const input = document.getElementById('messageInput');
+            if (input.value.trim() && currentChatId) {
+                sendMessageAndCallAI(input.value.trim());
+                input.value = '';
+            }
+        };
+        
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('sendBtn').click();
+            }
+        });
+        
+        document.getElementById('imageBtn').onclick = () => {
+            document.getElementById('imageInput').click();
+        };
+        
+        document.getElementById('imageInput').onchange = async (e) => {
+            if (e.target.files[0] && currentChatId && !isSendingAI) {
+                const compressed = await compressImage(e.target.files[0]);
+                sendMessageAndCallAI(null, compressed);
+                e.target.value = '';
+            }
+        };
+        
+        document.getElementById('homeBtn').onclick = () => {
+            window.location.href = 'index.html';
+        };
+        
+        document.getElementById('newChatBtn').onclick = async () => {
+            const newChatId = await createNewChat();
+            if (newChatId) {
+                await loadUserChats();
+                selectChat(newChatId);
+            }
+        };
+        
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const sidebar = document.getElementById('chatSidebar');
+        const overlay = document.getElementById('overlay');
+        
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+        
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialChatId = urlParams.get('chatId');
+        
+        async function init() {
+            await loadUserChats();
+            
+            if (initialChatId) {
+                const chatExists = allChats.some(c => c.id === initialChatId);
+                if (chatExists) {
+                    await selectChat(initialChatId);
+                } else {
+                    const newChatId = await createNewChat();
+                    await loadUserChats();
+                    await selectChat(newChatId);
+                }
+            } else if (allChats.length > 0) {
+                await selectChat(allChats[0].id);
+            } else {
+                const newChatId = await createNewChat();
+                await loadUserChats();
+                await selectChat(newChatId);
+            }
+        }
+        
+        init();
+        
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const body = document.body;
+        function setTheme(theme) {
+            body.classList.toggle('dark', theme === 'dark');
+            localStorage.setItem('eduhealth-theme', theme);
+            const icon = themeBtn.querySelector('i');
+            const span = themeBtn.querySelector('span');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+                span.innerText = 'Chế độ sáng';
+            } else {
+                icon.className = 'fas fa-moon';
+                span.innerText = 'Chế độ tối';
+            }
+        }
+        const savedTheme = localStorage.getItem('eduhealth-theme');
+        if (savedTheme === 'dark') setTheme('dark');
+        else setTheme('light');
+        themeBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+        
+        const menuToggleMobile = document.getElementById('menuToggleBtn');
+        const mobilePanel = document.getElementById('mobileMenuPanel');
+        if (menuToggleMobile) {
+            menuToggleMobile.addEventListener('click', () => {
+                mobilePanel.classList.toggle('open');
+                const icon = menuToggleMobile.querySelector('i');
+                if (mobilePanel.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>EduHealth AI — Sức khỏe học đường thông minh</title>
+<title>EduHealth AI — Hỗ trợ chăm sóc sức khỏe học đường</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -268,13 +268,13 @@ nav {
 
 /* ========== HERO ========== */
 .hero {
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 100px 6% 80px;
+  padding: 180px 6% 120px;
   position: relative;
   z-index: 2;
   background: radial-gradient(circle at 10% 20%, var(--bg-surface) 0%, var(--bg-body) 100%);
@@ -356,19 +356,39 @@ nav {
   background: var(--hover-glow);
 }
 
-/* ========== BẢN TIN Y TẾ ========== */
-.news-section {
-  padding: 60px 6% 80px;
+/* ========== CONTENT LAYOUT (2 CỘT) ========== */
+.content-section {
+  padding: 40px 6% 80px;
   position: relative;
   z-index: 2;
 }
+
+.two-columns {
+  display: flex;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Cột trái: Thư viện EduHealth (3/4) */
+.left-col {
+  flex: 3;
+  min-width: 0;
+}
+
+/* Cột phải: Bản tin sức khỏe học đường (1/4) */
+.right-col {
+  flex: 1;
+  min-width: 0;
+}
+
 .section-label {
   font-size: 12px;
   font-weight: 600;
   color: var(--blue-primary);
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -380,41 +400,46 @@ nav {
   background: linear-gradient(to right, var(--pink-primary), transparent);
   max-width: 100px;
 }
-.news-grid {
+
+/* ========== THƯ VIỆN GRID (3 cột) ========== */
+.handbook-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  max-width: 1300px;
-  margin: 0 auto;
+  gap: 24px;
 }
-.news-card {
+
+.handbook-card {
   background: var(--card-bg);
-  border-radius: 28px;
+  border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--border-light);
-  transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  transition: all 0.3s ease;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
 }
-.news-card:hover {
-  transform: translateY(-8px);
+
+.handbook-card:hover {
+  transform: translateY(-5px);
   border-color: var(--pink-primary);
   box-shadow: var(--shadow-md);
 }
-.news-cover {
+
+.handbook-cover {
   width: 100%;
-  height: 200px;
+  height: 160px;
   object-fit: cover;
   background: var(--tag-bg);
 }
-.news-content {
-  padding: 20px;
+
+.handbook-content {
+  padding: 16px;
 }
-.news-title {
+
+.handbook-card-title {
   font-family: 'Fraunces', serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 1.4;
   color: var(--text-dark);
   display: -webkit-box;
@@ -422,168 +447,129 @@ nav {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.news-excerpt {
-  font-size: 13px;
+
+.handbook-excerpt {
+  font-size: 12px;
   color: var(--text-mid);
-  line-height: 1.5;
-  margin-bottom: 16px;
+  line-height: 1.4;
+  margin-bottom: 12px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.news-stats {
+
+.handbook-stats {
   display: flex;
-  gap: 16px;
-  font-size: 12px;
+  gap: 12px;
+  font-size: 11px;
   color: var(--text-dim);
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-light);
 }
-.news-stats span {
+
+.handbook-stats span {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
+
+/* ========== BẢN TIN DỌC ========== */
+.news-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.news-vertical-item {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.news-vertical-item:hover {
+  transform: translateX(5px);
+  border-color: var(--pink-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.news-vertical-cover {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: var(--tag-bg);
+  flex-shrink: 0;
+}
+
+.news-vertical-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.news-vertical-title {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  color: var(--text-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-vertical-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.news-vertical-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .load-more-btn {
   text-align: center;
-  margin-top: 48px;
+  margin-top: 24px;
 }
+
 .btn-load-more {
   background: transparent;
   border: 2px solid var(--border-light);
-  padding: 12px 32px;
+  padding: 10px 24px;
   border-radius: 50px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-mid);
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
 }
+
 .btn-load-more:hover {
   border-color: var(--blue-primary);
   color: var(--blue-primary);
   transform: translateY(-2px);
 }
-.loading-spinner {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-dim);
-}
-.empty-news {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-dim);
-  grid-column: span 3;
-}
-
-/* ========== CẨM NANG + DIỄN ĐÀN ========== */
-.health-lib {
-  padding: 40px 6% 90px;
-  position: relative;
-  z-index: 2;
-}
-.health-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-.health-card {
-  background: var(--card-bg);
-  border-radius: 42px;
-  padding: 32px 34px;
-  border: 1px solid var(--border-light);
-  transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  box-shadow: var(--shadow-sm);
-}
-.health-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--blue-primary);
-  box-shadow: var(--shadow-md);
-}
-.health-icon {
-  width: 60px;
-  height: 60px;
-  background: var(--icon-soft);
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  margin-bottom: 22px;
-  color: var(--blue-primary);
-  transition: all 0.4s;
-}
-.health-card:hover .health-icon {
-  background: var(--grad-pink-blue);
-  color: white;
-}
-.health-title {
-  font-family: 'Fraunces', serif;
-  font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-.health-badge {
-  display: inline-flex;
-  gap: 12px;
-  background: var(--tag-bg);
-  border-radius: 30px;
-  padding: 6px 18px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--pink-primary);
-  margin: 14px 0 16px;
-}
-.news-meta {
-  font-size: 13px;
-  color: var(--text-dim);
-  margin: 16px 0 12px;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.news-loading {
-  background: var(--news-bg);
-  border-radius: 28px;
-  padding: 20px;
-  text-align: center;
-  color: var(--blue-primary);
-  font-weight: 500;
-}
-.forum-preview {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--border-light);
-}
-.forum-topic {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  color: var(--text-mid);
-  font-size: 14px;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-.forum-topic:hover {
-  color: var(--blue-primary);
-  transform: translateX(5px);
-}
-.forum-topic i {
-  color: var(--pink-primary);
-  width: 24px;
-}
 
 /* ========== STATS ========== */
 .stats-section {
-  padding: 60px 6% 80px;
+  padding: 50px 6% 60px;
   background: linear-gradient(135deg, var(--bg-surface), var(--bg-body));
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
@@ -597,7 +583,7 @@ nav {
   text-align: center;
 }
 .stat-number {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
   font-family: 'Fraunces', serif;
   background: var(--grad-blue-pink);
@@ -607,48 +593,44 @@ nav {
   margin-bottom: 8px;
 }
 .stat-label {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-dim);
   letter-spacing: 1px;
 }
 
-/* ========== CTA ========== */
-.cta-section {
-  padding: 80px 6%;
-  text-align: center;
+/* ========== FOOTER ========== */
+footer {
+  border-top: 1px solid var(--border-light);
+  padding: 48px 6% 38px;
+  background: var(--bg-body);
 }
-.cta-card {
-  background: var(--grad-blue-pink);
-  border-radius: 48px;
-  padding: 60px 40px;
-  max-width: 1000px;
+.footer-inner {
+  max-width: 1200px;
   margin: 0 auto;
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
-.cta-card h2 {
-  font-family: 'Fraunces', serif;
-  font-size: 36px;
-  margin-bottom: 20px;
+.footer-links {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
 }
-.cta-card p {
-  font-size: 16px;
-  margin-bottom: 30px;
-  opacity: 0.9;
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s;
 }
-.cta-btn {
-  background: white;
-  color: var(--blue-primary);
-  border: none;
-  padding: 14px 36px;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
+.footer-links a:hover {
+  color: var(--pink-primary);
 }
-.cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+.footer-copyright {
+  font-size: 12px;
+  color: var(--text-dim);
 }
 
 /* ========== MODAL ========== */
@@ -712,6 +694,18 @@ nav {
   font-size: 16px;
   line-height: 1.6;
 }
+.modal-content-text .ql-align-center {
+  text-align: center !important;
+}
+.modal-content-text .ql-align-right {
+  text-align: right !important;
+}
+.modal-content-text .ql-align-left {
+  text-align: left !important;
+}
+.modal-content-text .ql-align-justify {
+  text-align: justify !important;
+}
 .modal-content-text img { 
   max-width: 100%; 
   border-radius: 16px;
@@ -725,6 +719,20 @@ nav {
   margin: 20px 0 12px 0;
   font-family: 'Fraunces', serif;
 }
+.modal-content-text h1 { font-size: 2em; font-weight: bold; }
+.modal-content-text h2 { font-size: 1.5em; font-weight: bold; }
+.modal-content-text h3 { font-size: 1.17em; font-weight: bold; }
+.modal-content-text h4 { font-size: 1em; font-weight: bold; }
+.modal-content-text ul, .modal-content-text ol {
+  margin: 10px 0 10px 25px;
+}
+.modal-content-text blockquote {
+  border-left: 4px solid var(--pink-primary);
+  padding-left: 16px;
+  margin: 16px 0;
+  color: var(--text-mid);
+}
+
 .news-modal-stats {
   display: flex;
   gap: 16px;
@@ -738,41 +746,6 @@ nav {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-/* ========== FOOTER ========== */
-footer {
-  border-top: 1px solid var(--border-light);
-  padding: 48px 6% 38px;
-  background: var(--bg-body);
-}
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-.footer-links {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-.footer-links a {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: 0.2s;
-}
-.footer-links a:hover {
-  color: var(--pink-primary);
-}
-.footer-copyright {
-  font-size: 12px;
-  color: var(--text-dim);
 }
 
 /* ========== ANIMATIONS ========== */
@@ -790,30 +763,52 @@ footer {
   transform: translateY(0);
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 950px) {
-  .news-grid { grid-template-columns: repeat(2, 1fr); }
-  .health-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-dim);
 }
-@media (max-width: 780px) {
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .two-columns {
+    flex-direction: column;
+  }
+  .handbook-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
   .nav-menu { display: none; }
   .menu-toggle { display: flex; }
   .hero-h1 { font-size: 48px; }
   .hero-sub { font-size: 16px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .handbook-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
   .stat-number { font-size: 36px; }
-  .cta-card h2 { font-size: 28px; }
-  .cta-card { padding: 40px 24px; }
-  .news-grid { grid-template-columns: 1fr; }
-  .empty-news { grid-column: span 1; }
 }
+
 @media (max-width: 520px) {
   .hero-actions { flex-direction: column; align-items: center; }
   .btn-main, .btn-ghost { width: 100%; justify-content: center; }
   .footer-inner { flex-direction: column; text-align: center; }
   .stats-grid { grid-template-columns: 1fr; }
-  .health-card { padding: 24px; }
+  .news-vertical-item { padding: 10px; }
+  .news-vertical-cover { width: 60px; height: 60px; }
 }
 </style>
 </head>
@@ -826,9 +821,8 @@ footer {
   </a>
   
   <div class="nav-menu">
-    <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-    <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-    <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+    <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+    <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
     <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
   </div>
   
@@ -840,56 +834,43 @@ footer {
 
 <div class="mobile-menu-panel" id="mobileMenuPanel">
   <div class="nav-links-mobile">
-    <a href="handbook.html" class="nav-link-mobile"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-    <a href="#" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-    <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+    <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+    <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
     <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
   </div>
 </div>
 
 <section class="hero">
   <h1 class="hero-h1">EduHealth AI</h1>
-  <div class="hero-sub">🧠 Hỗ trợ chăm sóc & chẩn đoán sức khỏe học đường</div>
+  <div class="hero-sub">🧠 Để EduHealth AI giúp bạn hiểu cơ thể rõ hơn nhé!</div>
   <div class="hero-actions">
     <button class="btn-main" onclick="window.location.href='checkin.html'">
-      <i class="fas fa-stethoscope"></i> Khám triệu chứng
+        <i class="fas fa-stethoscope"></i> Check-in sức khỏe
     </button>
-    <button class="btn-ghost" onclick="document.getElementById('news-section').scrollIntoView({behavior:'smooth'})"><i class="fas fa-newspaper"></i> Xem bản tin y tế ↓</button>
+    <button class="btn-ghost" onclick="document.getElementById('content-section').scrollIntoView({behavior:'smooth'})"><i class="fas fa-newspaper"></i> Khám phá thư viện ↓</button>
   </div>
 </section>
 
-<!-- BẢN TIN Y TẾ - Thay thế phần features -->
-<section class="news-section" id="news-section">
-  <div class="section-label rise"><i class="fas fa-newspaper"></i> Bản tin y tế học đường</div>
-  <div id="newsGridContainer" class="news-grid">
-    <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải bản tin...</div>
-  </div>
-  <div class="load-more-btn" id="loadMoreBtn" style="display: none;">
-    <button class="btn-load-more" onclick="loadMoreNews()"><i class="fas fa-arrow-down"></i> Xem thêm bản tin</button>
-  </div>
-</section>
-
-<section class="health-lib">
-  <div class="health-grid">
-    <div class="health-card rise">
-      <div class="health-icon"><i class="fas fa-book-medical"></i></div>
-      <div class="health-title">📚 Cẩm nang y tế học đường</div>
-      <div class="health-badge"><i class="fas fa-file-alt"></i> Bài viết chuyên sâu · Kiến thức y khoa</div>
-      <p class="feat-p">Nội dung giáo dục sức khỏe, không thay thế tư vấn chuyên môn. Cẩm nang bỏ túi cho học sinh, phụ huynh về các dấu hiệu thường gặp và cách bảo vệ sức khỏe trong trường học.</p>
-      <div class="forum-preview">
-        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Cách nhận biết sốt xuất huyết ở trẻ</div>
-        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Hướng dẫn sơ cứu khi trẻ bị ngất</div>
-        <div class="forum-topic"><i class="fas fa-chevron-right"></i> Thực đơn dinh dưỡng mùa thi</div>
+<!-- CONTENT 2 CỘT: THƯ VIỆN EDUHEALTH + BẢN TIN -->
+<section class="content-section" id="content-section">
+  <div class="two-columns">
+    <!-- Cột trái: Thư viện EduHealth -->
+    <div class="left-col">
+      <div class="section-label rise"><i class="fas fa-book-medical"></i> Thư viện EduHealth</div>
+      <div id="handbookContainer" class="handbook-grid">
+        <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải cẩm nang...</div>
       </div>
-      <a href="handbook.html" style="display: inline-block; margin-top: 20px; color: var(--blue-primary); text-decoration: none; font-weight: 500;">Xem thêm →</a>
     </div>
-    <div class="health-card rise">
-      <div class="health-icon"><i class="fas fa-comments"></i></div>
-      <div class="health-title">💬 Diễn đàn y tế học đường</div>
-      <div class="news-meta"><i class="far fa-calendar-alt"></i> Hoạt động: 200+ thành viên · Chia sẻ kinh nghiệm</div>
-      <div class="news-loading"><i class="fas fa-users"></i> Thảo luận gần đây: "Phòng chống cúm mùa trong lớp học", "Chế độ dinh dưỡng cho mùa thi"</div>
-      <p class="feat-p" style="margin-top: 16px;"><i class="fas fa-shield-alt"></i> Cộng đồng y tế học đường – Hỏi đáp, chia sẻ kiến thức chăm sóc sức khỏe an toàn.</p>
-      <a href="forum.html" style="display: inline-block; margin-top: 20px; color: var(--blue-primary); text-decoration: none; font-weight: 500;">Tham gia diễn đàn →</a>
+
+    <!-- Cột phải: Bản tin sức khỏe học đường -->
+    <div class="right-col">
+      <div class="section-label rise"><i class="fas fa-newspaper"></i> Bản tin sức khỏe học đường</div>
+      <div id="newsVerticalContainer" class="news-vertical-list">
+        <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải bản tin...</div>
+      </div>
+      <div class="load-more-btn" id="loadMoreNewsBtn" style="display: none;">
+        <button class="btn-load-more" onclick="loadMoreNews()"><i class="fas fa-arrow-down"></i> Xem thêm bản tin</button>
+      </div>
     </div>
   </div>
 </section>
@@ -903,17 +884,9 @@ footer {
   </div>
 </section>
 
-<section class="cta-section">
-  <div class="cta-card">
-    <h2>🏥 Cần tìm cơ sở y tế gần bạn?</h2>
-    <p>Hệ thống bản đồ y tế thông minh giúp bạn tìm bệnh viện, phòng khám, hiệu thuốc nhanh chóng</p>
-    <button class="cta-btn" onclick="window.location.href='map.html'"><i class="fas fa-map-marked-alt"></i> Tìm cơ sở y tế ngay</button>
-  </div>
-</section>
-
 <footer>
   <div class="footer-inner">
-    <div class="footer-copyright"><i class="far fa-copyright"></i> 2026 EduHealth AI — Nền tảng chăm sóc sức khỏe học đường. Không thay thế bác sĩ.</div>
+    <div class="footer-copyright"><i class="far fa-copyright"></i> 2026 EduHealth AI — Nền tảng chăm sóc sức khỏe học đường. EduHealth AI hỗ trợ chăm sóc sức khỏe học đường, không thay thế bác sĩ hay chẩn đoán trực tiếp.</div>
     <div class="footer-links">
       <a href="#">Giới thiệu</a>
       <a href="#">Chính sách bảo mật</a>
@@ -923,12 +896,12 @@ footer {
   </div>
 </footer>
 
-<!-- Modal xem bản tin -->
-<div id="newsModal" class="modal-overlay">
+<!-- Modal xem bài viết -->
+<div id="contentModal" class="modal-overlay">
   <div class="modal-content">
     <div class="modal-header">
-      <h3 id="modalTitle">Bản tin y tế</h3>
-      <button class="modal-close" onclick="closeNewsModal()">&times;</button>
+      <h3 id="modalTitle">Bài viết</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -950,11 +923,24 @@ footer {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  let allNews = [];
-  let displayedCount = 3;
-  let isLoading = false;
+  // ========== THƯ VIỆN EDUHEALTH ==========
+  let allHandbook = [];
 
-  function truncateHtml(html, maxLength = 120) {
+  async function loadHandbook() {
+    try {
+      const querySnapshot = await db.collection('handbook').orderBy('createdAt', 'desc').get();
+      allHandbook = [];
+      querySnapshot.forEach((doc) => {
+        allHandbook.push({ id: doc.id, ...doc.data() });
+      });
+      displayHandbook();
+    } catch (error) {
+      console.error('Lỗi tải cẩm nang:', error);
+      document.getElementById('handbookContainer').innerHTML = '<div class="empty-state">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại sau.</div>';
+    }
+  }
+
+  function truncateHtml(html, maxLength = 80) {
     const temp = document.createElement('div');
     temp.innerHTML = html;
     const text = temp.textContent || temp.innerText || '';
@@ -968,6 +954,56 @@ footer {
     return div.innerHTML;
   }
 
+  function displayHandbook() {
+    const container = document.getElementById('handbookContainer');
+    if (allHandbook.length === 0) {
+      container.innerHTML = '<div class="empty-state">📚 Cẩm nang sức khỏe bỏ túi cho học sinh và phụ huynh. Chia sẻ những thông tin hữu ích về các dấu hiệu sức khỏe thường gặp và cách bảo vệ bản thân trong môi trường học đường.</div>';
+      return;
+    }
+
+    container.innerHTML = allHandbook.map(post => `
+      <div class="handbook-card" onclick="openHandbookPost('${post.id}')">
+        <img class="handbook-cover" src="${post.coverImage}" alt="${escapeHtml(post.title)}" onerror="this.src='https://placehold.co/400x200?text=No+Image'">
+        <div class="handbook-content">
+          <h3 class="handbook-card-title">${escapeHtml(post.title)}</h3>
+          <div class="handbook-excerpt">${truncateHtml(post.content || '', 80)}</div>
+          <div class="handbook-stats">
+            <span><i class="far fa-eye"></i> ${post.views || 0}</span>
+            <span><i class="far fa-calendar-alt"></i> ${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function openHandbookPost(postId) {
+    const post = allHandbook.find(p => p.id === postId);
+    if (!post) return;
+
+    await db.collection('handbook').doc(postId).update({
+      views: firebase.firestore.FieldValue.increment(1)
+    });
+    post.views = (post.views || 0) + 1;
+
+    const modal = document.getElementById('contentModal');
+    const modalBody = document.getElementById('modalBody');
+
+    modalBody.innerHTML = `
+      <div class="modal-content-text">${post.content || ''}</div>
+      <div class="news-modal-stats">
+        <span><i class="far fa-eye"></i> ${post.views || 0} lượt xem</span>
+        <span><i class="far fa-calendar-alt"></i> ${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span>
+      </div>
+    `;
+    
+    document.getElementById('modalTitle').innerText = post.title || 'Bài viết cẩm nang';
+    modal.classList.add('active');
+  }
+
+  // ========== BẢN TIN SỨC KHỎE HỌC ĐƯỜNG ==========
+  let allNews = [];
+  let displayedNewsCount = 5;
+
   async function loadNews() {
     try {
       const querySnapshot = await db.collection('news').orderBy('createdAt', 'desc').get();
@@ -975,79 +1011,65 @@ footer {
       querySnapshot.forEach((doc) => {
         allNews.push({ id: doc.id, ...doc.data() });
       });
-      displayedCount = 3;
-      displayNews();
+      displayedNewsCount = 5;
+      displayNewsVertical();
     } catch (error) {
       console.error('Lỗi tải bản tin:', error);
-      document.getElementById('newsGridContainer').innerHTML = '<div class="empty-news">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại sau.</div>';
+      document.getElementById('newsVerticalContainer').innerHTML = '<div class="empty-state">⚠️ Lỗi tải dữ liệu.</div>';
     }
   }
 
-  function displayNews() {
-    const container = document.getElementById('newsGridContainer');
-    const newsToShow = allNews.slice(0, displayedCount);
+  function displayNewsVertical() {
+    const container = document.getElementById('newsVerticalContainer');
+    const newsToShow = allNews.slice(0, displayedNewsCount);
     
     if (allNews.length === 0) {
-      container.innerHTML = '<div class="empty-news">📭 Chưa có bản tin y tế nào. Hãy quay lại sau!</div>';
-      document.getElementById('loadMoreBtn').style.display = 'none';
+      container.innerHTML = '<div class="empty-state">📭 Chưa có bản tin y tế nào.</div>';
+      document.getElementById('loadMoreNewsBtn').style.display = 'none';
       return;
     }
     
     if (newsToShow.length === 0) {
-      container.innerHTML = '<div class="empty-news">📭 Không có bản tin nào</div>';
-      document.getElementById('loadMoreBtn').style.display = 'none';
+      container.innerHTML = '<div class="empty-state">📭 Không có bản tin nào</div>';
+      document.getElementById('loadMoreNewsBtn').style.display = 'none';
       return;
     }
     
     container.innerHTML = newsToShow.map(news => `
-      <div class="news-card" onclick="openNews('${news.id}')">
-        <img class="news-cover" src="${news.coverImage}" alt="${escapeHtml(news.title)}" onerror="this.src='https://placehold.co/400x200?text=No+Image'">
-        <div class="news-content">
-          <h3 class="news-title">${escapeHtml(news.title)}</h3>
-          <div class="news-excerpt">${truncateHtml(news.content || '', 100)}</div>
-          <div class="news-stats">
-            <span><i class="far fa-eye"></i> ${news.views || 0} lượt xem</span>
+      <div class="news-vertical-item" onclick="openNewsPost('${news.id}')">
+        <img class="news-vertical-cover" src="${news.coverImage}" alt="${escapeHtml(news.title)}" onerror="this.src='https://placehold.co/70x70?text=No+Img'">
+        <div class="news-vertical-info">
+          <h4 class="news-vertical-title">${escapeHtml(news.title)}</h4>
+          <div class="news-vertical-meta">
+            <span><i class="far fa-eye"></i> ${news.views || 0}</span>
             <span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span>
           </div>
         </div>
       </div>
     `).join('');
     
-    // Hiển thị nút "Xem thêm" nếu còn bài viết
-    if (allNews.length > displayedCount) {
-      document.getElementById('loadMoreBtn').style.display = 'block';
+    if (allNews.length > displayedNewsCount) {
+      document.getElementById('loadMoreNewsBtn').style.display = 'block';
     } else {
-      document.getElementById('loadMoreBtn').style.display = 'none';
+      document.getElementById('loadMoreNewsBtn').style.display = 'none';
     }
   }
 
   function loadMoreNews() {
-    if (isLoading) return;
-    isLoading = true;
-    
-    const loadMoreBtn = document.querySelector('#loadMoreBtn .btn-load-more');
-    const originalText = loadMoreBtn.innerHTML;
-    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang tải...';
-    
-    setTimeout(() => {
-      displayedCount += 3;
-      displayNews();
-      isLoading = false;
-      loadMoreBtn.innerHTML = originalText;
-    }, 500);
+    displayedNewsCount += 5;
+    displayNewsVertical();
   }
 
-  async function openNews(newsId) {
+  async function openNewsPost(newsId) {
     const news = allNews.find(n => n.id === newsId);
     if (!news) return;
     
-    // Tăng lượt xem
     await db.collection('news').doc(newsId).update({
       views: firebase.firestore.FieldValue.increment(1)
     });
     news.views = (news.views || 0) + 1;
     
-    const modal = document.getElementById('newsModal');
+    const modal = document.getElementById('contentModal');
     const modalBody = document.getElementById('modalBody');
     
     modalBody.innerHTML = `
@@ -1062,9 +1084,13 @@ footer {
     modal.classList.add('active');
   }
 
-  function closeNewsModal() {
-    document.getElementById('newsModal').classList.remove('active');
+  function closeModal() {
+    document.getElementById('contentModal').classList.remove('active');
   }
+
+  // ========== KHỞI TẠO ==========
+  loadHandbook();
+  loadNews();
 
   // Theme toggle
   const themeBtn = document.getElementById('themeToggleBtn');
@@ -1142,17 +1168,15 @@ footer {
   });
   
   // Đóng modal khi click ra ngoài
-  document.getElementById('newsModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('newsModal')) closeNewsModal();
+  document.getElementById('contentModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('contentModal')) closeModal();
   });
   
-  // Khởi tạo
-  loadNews();
-  
-  // Export functions cho global
-  window.openNews = openNews;
-  window.closeNewsModal = closeNewsModal;
+  // Export functions
+  window.openHandbookPost = openHandbookPost;
+  window.openNewsPost = openNewsPost;
   window.loadMoreNews = loadMoreNews;
+  window.closeModal = closeModal;
 </script>
 </body>
 </html>

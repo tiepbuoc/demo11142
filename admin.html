@@ -457,6 +457,352 @@
             border-bottom: 1px solid var(--border-light);
         }
 
+        /* Knowledge Management Styles - Improved */
+        .knowledge-section {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+        .knowledge-section:hover {
+            border-color: var(--pink-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--blue-primary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .section-title i {
+            font-size: 1.3rem;
+            color: var(--pink-primary);
+        }
+        .section-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            background: var(--tag-bg);
+            border-radius: 12px;
+        }
+        textarea.knowledge-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            font-size: 14px;
+            font-family: 'DM Sans', monospace;
+            resize: vertical;
+            margin-bottom: 15px;
+            background: var(--input-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        textarea.knowledge-textarea:focus {
+            outline: none;
+            border-color: var(--blue-primary);
+        }
+        .knowledge-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .status {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-top: 12px;
+            display: inline-block;
+        }
+        .status.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+        .status.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        /* Chat Management Styles - Improved */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 24px;
+        }
+
+        .chat-list-container {
+            background: var(--card-bg);
+            border-radius: 28px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            height: 550px;
+        }
+
+        .chat-list-header {
+            padding: 18px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .chat-list-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-chat-box {
+            position: relative;
+        }
+        .search-chat-box input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            font-size: 14px;
+            background: var(--input-bg);
+            color: var(--text-dark);
+        }
+        .search-chat-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+        }
+
+        .chat-list {
+            max-height: 550px;
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-item:hover {
+            background: var(--tag-bg);
+        }
+
+        .chat-item.active {
+            background: var(--tag-bg);
+            border-left: 4px solid var(--blue-primary);
+        }
+
+        .chat-name {
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chat-name i {
+            color: var(--pink-primary);
+            font-size: 14px;
+        }
+
+        .chat-preview {
+            font-size: 12px;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-time {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 6px;
+        }
+
+        .chat-detail-container {
+            background: var(--card-bg);
+            border-radius: 28px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-detail-header {
+            padding: 18px 24px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .chat-detail-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-toggle {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .ai-toggle.off {
+            background: var(--text-dim);
+        }
+        .ai-toggle:hover {
+            transform: scale(1.02);
+        }
+
+        .messages-area {
+            height: 420px;
+            overflow-y: auto;
+            padding: 20px;
+            background: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin-bottom: 4px;
+        }
+
+        .message.admin {
+            background: var(--grad-blue-pink);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.user {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.ai {
+            background: var(--tag-bg);
+            border-left: 4px solid var(--success);
+            align-self: flex-start;
+        }
+
+        .message-system {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            text-align: center;
+            align-self: center;
+            max-width: 90%;
+            font-size: 12px;
+        }
+
+        .message-sender {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            opacity: 0.8;
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .message-text strong { font-weight: 700; }
+        .message-text em { font-style: italic; }
+        .message-text h1, .message-text h2, .message-text h3, 
+        .message-text h4, .message-text h5, .message-text h6 {
+            margin: 8px 0;
+            font-family: 'Fraunces', serif;
+        }
+        .message-text ul, .message-text ol {
+            margin: 6px 0 6px 20px;
+        }
+        .message-text li {
+            margin: 2px 0;
+        }
+        .message-text p {
+            margin: 4px 0;
+        }
+
+        .message-time {
+            font-size: 10px;
+            margin-top: 6px;
+            opacity: 0.6;
+        }
+
+        .message-image {
+            max-width: 180px;
+            border-radius: 12px;
+            margin-top: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+
+        .chat-input-area {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 12px;
+            background: var(--card-bg);
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            background: var(--input-bg);
+            color: var(--text-dark);
+            font-family: 'DM Sans', sans-serif;
+        }
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: var(--blue-primary);
+        }
+
+        .chat-input-area button {
+            padding: 12px 24px;
+            background: var(--grad-blue-pink);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .chat-input-area button:hover {
+            transform: translateY(-2px);
+        }
+
         /* Modal styles */
         .modal-overlay {
             position: fixed;
@@ -517,6 +863,32 @@
             padding: 24px;
         }
 
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+        }
+        .close-image-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
         .post-content-box {
             background: var(--bg-surface);
             border-radius: 24px;
@@ -535,17 +907,6 @@
             border-radius: 24px;
             padding: 24px;
             border: 2px solid var(--border-light);
-        }
-
-        .comment-input-group { margin-bottom: 16px; }
-        .comment-input-group input, .comment-input-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 24px;
-            border: 1px solid var(--border-light);
-            background: var(--input-bg);
-            color: var(--text-dark);
-            font-family: 'DM Sans', sans-serif;
         }
 
         .comments-list {
@@ -594,7 +955,6 @@
         .quiz-option:hover { background: var(--blue-primary); color: white; }
         .quiz-option.correct { background: var(--success); color: white; border-color: var(--success); }
         .quiz-option.wrong { background: var(--danger); color: white; border-color: var(--danger); }
-        .quiz-option.selected { border-color: var(--pink-primary); }
 
         .poll-option {
             background: var(--tag-bg);
@@ -632,7 +992,6 @@
             font-weight: 500;
             color: var(--blue-primary);
         }
-        .poll-option:hover { transform: scale(1.01); }
 
         .post-title-link {
             color: var(--blue-primary);
@@ -686,39 +1045,10 @@
             text-align: justify !important;
         }
 
-        .ql-indent-1 { padding-left: 3em !important; }
-        .ql-indent-2 { padding-left: 6em !important; }
-        .ql-indent-3 { padding-left: 9em !important; }
-        .ql-indent-4 { padding-left: 12em !important; }
-        .ql-indent-5 { padding-left: 15em !important; }
-        .ql-indent-6 { padding-left: 18em !important; }
-        .ql-indent-7 { padding-left: 21em !important; }
-        .ql-indent-8 { padding-left: 24em !important; }
-
         .modal-content-text {
             font-size: 16px;
             line-height: 1.6;
         }
-        .modal-content-text .ql-align-center {
-            text-align: center !important;
-        }
-        .modal-content-text .ql-align-right {
-            text-align: right !important;
-        }
-        .modal-content-text .ql-align-left {
-            text-align: left !important;
-        }
-        .modal-content-text .ql-align-justify {
-            text-align: justify !important;
-        }
-        .modal-content-text .ql-indent-1 { padding-left: 3em !important; }
-        .modal-content-text .ql-indent-2 { padding-left: 6em !important; }
-        .modal-content-text .ql-indent-3 { padding-left: 9em !important; }
-        .modal-content-text .ql-indent-4 { padding-left: 12em !important; }
-        .modal-content-text .ql-indent-5 { padding-left: 15em !important; }
-        .modal-content-text .ql-indent-6 { padding-left: 18em !important; }
-        .modal-content-text .ql-indent-7 { padding-left: 21em !important; }
-        .modal-content-text .ql-indent-8 { padding-left: 24em !important; }
         .modal-content-text img { 
             max-width: 100%; 
             border-radius: 16px;
@@ -727,28 +1057,21 @@
         .modal-content-text p {
             margin-bottom: 16px;
         }
-        .modal-content-text h1, .modal-content-text h2, .modal-content-text h3, 
-        .modal-content-text h4, .modal-content-text h5, .modal-content-text h6 {
-            margin: 20px 0 12px 0;
-            font-family: 'Fraunces', serif;
-        }
-        .modal-content-text h1 { font-size: 2em; font-weight: bold; }
-        .modal-content-text h2 { font-size: 1.5em; font-weight: bold; }
-        .modal-content-text h3 { font-size: 1.17em; font-weight: bold; }
-        .modal-content-text h4 { font-size: 1em; font-weight: bold; }
-        .modal-content-text ul, .modal-content-text ol {
-            margin: 10px 0 10px 25px;
-        }
-        .modal-content-text blockquote {
-            border-left: 4px solid var(--pink-primary);
-            padding-left: 16px;
-            margin: 16px 0;
-            color: var(--text-mid);
-        }
 
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+
+        .empty-chat {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+        .empty-chat i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
@@ -759,6 +1082,9 @@
             .tab-btn { justify-content: center; }
             .nav-menu { display: none; }
             .form-card, .list-card { padding: 20px; }
+            .two-columns { grid-template-columns: 1fr; }
+            .messages-area { height: 350px; }
+            .message { max-width: 90%; }
         }
 
         @media (max-width: 480px) {
@@ -775,9 +1101,8 @@
             <div class="logo-type">EduHealth AI</div>
         </a>
         <div class="nav-menu">
-            <a href="handbook.html" class="nav-link"><i class="fas fa-book-medical"></i> Cẩm nang y tế</a>
-            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
         <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
@@ -789,8 +1114,14 @@
         </div>
 
         <div class="admin-tabs">
-            <button class="tab-btn active" onclick="switchTab('locations')">
-                <i class="fas fa-hospital-user"></i> Quản lý cơ sở y tế
+            <button class="tab-btn active" onclick="switchTab('knowledge')">
+                <i class="fas fa-database"></i> Kiến thức AI
+            </button>
+            <button class="tab-btn" onclick="switchTab('chat')">
+                <i class="fas fa-comments"></i> Quản lý trò chuyện
+            </button>
+            <button class="tab-btn" onclick="switchTab('locations')">
+                <i class="fas fa-hospital-user"></i> Cơ sở y tế
             </button>
             <button class="tab-btn" onclick="switchTab('posts')">
                 <i class="fas fa-newspaper"></i> Duyệt bài đăng
@@ -803,12 +1134,105 @@
             </button>
         </div>
 
+        <!-- Tab: Quản lý kiến thức AI -->
+        <div id="tab-knowledge" class="tab-content">
+            <div class="form-card">
+                <h2 style="margin-bottom: 8px;"><i class="fas fa-brain"></i> Kho kiến thức của EduHealth AI</h2>
+                <p style="color: var(--text-dim); margin-bottom: 24px;">AI sẽ đọc toàn bộ nội dung dưới đây để hỗ trợ người dùng. Hãy cập nhật kiến thức đầy đủ và chính xác nhé.</p>
+                
+                <div class="knowledge-section">
+                    <div class="section-title">
+                        <i class="fas fa-list-check"></i> 1. Kiến thức tạo checklist
+                    </div>
+                    <div class="section-desc">
+                        <i class="fas fa-info-circle"></i> Nội dung này giúp AI đặt câu hỏi để thu thập thông tin triệu chứng từ người dùng.
+                    </div>
+                    <textarea id="checklistKnowledge" class="knowledge-textarea" rows="8" placeholder="Nhập kiến thức về cách tạo checklist triệu chứng..."></textarea>
+                    <div class="knowledge-actions">
+                        <button class="btn-primary" onclick="saveKnowledge('checklist')">
+                            <i class="fas fa-save"></i> Lưu kiến thức
+                        </button>
+                        <div id="checklistStatus" class="status"></div>
+                    </div>
+                </div>
+                
+                <div class="knowledge-section">
+                    <div class="section-title">
+                        <i class="fas fa-stethoscope"></i> 2. Kiến thức phân tích bệnh
+                    </div>
+                    <div class="section-desc">
+                        <i class="fas fa-info-circle"></i> Nội dung này giúp AI phân tích triệu chứng và đưa ra gợi ý ban đầu.
+                    </div>
+                    <textarea id="diagnosisKnowledge" class="knowledge-textarea" rows="8" placeholder="Nhập kiến thức về phân tích bệnh da liễu..."></textarea>
+                    <div class="knowledge-actions">
+                        <button class="btn-primary" onclick="saveKnowledge('diagnosis')">
+                            <i class="fas fa-save"></i> Lưu kiến thức
+                        </button>
+                        <div id="diagnosisStatus" class="status"></div>
+                    </div>
+                </div>
+                
+                <div class="knowledge-section">
+                    <div class="section-title">
+                        <i class="fas fa-comment-dots"></i> 3. Kiến thức tư vấn chat
+                    </div>
+                    <div class="section-desc">
+                        <i class="fas fa-info-circle"></i> Nội dung này giúp AI trả lời các câu hỏi trong khung trò chuyện.
+                    </div>
+                    <textarea id="chatKnowledge" class="knowledge-textarea" rows="8" placeholder="Nhập kiến thức để AI trả lời trong chat..."></textarea>
+                    <div class="knowledge-actions">
+                        <button class="btn-primary" onclick="saveKnowledge('chat_response')">
+                            <i class="fas fa-save"></i> Lưu kiến thức
+                        </button>
+                        <div id="chatStatus" class="status"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Quản lý trò chuyện -->
+        <div id="tab-chat" class="tab-content" style="display: none;">
+            <div class="two-columns">
+                <div class="chat-list-container">
+                    <div class="chat-list-header">
+                        <h3><i class="fas fa-users"></i> Danh sách cuộc trò chuyện</h3>
+                        <div class="search-chat-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchChat" placeholder="Tìm theo tên người dùng...">
+                        </div>
+                    </div>
+                    <div class="chat-list" id="chatList">
+                        <div class="empty-chat"><i class="fas fa-spinner fa-pulse"></i><p>Đang tải...</p></div>
+                    </div>
+                </div>
+                
+                <div class="chat-detail-container">
+                    <div class="chat-detail-header">
+                        <h3><i class="fas fa-message"></i> <span id="currentChatName">Chọn cuộc trò chuyện</span></h3>
+                        <button class="ai-toggle" id="aiToggle" style="display: none;">
+                            <i class="fas fa-robot"></i> Bật AI
+                        </button>
+                    </div>
+                    <div class="messages-area" id="messagesArea">
+                        <div class="empty-chat">
+                            <i class="fas fa-comment-dots"></i>
+                            <p>Chọn một cuộc trò chuyện để xem tin nhắn</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                        <input type="text" id="adminMessageInput" placeholder="Nhập tin nhắn...">
+                        <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i> Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tab: Quản lý địa điểm -->
-        <div id="tab-locations" class="tab-content">
+        <div id="tab-locations" class="tab-content" style="display: none;">
             <div class="stats-grid">
                 <div class="stat-card"><div class="stat-number" id="totalLocations">0</div><div class="text-muted">Tổng cơ sở</div></div>
-                <div class="stat-card"><div class="stat-number" id="totalHospitals">0</div><div class="text-muted">🏥 Bệnh viện</div></div>
-                <div class="stat-card"><div class="stat-number" id="totalPharmacies">0</div><div class="text-muted">💊 Hiệu thuốc</div></div>
+                <div class="stat-card"><div class="stat-number" id="totalHospitals">0</div><div class="text-muted">🏥 Bệnh viện & Phòng khám</div></div>
+                <div class="stat-card"><div class="stat-number" id="totalPharmacies">0</div><div class="text-muted">💊 Nhà thuốc</div></div>
                 <div class="stat-card"><div class="stat-number" id="totalLocationsCount">0</div><div class="text-muted">📍 Tổng số</div></div>
             </div>
 
@@ -830,8 +1254,8 @@
                             <label class="form-label">🏷️ Phân loại</label>
                             <select class="form-select" id="type" required>
                                 <option value="">Chọn</option>
-                                <option value="hospital">🏥 Bệnh viện</option>
-                                <option value="pharmacy">💊 Hiệu thuốc</option>
+                                <option value="hospital">🏥 Bệnh viện & Phòng khám</option>
+                                <option value="pharmacy">💊 Nhà thuốc</option>
                             </select>
                         </div>
                         <div>
@@ -1003,6 +1427,12 @@
         </div>
     </div>
 
+    <!-- Image Modal for chat -->
+    <div class="image-modal" id="imageModal">
+        <span class="close-image-modal">&times;</span>
+        <img id="modalImage" src="">
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
@@ -1026,6 +1456,13 @@
         let newsPosts = [];
         let handbookQuill = null;
         let newsQuill = null;
+        
+        // Chat variables
+        let currentChatId = null;
+        let currentChatData = null;
+        let messageListener = null;
+        let allChats = [];
+        const ADMIN_ID = 'admin_support';
 
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
@@ -1052,7 +1489,312 @@
             if (tab === 'posts') loadPostsForApproval();
             if (tab === 'handbook') loadHandbook();
             if (tab === 'news') loadNews();
+            if (tab === 'chat') loadChatList();
+            if (tab === 'knowledge') loadKnowledge();
         }
+
+        // ========== XỬ LÝ MARKDOWN ==========
+        function formatMarkdown(text) {
+            if (!text) return '';
+            let formatted = text;
+            // Bold: **text** or __text__
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            // Italic: *text* or _text_
+            formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            formatted = formatted.replace(/_(.*?)_/g, '<em>$1</em>');
+            // Headers
+            formatted = formatted.replace(/^### (.*?)$/gm, '<h4>$1</h4>');
+            formatted = formatted.replace(/^## (.*?)$/gm, '<h3>$1</h3>');
+            formatted = formatted.replace(/^# (.*?)$/gm, '<h2>$1</h2>');
+            // Unordered lists
+            formatted = formatted.replace(/^- (.*?)$/gm, '<li>$1</li>');
+            formatted = formatted.replace(/(<li>.*?<\/li>\n?)+/g, '<ul>$&</ul>');
+            // Ordered lists
+            formatted = formatted.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
+            // Line breaks
+            formatted = formatted.replace(/\n\n/g, '</p><p>');
+            formatted = formatted.replace(/\n/g, '<br>');
+            formatted = '<p>' + formatted + '</p>';
+            // Clean up empty paragraphs
+            formatted = formatted.replace(/<p><\/p>/g, '');
+            formatted = formatted.replace(/<p><br><\/p>/g, '');
+            return formatted;
+        }
+
+        // ========== QUẢN LÝ KIẾN THỨC AI ==========
+        async function loadKnowledge() {
+            const snapshot = await db.collection('knowledge_base').get();
+            let checklistText = '';
+            let diagnosisText = '';
+            let chatText = '';
+            
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const content = `${data.question}\n${data.answer}`;
+                if (data.type === 'checklist') {
+                    checklistText += content + '';
+                } else if (data.type === 'diagnosis') {
+                    diagnosisText += content + '';
+                } else if (data.type === 'chat_response') {
+                    chatText += content + '';
+                }
+            });
+            
+            document.getElementById('checklistKnowledge').value = checklistText || 'Chưa có kiến thức. Hãy thêm kiến thức về cách tạo checklist.';
+            document.getElementById('diagnosisKnowledge').value = diagnosisText || 'Chưa có kiến thức. Hãy thêm kiến thức về phân tích bệnh.';
+            document.getElementById('chatKnowledge').value = chatText || 'Chưa có kiến thức. Hãy thêm kiến thức để AI trả lời chat.';
+        }
+        
+        window.saveKnowledge = async (type) => {
+            let content = '';
+            let statusId = '';
+            
+            if (type === 'checklist') {
+                content = document.getElementById('checklistKnowledge').value;
+                statusId = 'checklistStatus';
+            } else if (type === 'diagnosis') {
+                content = document.getElementById('diagnosisKnowledge').value;
+                statusId = 'diagnosisStatus';
+            } else {
+                content = document.getElementById('chatKnowledge').value;
+                statusId = 'chatStatus';
+            }
+            
+            if (!content.trim()) {
+                document.getElementById(statusId).innerHTML = '<span class="status error">⚠️ Vui lòng nhập nội dung kiến thức</span>';
+                setTimeout(() => {
+                    document.getElementById(statusId).innerHTML = '';
+                }, 3000);
+                return;
+            }
+            
+            try {
+                const oldSnapshot = await db.collection('knowledge_base').where('type', '==', type).get();
+                for (const doc of oldSnapshot.docs) {
+                    await db.collection('knowledge_base').doc(doc.id).delete();
+                }
+                
+                await db.collection('knowledge_base').add({
+                    type: type,
+                    question: type === 'checklist' ? '' : (type === 'diagnosis' ? '' : ''),
+                    answer: content,
+                    keywords: [],
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                document.getElementById(statusId).innerHTML = '<span class="status success">✅ Đã lưu thành công!</span>';
+                setTimeout(() => {
+                    document.getElementById(statusId).innerHTML = '';
+                }, 3000);
+                
+                await loadKnowledge();
+            } catch (error) {
+                console.error('Error saving:', error);
+                document.getElementById(statusId).innerHTML = '<span class="status error">❌ Lỗi khi lưu. Vui lòng thử lại.</span>';
+            }
+        };
+
+        // ========== QUẢN LÝ TRÒ CHUYỆN ==========
+        async function loadChatList() {
+            const snapshot = await db.collection('health_chats')
+                .orderBy('lastMessageTime', 'desc')
+                .get();
+            
+            allChats = [];
+            snapshot.forEach(doc => {
+                allChats.push({ id: doc.id, ...doc.data() });
+            });
+            
+            filterAndDisplayChats();
+        }
+        
+        function filterAndDisplayChats() {
+            const searchTerm = document.getElementById('searchChat').value.toLowerCase();
+            let filtered = allChats;
+            
+            if (searchTerm) {
+                filtered = allChats.filter(chat => 
+                    (chat.userName || chat.name || '').toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            const chatList = document.getElementById('chatList');
+            if (filtered.length === 0) {
+                chatList.innerHTML = '<div class="empty-chat"><i class="fas fa-comments"></i><p>Không tìm thấy cuộc trò chuyện</p></div>';
+                return;
+            }
+            
+            let html = '';
+            filtered.forEach(chat => {
+                const isActive = currentChatId === chat.id ? 'active' : '';
+                const displayName = chat.userName || chat.name || 'Khách hàng';
+                const lastMsg = chat.lastMessage ? (chat.lastMessage.length > 50 ? chat.lastMessage.substring(0, 50) + '...' : chat.lastMessage) : 'Chưa có tin nhắn';
+                html += `
+                    <div class="chat-item ${isActive}" data-id="${chat.id}">
+                        <div class="chat-name">
+                            <i class="fas fa-user-circle"></i> ${escapeHtml(displayName)}
+                        </div>
+                        <div class="chat-preview">${escapeHtml(lastMsg)}</div>
+                        <div class="chat-time">${formatChatTime(chat.lastMessageTime)}</div>
+                    </div>
+                `;
+            });
+            chatList.innerHTML = html;
+            
+            document.querySelectorAll('.chat-item').forEach(item => {
+                item.addEventListener('click', () => selectChat(item.dataset.id));
+            });
+        }
+        
+        document.getElementById('searchChat')?.addEventListener('input', filterAndDisplayChats);
+        
+        async function selectChat(chatId) {
+            if (messageListener) messageListener();
+            currentChatId = chatId;
+            
+            const doc = await db.collection('health_chats').doc(chatId).get();
+            currentChatData = doc.data();
+            
+            const displayName = currentChatData.userName || currentChatData.name || 'Khách hàng';
+            document.getElementById('currentChatName').textContent = displayName;
+            document.getElementById('chatInputArea').style.display = 'flex';
+            
+            const aiToggle = document.getElementById('aiToggle');
+            aiToggle.style.display = 'inline-flex';
+            const isAIEnabled = currentChatData.aiEnabled !== false;
+            aiToggle.innerHTML = isAIEnabled ? '<i class="fas fa-robot"></i> Tắt AI' : '<i class="fas fa-robot"></i> Bật AI';
+            aiToggle.className = isAIEnabled ? 'ai-toggle' : 'ai-toggle off';
+            
+            aiToggle.onclick = async () => {
+                const newStatus = currentChatData.aiEnabled !== false ? false : true;
+                await db.collection('health_chats').doc(chatId).update({ aiEnabled: newStatus });
+                currentChatData.aiEnabled = newStatus;
+                aiToggle.innerHTML = newStatus ? '<i class="fas fa-robot"></i> Tắt AI' : '<i class="fas fa-robot"></i> Bật AI';
+                aiToggle.className = newStatus ? 'ai-toggle' : 'ai-toggle off';
+            };
+            
+            loadMessages(chatId);
+            
+            document.querySelectorAll('.chat-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.id === chatId) item.classList.add('active');
+            });
+        }
+        
+        function loadMessages(chatId) {
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.innerHTML = '';
+            
+            messageListener = db.collection('health_chats')
+                .doc(chatId)
+                .collection('messages')
+                .orderBy('timestamp', 'asc')
+                .onSnapshot((snapshot) => {
+                    if (snapshot.empty && messagesArea.children.length === 0) {
+                        messagesArea.innerHTML = '<div class="empty-chat"><i class="fas fa-comment-dots"></i><p>Chưa có tin nhắn</p></div>';
+                    }
+                    
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === 'added') {
+                            const message = { id: change.doc.id, ...change.doc.data() };
+                            displayAdminMessage(message);
+                        }
+                    });
+                    scrollToBottomAdmin();
+                });
+        }
+        
+        function displayAdminMessage(message) {
+            const container = document.getElementById('messagesArea');
+            const msgDiv = document.createElement('div');
+            
+            if (message.senderId === ADMIN_ID) {
+                msgDiv.className = 'message admin';
+            } else if (message.senderId === 'ai') {
+                msgDiv.className = 'message ai';
+            } else if (message.senderId === 'system') {
+                msgDiv.className = 'message message-system';
+            } else {
+                msgDiv.className = 'message user';
+            }
+            
+            if (message.senderId !== ADMIN_ID && message.senderId !== 'system') {
+                const sender = document.createElement('div');
+                sender.className = 'message-sender';
+                let senderName = '';
+                if (message.senderId === 'ai') senderName = '🤖 EduHealth AI';
+                else if (message.senderId === 'user') senderName = message.senderName || 'Khách hàng';
+                else senderName = message.senderName || 'Khách hàng';
+                sender.textContent = senderName;
+                msgDiv.appendChild(sender);
+            }
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            // Xử lý markdown cho nội dung tin nhắn
+            textDiv.innerHTML = formatMarkdown(message.text || '');
+            msgDiv.appendChild(textDiv);
+            
+            if (message.imageData) {
+                const img = document.createElement('img');
+                img.src = message.imageData;
+                img.className = 'message-image';
+                img.onclick = () => openImageModal(message.imageData);
+                msgDiv.appendChild(img);
+            }
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            if (message.timestamp) {
+                const date = message.timestamp.toDate();
+                timeDiv.textContent = date.toLocaleString('vi-VN');
+            }
+            msgDiv.appendChild(timeDiv);
+            
+            container.appendChild(msgDiv);
+        }
+        
+        function scrollToBottomAdmin() {
+            const area = document.getElementById('messagesArea');
+            setTimeout(() => {
+                area.scrollTop = area.scrollHeight;
+            }, 100);
+        }
+        
+        document.getElementById('sendMessageBtn')?.addEventListener('click', async () => {
+            const input = document.getElementById('adminMessageInput');
+            const text = input.value.trim();
+            if (!text || !currentChatId) return;
+            
+            await db.collection('health_chats').doc(currentChatId).collection('messages').add({
+                text: text,
+                senderId: ADMIN_ID,
+                senderName: 'Cộng tác viên y tế',
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            await db.collection('health_chats').doc(currentChatId).update({
+                lastMessage: text,
+                lastMessageTime: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            input.value = '';
+        });
+        
+        document.getElementById('adminMessageInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('sendMessageBtn').click();
+        });
+        
+        function openImageModal(src) {
+            const modal = document.getElementById('imageModal');
+            document.getElementById('modalImage').src = src;
+            modal.style.display = 'flex';
+        }
+        
+        document.querySelector('.close-image-modal')?.addEventListener('click', () => {
+            document.getElementById('imageModal').style.display = 'none';
+        });
 
         // ========== QUẢN LÝ ĐỊA ĐIỂM ==========
         async function loadLocations() {
@@ -1091,7 +1833,7 @@
                             <h6 style="margin-bottom: 8px;">
                                 ${loc.type === 'hospital' ? '🏥' : '💊'} ${escapeHtml(loc.shortNote)}
                                 <span class="${loc.type === 'hospital' ? 'badge-hospital' : 'badge-pharmacy'} ms-2">
-                                    ${loc.type === 'hospital' ? 'Bệnh viện' : 'Hiệu thuốc'}
+                                    ${loc.type === 'hospital' ? 'Bệnh viện & Phòng khám' : 'Nhà thuốc'}
                                 </span>
                             </h6>
                             <p class="text-muted small" style="margin-bottom: 4px;">${escapeHtml(loc.address)}</p>
@@ -1704,11 +2446,22 @@
             }
         });
 
-        function escapeHtml(text) {
-            if (!text) return '';
+        // ========== UTILITIES ==========
+        function escapeHtml(str) {
+            if (!str) return '';
             const div = document.createElement('div');
-            div.textContent = text;
+            div.textContent = str;
             return div.innerHTML;
+        }
+        
+        function formatChatTime(timestamp) {
+            if (!timestamp) return '';
+            const date = timestamp.toDate();
+            const now = new Date();
+            const diff = now - date;
+            if (diff < 3600000) return `${Math.floor(diff / 60000)} phút trước`;
+            if (diff < 86400000) return `${Math.floor(diff / 3600000)} giờ trước`;
+            return date.toLocaleDateString('vi-VN');
         }
 
         window.selectQuizAnswer = (qIdx, optIdx, correctIdx) => {
@@ -1746,11 +2499,14 @@
         window.viewHandbookPost = viewHandbookPost;
         window.viewNewsPost = viewNewsPost;
         window.closeModal = closeModal;
+        window.saveKnowledge = saveKnowledge;
 
+        // Khởi tạo
         loadLocations();
         loadPostsForApproval();
         loadHandbook();
         loadNews();
+        loadKnowledge();
         initHandbookEditor();
         initNewsEditor();
 
