@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>AI Sức Khỏe - Phân tích da & mụn thông minh | EduHealth AI</title>
+    <title>Check-in sức khỏe cùng EduHealth AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -447,19 +447,6 @@
             border: 1px solid var(--border-light);
             line-height: 1.55;
         }
-        .analysis-card h1, .analysis-card h2, .analysis-card h3 {
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-family: 'Fraunces', serif;
-        }
-        .analysis-card p {
-            margin-bottom: 0.75rem;
-        }
-        .analysis-card ul, .analysis-card ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
         .footer-note {
             text-align: center;
             font-size: 0.7rem;
@@ -479,18 +466,6 @@
             text-align: center;
             margin-top: 12px;
             color: var(--text-dim);
-        }
-        .markdown-content code {
-            background: var(--tag-bg);
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-family: monospace;
-        }
-        .markdown-content blockquote {
-            border-left: 4px solid var(--pink-primary);
-            margin: 0.8rem 0;
-            padding-left: 1rem;
-            color: var(--text-mid);
         }
         .chat-btn-section {
             margin-top: 20px;
@@ -538,24 +513,68 @@
             font-size: 11px;
             color: var(--text-dim);
         }
-        .admin-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--grad-blue-pink);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
+
+        /* Result UI Styles */
+        .diagnosis-result {
+            background: linear-gradient(135deg, var(--bg-surface), var(--card-bg));
+            border-radius: 24px;
+            padding: 24px;
         }
-        .admin-link:hover {
-            transform: translateY(-2px);
+        .diagnosis-header {
+            background: var(--grad-blue-pink);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            color: white;
+        }
+        .diagnosis-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .diagnosis-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+        .info-row {
+            display: flex;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .info-label {
+            width: 140px;
+            font-weight: 600;
+            color: var(--blue-primary);
+        }
+        .info-value {
+            flex: 1;
+            color: var(--text-mid);
+        }
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 16px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 16px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+        .suggestion-list {
+            margin-top: 16px;
+            padding-left: 20px;
+        }
+        .suggestion-list li {
+            margin: 8px 0;
         }
 
         @media (max-width: 768px) {
@@ -565,6 +584,7 @@
             .card { padding: 20px; }
             .container { padding: 90px 16px 40px; }
             .chat-nav-btn { padding: 10px 20px; font-size: 14px; }
+            .info-label { width: 100px; }
         }
     </style>
 </head>
@@ -576,8 +596,8 @@
         </a>
         
         <div class="nav-menu">
-            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
         
@@ -589,51 +609,51 @@
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
-            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check in sức khỏe</a>
-            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Cơ sở y tế</a>
+            <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
+            <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
         </div>
     </div>
 
     <div class="container">
         <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-robot"></i> AI Health Analyzer | Da & Mụn</h1>
+            <h1 class="page-title"><i class="fas fa-stethoscope"></i> Check-in sức khỏe cùng EduHealth AI</h1>
             <a href="chatbox.html" class="chat-nav-btn"><i class="fas fa-comment-dots"></i> 💬 Trò chuyện với AI</a>
         </div>
 
         <!-- BƯỚC 1: NHẬP ẢNH + MÔ TẢ -->
         <div id="step1Container" class="card">
-            <h3 style="margin-bottom: 16px;"><i class="fas fa-camera-retro"></i> Ảnh chụp & mô tả tình trạng</h3>
+            <h3 style="margin-bottom: 16px;"><i class="fas fa-camera-retro"></i> Để EduHealth AI giúp bạn nhận biết sớm vấn đề !</h3>
             <div class="upload-area" id="dropZone">
                 <i class="fas fa-cloud-upload-alt"></i>
-                <p>Kéo thả ảnh vào đây hoặc bấm chọn file</p>
+                <p>Tải ảnh hoặc chụp trực tiếp</p>
                 <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg" style="display:none">
                 <div class="camera-controls">
-                    <button class="btn btn-outline" id="chooseFileBtn"><i class="fas fa-folder-open"></i> Chọn ảnh</button>
+                    <button class="btn btn-outline" id="chooseFileBtn"><i class="fas fa-folder-open"></i> Bấm để chọn ảnh</button>
                     <button class="btn btn-outline" id="cameraBtn"><i class="fas fa-camera"></i> Chụp ảnh</button>
                 </div>
                 <div class="image-preview" id="imagePreview"></div>
             </div>
-            <label class="symptom-description"><i class="fas fa-edit"></i> 📝 Mô tả tình trạng da / cơ thể (bắt buộc):</label>
-            <textarea id="symptomText" rows="3" placeholder="Ví dụ: Gần đây da mặt nổi nhiều mụn đỏ, vùng trán và má bị dầu, hay căng thẳng, ngủ muộn, thời tiết nóng ẩm..."></textarea>
+            <label class="symptom-description"><i class="fas fa-edit"></i> 📝 Hãy mô tả cảm giác của bạn lúc này:</label>
+            <textarea id="symptomText" rows="3" placeholder="Bạn hãy chia sẻ kỹ hơn những gì mình đang cảm thấy, như đau, ngứa, rát, tiền sử dị ứng hoặc nhiệt độ cơ thể. Càng chi tiết, EduHealth AI càng hỗ trợ bạn tốt hơn."></textarea>
             <div class="action-buttons">
-                <button class="btn btn-primary" id="step1Btn"><i class="fas fa-magic"></i> ✨ Tạo checklist</button>
+                <button class="btn btn-primary" id="step1Btn"><i class="fas fa-magic"></i> Bắt đầu check-in sức khỏe</button>
             </div>
             <div class="footer-note">
-                <i class="fas fa-shield-alt"></i> AI sẽ phân tích ảnh + mô tả, sinh checklist cá nhân hóa.
+                <i class="fas fa-shield-alt"></i> EduHealth AI hỗ trợ chăm sóc sức khỏe học đường, không thay thế bác sĩ hay chẩn đoán trực tiếp.
             </div>
         </div>
 
         <!-- BƯỚC 2: HIỂN THỊ CHECKLIST -->
         <div id="step2Container" class="card" style="display: none;">
-            <h3 style="margin-bottom: 16px;"><i class="fas fa-check-square"></i> 2️⃣ Checklist triệu chứng (chọn các vấn đề bạn gặp)</h3>
+            <h3 style="margin-bottom: 16px;"><i class="fas fa-check-square"></i> 2️⃣ Hãy cho EduHealth AI biết thêm về tình trạng của bạn</h3>
             <div id="checklistArea" class="checklist-container">
                 <div style="text-align:center; color: var(--text-dim); padding: 40px 20px;">
-                    <i class="fas fa-spinner fa-pulse"></i> Đang tải checklist...
+                    <i class="fas fa-spinner fa-pulse"></i> Đang tạo checklist...
                 </div>
             </div>
             <div class="step-buttons">
-                <button class="btn btn-primary" id="step2Btn"><i class="fas fa-stethoscope"></i> 🔍 Phân tích chuyên sâu</button>
+                <button class="btn btn-primary" id="step2Btn"><i class="fas fa-stethoscope"></i> 🔍 Xem kết quả nhận biết</button>
             </div>
             <div class="back-info">
                 <i class="fas fa-arrow-left"></i> Checklist được tạo từ ảnh và mô tả của bạn
@@ -643,8 +663,8 @@
         <!-- BƯỚC 3: KẾT QUẢ PHÂN TÍCH -->
         <div id="step3Container" class="card" style="display: none;">
             <div class="result-area" style="padding: 0;">
-                <div class="result-title"><i class="fas fa-chart-line"></i> 📊 Kết quả phân tích sức khỏe</div>
-                <div id="analysisResult">✨ Đang xử lý kết quả...</div>
+                <div class="result-title"><i class="fas fa-chart-line"></i> 📊 Kết quả nhận biết từ EduHealth AI</div>
+                <div id="analysisResult">✨ EduHealth AI đã sẵn sàng, hãy chia sẻ cùng mình nhé!</div>
                 <div id="chatButtonSection" class="chat-btn-section" style="display: none;">
                     <button class="btn btn-primary" id="openNewChatBtn">
                         <i class="fas fa-comment-dots"></i> 💬 Trò chuyện với AI về kết quả
@@ -658,11 +678,10 @@
             </div>
             
             <div class="step-buttons" style="margin-top: 20px;">
-                <button class="btn btn-outline" id="resetBtn"><i class="fas fa-redo-alt"></i> Phân tích lại từ đầu</button>
+                <button class="btn btn-outline" id="resetBtn"><i class="fas fa-redo-alt"></i> Check-in lại từ đầu</button>
             </div>
         </div>
     </div>
-
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -724,7 +743,7 @@
             
             let userName = localStorage.getItem('healthUserName');
             if (!userName) {
-                userName = "Bệnh nhân " + currentUserId.substr(-6);
+                userName = "Bạn đọc " + currentUserId.substr(-6);
                 localStorage.setItem('healthUserName', userName);
             }
             return userName;
@@ -876,80 +895,129 @@
             return knowledgeText || 'Không có kiến thức cụ thể. Hãy dựa trên chuyên môn của bạn.';
         }
         
-        function renderMarkdownToHtml(text) {
-            if (!text) return "";
-            let html = text;
-            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-            html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
-            html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
-            html = html.replace(/^---$/gm, '<hr>');
+        // Hàm định dạng kết quả phân tích thành UI đẹp
+        function formatAnalysisResultToUI(analysisText) {
+            if (!analysisText) return '<div class="loading">Đang xử lý...</div>';
             
-            const lines = html.split('\n');
-            let inList = false;
-            let processedLines = [];
-            for (let i = 0; i < lines.length; i++) {
-                let line = lines[i];
-                const bulletMatch = line.match(/^[\*\-]\s+(.*)$/);
-                if (bulletMatch) {
-                    if (!inList) {
-                        processedLines.push('<ul>');
-                        inList = true;
-                    }
-                    processedLines.push(`<li>${bulletMatch[1]}</li>`);
-                } else {
-                    if (inList) {
-                        processedLines.push('</ul>');
-                        inList = false;
-                    }
-                    processedLines.push(line);
-                }
+            // Thử parse nội dung theo cấu trúc
+            let diagnosis = '';
+            let confidence = '';
+            let symptoms = '';
+            let causes = '';
+            let suggestions = '';
+            let note = '';
+            
+            // Tìm các section
+            const diagMatch = analysisText.match(/(?:CHẨN ĐOÁN|DIAGNOSIS|BỆNH|KẾT LUẬN)[:\s]*([^\n]+)/i);
+            if (diagMatch) diagnosis = diagMatch[1];
+            
+            const confMatch = analysisText.match(/(?:ĐỘ TIN CẬY|CONFIDENCE|MỨC ĐỘ)[:\s]*([^\n]+)/i);
+            if (confMatch) confidence = confMatch[1];
+            
+            const symMatch = analysisText.match(/(?:TRIỆU CHỨNG|SYMPTOMS|DẤU HIỆU)[:\s]*([^\n]+(?:\n[^\n]+)*?)(?=\n\n|\n[A-ZÀ-Ỹ]+:|$)/i);
+            if (symMatch) symptoms = symMatch[1];
+            
+            const causeMatch = analysisText.match(/(?:NGUYÊN NHÂN|CAUSES|LÝ DO)[:\s]*([^\n]+(?:\n[^\n]+)*?)(?=\n\n|\n[A-ZÀ-Ỹ]+:|$)/i);
+            if (causeMatch) causes = causeMatch[1];
+            
+            const suggMatch = analysisText.match(/(?:LỜI KHUYÊN|SUGGESTIONS|HƯỚNG DẪN|GỢI Ý)[:\s]*([^\n]+(?:\n[^\n]+)*?)(?=\n\n|\n[A-ZÀ-Ỹ]+:|$)/i);
+            if (suggMatch) suggestions = suggMatch[1];
+            
+            // Nếu không parse được, hiển thị toàn bộ nội dung
+            if (!diagnosis && !symptoms && !suggestions) {
+                return `
+                    <div class="diagnosis-result">
+                        <div class="diagnosis-header">
+                            <h2><i class="fas fa-robot"></i> Kết quả nhận biết từ EduHealth AI</h2>
+                            <span class="diagnosis-badge">Phân tích sơ bộ</span>
+                        </div>
+                        <div class="analysis-card">${analysisText.replace(/\n/g, '<br>')}</div>
+                        <div class="warning-box">
+                            <i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong> EduHealth AI hỗ trợ nhận biết sớm, không thay thế bác sĩ. Vui lòng tham khảo ý kiến chuyên gia y tế khi cần.
+                        </div>
+                    </div>
+                `;
             }
-            if (inList) processedLines.push('</ul>');
-            html = processedLines.join('\n');
-            html = html.replace(/\n/g, '<br>');
-            html = html.replace(/<h1><br>/g, '<h1>');
-            html = html.replace(/<\/h1><br>/g, '</h1>');
-            html = html.replace(/<h2><br>/g, '<h2>');
-            html = html.replace(/<\/h2><br>/g, '</h2>');
-            html = html.replace(/<h3><br>/g, '<h3>');
-            html = html.replace(/<\/h3><br>/g, '</h3>');
-            html = html.replace(/<ul><br>/g, '<ul>');
-            html = html.replace(/<\/ul><br>/g, '</ul>');
-            html = html.replace(/<li><br>/g, '<li>');
-            return `<div class="markdown-content">${html}</div>`;
+            
+            // Hiển thị UI đẹp
+            return `
+                <div class="diagnosis-result">
+                    <div class="diagnosis-header">
+                        <h2><i class="fas fa-stethoscope"></i> Kết quả nhận biết sớm</h2>
+                        <span class="diagnosis-badge">Dựa trên hình ảnh và thông tin bạn cung cấp</span>
+                    </div>
+                    
+                    ${diagnosis ? `
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-file-medical"></i> Dấu hiệu nhận biết:</div>
+                        <div class="info-value"><strong>${escapeHtml(diagnosis)}</strong></div>
+                    </div>
+                    ` : ''}
+                    
+                    ${confidence ? `
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-chart-simple"></i> Mức độ tương đồng:</div>
+                        <div class="info-value">${escapeHtml(confidence)}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${symptoms ? `
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-list-check"></i> Triệu chứng ghi nhận:</div>
+                        <div class="info-value">${escapeHtml(symptoms).replace(/\n/g, '<br>')}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${causes ? `
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-microscope"></i> Nguyên nhân có thể:</div>
+                        <div class="info-value">${escapeHtml(causes).replace(/\n/g, '<br>')}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${suggestions ? `
+                    <div class="success-box">
+                        <i class="fas fa-lightbulb"></i> <strong>Gợi ý từ EduHealth AI:</strong>
+                        <ul class="suggestion-list">
+                            ${escapeHtml(suggestions).split(/\n[•\-*]\s*/).filter(s => s.trim()).map(s => `<li>${s.trim()}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="warning-box">
+                        <i class="fas fa-shield-alt"></i> <strong>Thông tin quan trọng:</strong> EduHealth AI hỗ trợ nhận biết sớm các dấu hiệu sức khỏe, không thay thế bác sĩ hay chẩn đoán trực tiếp. Vui lòng tham khảo ý kiến chuyên gia y tế.
+                    </div>
+                </div>
+            `;
         }
         
         async function step1CreateChecklist() {
             if (!currentImageBase64) {
-                alert("Vui lòng upload hoặc chụp ảnh chân dung trước!");
+                alert("Vui lòng tải ảnh hoặc chụp trực tiếp để EduHealth AI hỗ trợ nhận biết!");
                 return;
             }
             const userSymptom = symptomTextarea.value.trim();
             if (!userSymptom) {
-                alert("Vui lòng nhập mô tả tình trạng cơ thể/da của bạn.");
+                alert("Vui lòng mô tả cảm giác của bạn để EduHealth AI hỗ trợ tốt hơn.");
                 return;
             }
             if (isProcessing) return;
             isProcessing = true;
             step1Btn.disabled = true;
-            step1Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> AI đang phân tích & tạo checklist...';
+            step1Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> EduHealth AI đang phân tích...';
             
             try {
                 const checklistKnowledge = await getKnowledgeByType('checklist');
                 
                 const contentParts = [
-                    { type: "text", text: `Bạn là chuyên gia da liễu & sức khỏe. Người dùng cung cấp ảnh chân dung và mô tả: "${userSymptom}". 
+                    { type: "text", text: `Bạn là chuyên gia hỗ trợ nhận biết sớm các vấn đề sức khỏe. Người dùng cung cấp ảnh và mô tả: "${userSymptom}". 
                     
                     KIẾN THỨC THAM KHẢO ĐỂ TẠO CHECKLIST:
                     ${checklistKnowledge}
                     
                     Nhiệm vụ: 
-                    1. Đưa ra nhận xét nội bộ (ẩn) về tình trạng da.
-                    2. Tạo một JSON checklist chi tiết dựa trên các yếu tố môi trường, thói quen, chăm sóc da, giấc ngủ, căng thẳng, chế độ ăn uống.
+                    1. Đưa ra nhận xét nội bộ (ẩn) về tình trạng sức khỏe.
+                    2. Tạo một JSON checklist chi tiết dựa trên các yếu tố môi trường, thói quen, chăm sóc sức khỏe, giấc ngủ, căng thẳng, chế độ ăn uống.
                     Checklist cần có cấu trúc: mảng các item, mỗi item gồm "category", "text", "id". Hãy tạo 12-18 item.
                     Trả về DUY NHẤT một JSON object: {"internal_note": "...", "checklist": [{"id":1,"category":"...","text":"..."}]}
                     KHÔNG thêm văn bản khác ngoài JSON.` 
@@ -958,7 +1026,7 @@
                 ];
                 
                 const messages = [
-                    { role: "system", content: "Bạn là trợ lý y tế chuyên phân tích da. Luôn trả lời bằng JSON thuần túy." },
+                    { role: "system", content: "Bạn là trợ lý y tế của EduHealth AI. Luôn trả lời bằng JSON thuần túy." },
                     { role: "user", content: contentParts }
                 ];
                 
@@ -989,11 +1057,11 @@
                 step3Container.style.display = "none";
             } catch (error) {
                 console.error(error);
-                alert("Lỗi tạo checklist: " + error.message + ". Vui lòng thử lại.");
+                alert("Lỗi: " + error.message + ". Vui lòng thử lại.");
             } finally {
                 isProcessing = false;
                 step1Btn.disabled = false;
-                step1Btn.innerHTML = '<i class="fas fa-magic"></i> ✨ Tạo checklist';
+                step1Btn.innerHTML = '<i class="fas fa-magic"></i> Bắt đầu check-in sức khỏe';
             }
         }
         
@@ -1055,11 +1123,11 @@
             if (isProcessing) return;
             isProcessing = true;
             step2Btn.disabled = true;
-            step2Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Đang phân tích chuyên sâu...';
+            step2Btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> EduHealth AI đang phân tích...';
             
             step2Container.style.display = "none";
             step3Container.style.display = "block";
-            analysisResultDiv.innerHTML = '<div class="loading"><i class="fas fa-brain"></i> AI đang phân tích... (15-30s)</div>';
+            analysisResultDiv.innerHTML = '<div class="loading"><i class="fas fa-brain"></i> EduHealth AI đang xem xét thông tin của bạn... (15-30s)</div>';
             chatButtonSection.style.display = "none";
             historySection.style.display = "none";
             
@@ -1067,8 +1135,8 @@
                 const selectedSymptomsText = selectedItems.map(i => `- ${i.text}`).join("\n");
                 const diagnosisKnowledge = await getKnowledgeByType('diagnosis');
                 
-                const promptFinal = `Bạn là chuyên gia da liễu. Dựa trên:
-                - Ảnh chân dung
+                const promptFinal = `Bạn là chuyên gia hỗ trợ nhận biết sớm các vấn đề sức khỏe. Dựa trên:
+                - Ảnh cung cấp
                 - Nhận xét nội bộ: "${step1HiddenAnalysis}"
                 - Mô tả: "${symptomTextarea.value.trim()}"
                 - Checklist đã chọn: ${selectedSymptomsText || "Không có"}
@@ -1076,23 +1144,41 @@
                 KIẾN THỨC CHUYÊN MÔN THAM KHẢO:
                 ${diagnosisKnowledge}
                 
-                Yêu cầu: Đưa ra kết quả phân tích chi tiết về tình trạng da/mụn.
-                Sử dụng markdown để trình bày đẹp: ###, ##, **, *, ---, bullet list.
-                Viết bằng tiếng Việt, dễ hiểu, chi tiết.`;
+                Yêu cầu: Hãy trả lời theo cấu trúc CHUẨN dưới đây (sử dụng markdown nhẹ):
+
+                **CHẨN ĐOÁN:** [Tên vấn đề sức khỏe nghi ngờ]
+
+                **ĐỘ TIN CẬY:** [Cao/Trung bình/Thấp - kèm lý do ngắn gọn]
+
+                **TRIỆU CHỨNG GHI NHẬN:**
+                - [Triệu chứng 1]
+                - [Triệu chứng 2]
+                - [Triệu chứng 3]
+
+                **NGUYÊN NHÂN CÓ THỂ:**
+                - [Nguyên nhân 1]
+                - [Nguyên nhân 2]
+
+                **LỜI KHUYÊN TỪ EDUHEALTH AI:**
+                - [Gợi ý 1]
+                - [Gợi ý 2]
+                - [Gợi ý 3]
+
+                Viết bằng tiếng Việt, dễ hiểu, thân thiện. Không thêm phần khác ngoài cấu trúc trên.`;
                 
                 const messages = [
-                    { role: "system", content: "Bạn là bác sĩ da liễu AI, cung cấp phân tích có căn cứ và hữu ích. Hãy dùng markdown đẹp." },
+                    { role: "system", content: "Bạn là trợ lý y tế của EduHealth AI, chuyên hỗ trợ nhận biết sớm. Trả lời theo cấu trúc yêu cầu, không thay thế bác sĩ." },
                     { role: "user", content: [
                         { type: "text", text: promptFinal },
                         { type: "image_url", image_url: { url: currentImageBase64 } }
                     ]}
                 ];
                 
-                const finalAnalysis = await callAI(messages, 0.75);
-                let formattedHtml = renderMarkdownToHtml(finalAnalysis);
+                const finalAnalysis = await callAI(messages, 0.7);
                 lastAnalysisResult = finalAnalysis;
                 
-                analysisResultDiv.innerHTML = `<div class="analysis-card">${formattedHtml}</div>`;
+                // Hiển thị kết quả dạng UI đẹp
+                analysisResultDiv.innerHTML = formatAnalysisResultToUI(finalAnalysis);
                 
                 if (lastCompressedImage) {
                     chatButtonSection.style.display = "flex";
@@ -1103,11 +1189,11 @@
                 }
             } catch (error) {
                 console.error(error);
-                analysisResultDiv.innerHTML = `<div style="color: var(--danger);">⚠️ Lỗi phân tích: ${error.message}. Vui lòng thử lại.</div>`;
+                analysisResultDiv.innerHTML = `<div style="color: var(--danger); padding: 20px; text-align: center;">⚠️ Có lỗi xảy ra: ${error.message}. Vui lòng thử lại.</div>`;
             } finally {
                 isProcessing = false;
                 step2Btn.disabled = false;
-                step2Btn.innerHTML = '<i class="fas fa-stethoscope"></i> 🔍 Phân tích chuyên sâu';
+                step2Btn.innerHTML = '<i class="fas fa-stethoscope"></i> 🔍 Xem kết quả nhận biết';
             }
         }
         
@@ -1142,7 +1228,7 @@
         
         async function createNewChat() {
             if (!lastAnalysisResult || !lastCompressedImage) {
-                alert("Không có dữ liệu để tạo chat.");
+                alert("Không có dữ liệu để tạo cuộc trò chuyện.");
                 return null;
             }
             
@@ -1152,11 +1238,11 @@
             try {
                 await db.collection('health_chats').doc(chatId).set({
                     id: chatId,
-                    name: `Khám bệnh ${new Date().toLocaleString('vi-VN')}`,
+                    name: `Check-in ${new Date().toLocaleString('vi-VN')}`,
                     userId: currentUserId,
                     userName: currentUserName,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    lastMessage: "Đã gửi kết quả phân tích da",
+                    lastMessage: "Đã gửi kết quả nhận biết",
                     lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
                     isHealthChat: true,
                     aiEnabled: true,
@@ -1170,9 +1256,9 @@
                 });
                 
                 await db.collection('health_chats').doc(chatId).collection('messages').add({
-                    text: `🏥 **KẾT QUẢ PHÂN TÍCH DA LIỄU AI**\n\n📋 **Thông tin bệnh nhân:**\n- Tên: ${currentUserName}\n- Mô tả: ${symptomSummary}\n\n📊 **Chẩn đoán AI:**\n${lastAnalysisResult}\n\n📸 **Hình ảnh da:**`,
+                    text: `🏥 **KẾT QUẢ CHECK-IN SỨC KHỎE**\n\n📋 **Thông tin của bạn:**\n- Tên: ${currentUserName}\n- Mô tả: ${symptomSummary}\n\n📊 **Kết quả nhận biết từ EduHealth AI:**\n${lastAnalysisResult}\n\n📸 **Hình ảnh đã cung cấp:**`,
                     senderId: 'system',
-                    senderName: 'Hệ thống AI Health',
+                    senderName: 'EduHealth AI',
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     isSystem: true,
                     hasImage: true,
@@ -1211,8 +1297,8 @@
             step2Container.style.display = "none";
             step3Container.style.display = "none";
             step1Btn.disabled = false;
-            step1Btn.innerHTML = '<i class="fas fa-magic"></i> ✨ Tạo checklist';
-            analysisResultDiv.innerHTML = '✨ Hoàn thành bước 1 để tạo checklist, sau đó chọn triệu chứng và nhấn "Phân tích".';
+            step1Btn.innerHTML = '<i class="fas fa-magic"></i> Bắt đầu check-in sức khỏe';
+            analysisResultDiv.innerHTML = '✨ EduHealth AI đã sẵn sàng, hãy chia sẻ cùng mình nhé!';
             chatButtonSection.style.display = "none";
             historySection.style.display = "none";
         }
