@@ -1,3 +1,4 @@
+<!-- chatbox.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -105,7 +106,7 @@
             font-family: 'Fraunces', serif;
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+            background: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -246,27 +247,6 @@
             align-items: center;
             gap: 10px;
             font-family: 'Fraunces', serif;
-        }
-
-        .new-chat-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-top: 12px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 13px;
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.2s;
-        }
-        .new-chat-btn:hover {
-            background: rgba(255,255,255,0.3);
         }
 
         .chat-list {
@@ -667,9 +647,11 @@
         </a>
         
         <div class="nav-menu">
+            <a href="index.html" class="nav-link"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
             <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
             <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+            <a href="minigame.html" class="nav-link"><i class="fas fa-brain"></i> Minigame</a>
         </div>
         
         <div class="nav-right">
@@ -680,9 +662,11 @@
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
+            <a href="index.html" class="nav-link-mobile"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
             <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
             <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+            <a href="minigame.html" class="nav-link-mobile"><i class="fas fa-brain"></i> Minigame</a>
         </div>
     </div>
 
@@ -692,9 +676,6 @@
         <div class="chat-sidebar" id="chatSidebar">
             <div class="sidebar-header">
                 <h3><i class="fas fa-comments"></i> Cuộc trò chuyện</h3>
-                <button class="new-chat-btn" id="newChatBtn">
-                    <i class="fas fa-plus"></i> Bắt đầu trò chuyện mới
-                </button>
             </div>
             <div class="chat-list" id="chatList">
                 <div style="padding: 20px; text-align: center; color: var(--text-dim);">Đang tải...</div>
@@ -727,11 +708,12 @@
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    
-    <script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
+<script>
         const firebaseConfig = {
-            apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+            apiKey: "AIzaSyDOYFgLyliWFfNWtXHzxDQrbe_ISgmavno",
             authDomain: "eduhealth-4bcab.firebaseapp.com",
             projectId: "eduhealth-4bcab",
             storageBucket: "eduhealth-4bcab.firebasestorage.app",
@@ -741,6 +723,19 @@
         };
         
         firebase.initializeApp(firebaseConfig);
+
+        // === TH�M �O?N CODE M?I ===
+        // Kh?i t?o App Check v?i reCAPTCHA Enterprise
+        const appCheck = firebase.appCheck();
+        appCheck.activate(
+          new firebase.appCheck.ReCaptchaEnterpriseProvider(
+            '6LfZOsIsAAAAAK_vBWSNgolKHjLsfWxGBicixs37'
+          ),
+          true
+        );
+        // ===============================
+
+        const auth = firebase.auth();
         const db = firebase.firestore();
         
         const API_KEY = "sk-uQmI5tk7o5FdWLq852gCLO2xZTd5OmG2K9RKy7C3raEqGx6v";
@@ -756,18 +751,13 @@
         let aiEnabledCache = true;
         
         function getCurrentUser() {
-            let userId = localStorage.getItem('healthUserId');
-            if (!userId) {
-                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('healthUserId', userId);
-            }
+            const user = auth.currentUser;
+            if (!user) return null;
             return {
-                uid: userId,
-                displayName: localStorage.getItem('healthUserName') || 'Bạn đọc'
+                uid: user.uid,
+                displayName: localStorage.getItem('healthUserName') || user.email.split('@')[0]
             };
         }
-        
-        currentUserId = getCurrentUser().uid;
         
         async function loadChatKnowledge() {
             const snapshot = await db.collection('knowledge_base').where('type', '==', 'chat_response').get();
@@ -1132,6 +1122,7 @@ Trả lời:`;
         let allChats = [];
         
         async function loadUserChats() {
+            if (!currentUserId) return;
             const snapshot = await db.collection('health_chats')
                 .where('userId', '==', currentUserId)
                 .orderBy('lastMessageTime', 'desc')
@@ -1257,7 +1248,7 @@ Trả lời:`;
                 try {
                     const messageData = {
                         senderId: currentUserId,
-                        senderName: getCurrentUser().displayName,
+                        senderName: getCurrentUser()?.displayName || 'Bạn',
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     };
                     if (text) messageData.text = text;
@@ -1286,7 +1277,7 @@ Trả lời:`;
             try {
                 const messageData = {
                     senderId: currentUserId,
-                    senderName: getCurrentUser().displayName,
+                    senderName: getCurrentUser()?.displayName || 'Bạn',
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 
@@ -1313,13 +1304,14 @@ Trả lời:`;
         }
         
         async function createNewChat() {
+            if (!currentUserId) return null;
             const chatId = 'CHAT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
             
             await db.collection('health_chats').doc(chatId).set({
                 id: chatId,
                 name: `Trò chuyện ${new Date().toLocaleString('vi-VN')}`,
                 userId: currentUserId,
-                userName: getCurrentUser().displayName,
+                userName: getCurrentUser()?.displayName || 'Người dùng',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 lastMessage: "Bắt đầu trò chuyện",
                 lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
@@ -1361,14 +1353,6 @@ Trả lời:`;
             window.location.href = 'index.html';
         };
         
-        document.getElementById('newChatBtn').onclick = async () => {
-            const newChatId = await createNewChat();
-            if (newChatId) {
-                await loadUserChats();
-                selectChat(newChatId);
-            }
-        };
-        
         const menuToggle = document.getElementById('menuToggleBtn');
         const sidebar = document.getElementById('chatSidebar');
         const overlay = document.getElementById('overlay');
@@ -1391,7 +1375,27 @@ Trả lời:`;
         const urlParams = new URLSearchParams(window.location.search);
         const initialChatId = urlParams.get('chatId');
         
-        async function init() {
+        // Check authentication
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            currentUserId = user.uid;
+            
+            // Load user info from localStorage or Firestore
+            let userName = localStorage.getItem('healthUserName');
+            if (!userName) {
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    userName = userDoc.data().fullName || user.email.split('@')[0];
+                    localStorage.setItem('healthUserName', userName);
+                } else {
+                    userName = user.email.split('@')[0];
+                }
+            }
+            
             await loadUserChats();
             
             if (initialChatId) {
@@ -1400,19 +1404,21 @@ Trả lời:`;
                     await selectChat(initialChatId);
                 } else {
                     const newChatId = await createNewChat();
-                    await loadUserChats();
-                    await selectChat(newChatId);
+                    if (newChatId) {
+                        await loadUserChats();
+                        await selectChat(newChatId);
+                    }
                 }
             } else if (allChats.length > 0) {
                 await selectChat(allChats[0].id);
             } else {
                 const newChatId = await createNewChat();
-                await loadUserChats();
-                await selectChat(newChatId);
+                if (newChatId) {
+                    await loadUserChats();
+                    await selectChat(newChatId);
+                }
             }
-        }
-        
-        init();
+        });
         
         const themeBtn = document.getElementById('themeToggleBtn');
         const body = document.body;
@@ -1452,3 +1458,4 @@ Trả lời:`;
     </script>
 </body>
 </html>
+

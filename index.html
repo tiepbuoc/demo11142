@@ -6,6 +6,7 @@
 <title>EduHealth AI — Hỗ trợ chăm sóc sức khỏe học đường</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after {
   margin: 0;
@@ -18,31 +19,33 @@
   --blue-deep: #2563eb;
   --pink-primary: #f472b6;
   --pink-deep: #ec489a;
-  --grad-blue-pink: linear-gradient(135deg, var(--blue-primary), var(--pink-primary));
-  --grad-pink-blue: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
+  --grad-blue-pink: linear-gradient(135deg, #4f8eff, #ff7eb3);
+  --grad-pink-blue: linear-gradient(135deg, #ff6ba6, #4f8eff);
   
-  --bg-body: #ffffff;
-  --bg-surface: #fef9ff;
+  --bg-body: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+  --bg-surface: #fff5f8;
   --card-bg: #ffffff;
   --text-dark: #0f172a;
   --text-mid: #334155;
   --text-dim: #64748b;
-  --border-light: #ffe4f0;
-  --border-soft: #f1f5f9;
+  --border-light: #ffe0ec;
+  --border-soft: #fef0f5;
   --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
   --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
   --hover-glow: rgba(59, 130, 246, 0.12);
-  --nav-bg: rgba(255, 255, 255, 0.92);
+  --nav-bg: rgba(255, 255, 255, 0.95);
   --tag-bg: #fce7f3;
-  --news-bg: #f1f5f9;
-  --icon-soft: #e0f2fe;
+  --news-bg: #fff5f8;
+  --icon-soft: #fce7f3;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
+  --glow-blue: rgba(79, 142, 255, 0.3);
+  --glow-pink: rgba(255, 110, 179, 0.3);
 }
 
 body.dark {
-  --bg-body: #0f172a;
+  --bg-body: linear-gradient(135deg, #0f172a 0%, #1e1b2e 100%);
   --bg-surface: #1e293b;
   --card-bg: #1e293b;
   --text-dark: #f1f5f9;
@@ -53,10 +56,12 @@ body.dark {
   --shadow-sm: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
   --hover-glow: rgba(244, 114, 182, 0.2);
-  --nav-bg: rgba(15, 23, 42, 0.94);
+  --nav-bg: rgba(15, 23, 42, 0.95);
   --tag-bg: #2d3a4e;
   --news-bg: #1e293b;
   --icon-soft: #2d3a4e;
+  --glow-blue: rgba(79, 142, 255, 0.2);
+  --glow-pink: rgba(255, 110, 179, 0.2);
 }
 
 html {
@@ -70,6 +75,9 @@ body {
   color: var(--text-dark);
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.2s ease;
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 /* ========== SCROLLBAR ========== */
@@ -123,21 +131,22 @@ nav {
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 6px 14px var(--glow-blue);
   color: white;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .logo-mark:hover {
   transform: scale(1.02);
+  box-shadow: 0 8px 20px var(--glow-pink);
 }
 
 .logo-type {
   font-family: 'Fraunces', serif;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: -0.3px;
-  background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+  background: var(--grad-blue-pink);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -150,7 +159,7 @@ nav {
 }
 
 .nav-link {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--text-mid);
   text-decoration: none;
@@ -158,11 +167,10 @@ nav {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 0;
 }
 
 .nav-link i {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--pink-primary);
   transition: color 0.2s;
 }
@@ -266,99 +274,9 @@ nav {
   color: var(--pink-primary);
 }
 
-/* ========== HERO ========== */
-.hero {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 180px 6% 120px;
-  position: relative;
-  z-index: 2;
-  background: radial-gradient(circle at 10% 20%, var(--bg-surface) 0%, var(--bg-body) 100%);
-}
-.hero-h1 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(52px, 8vw, 96px);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
-  max-width: 950px;
-  opacity: 0;
-  animation: riseUp 0.85s ease 0.2s forwards;
-  background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 70%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--text-mid);
-  margin: 0 auto 48px;
-  opacity: 0;
-  animation: riseUp 0.85s ease 0.35s forwards;
-  max-width: 620px;
-  background: var(--tag-bg);
-  padding: 10px 24px;
-  border-radius: 60px;
-  display: inline-block;
-}
-.hero-actions {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: riseUp 0.9s ease 0.5s forwards;
-}
-.btn-main {
-  background: var(--grad-blue-pink);
-  color: white;
-  padding: 15px 38px;
-  border-radius: 60px;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'DM Sans', sans-serif;
-  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
-  transition: all 0.25s;
-}
-.btn-main:hover {
-  transform: translateY(-3px);
-  filter: brightness(1.02);
-  box-shadow: 0 15px 25px -8px rgba(59, 130, 246, 0.4);
-}
-.btn-ghost {
-  background: transparent;
-  color: var(--text-mid);
-  padding: 15px 32px;
-  border-radius: 60px;
-  font-size: 15px;
-  font-weight: 500;
-  border: 1px solid var(--border-light);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.25s;
-}
-.btn-ghost:hover {
-  color: var(--blue-primary);
-  border-color: var(--blue-primary);
-  background: var(--hover-glow);
-}
-
-/* ========== CONTENT LAYOUT (2 CỘT) ========== */
+/* ========== MAIN CONTENT 2 CỘT ========== */
 .content-section {
-  padding: 40px 6% 80px;
+  padding: 100px 6% 60px;
   position: relative;
   z-index: 2;
 }
@@ -370,152 +288,508 @@ nav {
   margin: 0 auto;
 }
 
-/* Cột trái: Thư viện EduHealth (3/4) */
+/* Cột trái: Cẩm nang sức khỏe */
 .left-col {
   flex: 3;
   min-width: 0;
 }
 
-/* Cột phải: Bản tin sức khỏe học đường (1/4) */
-.right-col {
-  flex: 1;
-  min-width: 0;
+/* ========== HERO CARD CHÍNH ========== */
+.hero-card {
+  background: var(--grad-blue-pink);
+  border-radius: 28px;
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px -10px rgba(79, 142, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.section-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--blue-primary);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 24px;
+.hero-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -12px rgba(79, 142, 255, 0.4);
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.hero-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1.5px;
-  background: linear-gradient(to right, var(--pink-primary), transparent);
-  max-width: 100px;
+  gap: 18px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 }
 
-/* ========== THƯ VIỆN GRID (3 cột) ========== */
-.handbook-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.handbook-card {
-  background: var(--card-bg);
+.hero-icon {
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
   border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid var(--border-light);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-}
-
-.handbook-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--pink-primary);
-  box-shadow: var(--shadow-md);
-}
-
-.handbook-cover {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  background: var(--tag-bg);
-}
-
-.handbook-content {
-  padding: 16px;
-}
-
-.handbook-card-title {
-  font-family: 'Fraunces', serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  line-height: 1.4;
-  color: var(--text-dark);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.handbook-excerpt {
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.4;
-  margin-bottom: 12px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.handbook-stats {
-  display: flex;
-  gap: 12px;
-  font-size: 11px;
-  color: var(--text-dim);
-  padding-top: 10px;
-  border-top: 1px solid var(--border-light);
-}
-
-.handbook-stats span {
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  font-size: 34px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* ========== BẢN TIN DỌC ========== */
-.news-vertical-list {
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.hero-meta {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-top: 6px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
-.news-vertical-item {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 14px;
-  border: 1px solid var(--border-light);
+.hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  padding: 4px 12px;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hero-note {
+  font-size: 13px;
+  opacity: 0.8;
+  font-style: italic;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-desc {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+  padding-right: 20px;
+  border-left: 3px solid rgba(255,255,255,0.5);
+  padding-left: 18px;
+}
+
+/* ========== KHỐI QUIZ HERO CARD ========== */
+.quiz-hero-card {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  border-radius: 24px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -8px rgba(16, 185, 129, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.quiz-hero-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -10px rgba(16, 185, 129, 0.4);
+}
+
+.quiz-hero-card::before {
+  content: "✨";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 120px;
+  opacity: 0.12;
+  pointer-events: none;
+  font-family: monospace;
+}
+
+.quiz-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-hero-text {
+  flex: 2;
+}
+
+.quiz-hero-text h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quiz-hero-text p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.quiz-hero-btn {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 10px 24px;
+  border-radius: 60px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
 }
 
-.news-vertical-item:hover {
-  transform: translateX(5px);
-  border-color: var(--pink-primary);
+.quiz-hero-btn i {
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.quiz-hero-btn:hover {
+  background: white;
+  color: #10b981;
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.quiz-hero-btn:hover i {
+  transform: translateX(4px);
+  color: #10b981;
+}
+
+/* ========== SEARCH BAR ========== */
+.search-wrapper {
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 5;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: 60px;
+  border: 1px solid var(--border-light);
+  padding: 4px 8px 4px 20px;
+  transition: all 0.3s ease;
   box-shadow: var(--shadow-sm);
 }
 
-.news-vertical-cover {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
+.search-container:focus-within {
+  border-color: var(--pink-primary);
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2);
+  transform: translateY(-1px);
+}
+
+.search-container i {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 14px 12px;
+  font-size: 16px;
+  background: transparent;
+  color: var(--text-dark);
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.search-clear {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 40px;
+  transition: all 0.2s;
+  display: none;
+  font-size: 14px;
+}
+
+.search-clear:hover {
+  color: var(--pink-primary);
+  background: var(--bg-surface);
+}
+
+.search-results-info {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-results-info span i {
+  margin-right: 6px;
+}
+
+.search-reset-btn {
+  background: transparent;
+  border: none;
+  color: var(--blue-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 30px;
+  transition: 0.2s;
+}
+
+.search-reset-btn:hover {
+  background: var(--bg-surface);
+  color: var(--pink-primary);
+}
+
+/* Category Grid - 2 cột bên trái */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.category-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 20px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-primary);
+}
+
+.category-card.pink { border-color: #f9a8d4; }
+.category-card.blue { border-color: #93c5fd; }
+.category-card.purple { border-color: #c4b5fd; }
+.category-card.green { border-color: #86efac; }
+.category-card.orange { border-color: #fdba74; }
+.category-card.teal { border-color: #5eead4; }
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.category-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.category-icon.pink-bg { background: #fce7f3; color: #f472b6; }
+.category-icon.blue-bg { background: #dbeafe; color: #3b82f6; }
+.category-icon.purple-bg { background: #ede9fe; color: #8b5cf6; }
+.category-icon.green-bg { background: #dcfce7; color: #10b981; }
+.category-icon.orange-bg { background: #ffedd5; color: #f59e0b; }
+.category-icon.teal-bg { background: #ccfbf1; color: #14b8a6; }
+
+.category-info h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-dark);
+}
+
+.category-count {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.category-preview {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+
+.category-preview ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.category-preview li {
+  font-size: 13px;
+  color: var(--text-mid);
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-preview li i {
+  font-size: 6px;
+  color: var(--pink-primary);
+}
+
+.category-more {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.category-more i {
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+
+.category-card:hover .category-more i {
+  transform: translateX(4px);
+}
+
+/* Cột phải: Bản tin y tế học đường */
+.right-col {
+  flex: 1.2;
+  min-width: 0;
+}
+
+.news-card {
+  background: var(--card-bg);
+  border-radius: 28px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 94px;
+}
+
+.news-header {
+  background: var(--grad-blue-pink);
+  padding: 20px 24px;
+  color: white;
+}
+
+.news-header h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.news-header p {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.news-list {
+  padding: 8px 0;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.news-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.news-item:hover {
+  background: var(--bg-surface);
+  transform: translateX(4px);
+}
+
+.news-item-cover {
+  width: 60px;
+  height: 60px;
   border-radius: 16px;
+  object-fit: cover;
   background: var(--tag-bg);
   flex-shrink: 0;
 }
 
-.news-vertical-info {
+.news-item-content {
   flex: 1;
   min-width: 0;
 }
 
-.news-vertical-title {
+.news-item-title {
   font-family: 'Fraunces', serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
   line-height: 1.4;
@@ -526,15 +800,14 @@ nav {
   overflow: hidden;
 }
 
-.news-vertical-meta {
-  font-size: 11px;
-  color: var(--text-dim);
+.news-item-meta {
   display: flex;
   gap: 12px;
-  align-items: center;
+  font-size: 12px;
+  color: var(--text-dim);
 }
 
-.news-vertical-meta span {
+.news-item-meta span {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -542,15 +815,16 @@ nav {
 
 .load-more-btn {
   text-align: center;
-  margin-top: 24px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-light);
 }
 
 .btn-load-more {
   background: transparent;
-  border: 2px solid var(--border-light);
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-size: 13px;
+  border: 1px solid var(--border-light);
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-mid);
   cursor: pointer;
@@ -567,10 +841,16 @@ nav {
   transform: translateY(-2px);
 }
 
+.empty-news {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+}
+
 /* ========== STATS ========== */
 .stats-section {
   padding: 50px 6% 60px;
-  background: linear-gradient(135deg, var(--bg-surface), var(--bg-body));
+  background: var(--bg-surface);
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
 }
@@ -583,7 +863,7 @@ nav {
   text-align: center;
 }
 .stat-number {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: 700;
   font-family: 'Fraunces', serif;
   background: var(--grad-blue-pink);
@@ -593,16 +873,17 @@ nav {
   margin-bottom: 8px;
 }
 .stat-label {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-dim);
   letter-spacing: 1px;
+  font-weight: 500;
 }
 
 /* ========== FOOTER ========== */
 footer {
   border-top: 1px solid var(--border-light);
-  padding: 48px 6% 38px;
-  background: var(--bg-body);
+  padding: 40px 6% 32px;
+  background: var(--card-bg);
 }
 .footer-inner {
   max-width: 1200px;
@@ -611,7 +892,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;
 }
 .footer-links {
   display: flex;
@@ -621,19 +902,22 @@ footer {
 .footer-links a {
   color: var(--text-dim);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .footer-links a:hover {
   color: var(--pink-primary);
 }
 .footer-copyright {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-dim);
 }
 
-/* ========== MODAL ========== */
+/* ========== MODALS ========== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -656,7 +940,7 @@ footer {
 .modal-content {
   background: var(--card-bg);
   border-radius: 32px;
-  max-width: 800px;
+  max-width: 1000px;
   width: 100%;
   max-height: 85vh;
   display: flex;
@@ -673,14 +957,23 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: var(--card-bg);
 }
-.modal-header h3 { font-family: 'Fraunces', serif; font-size: 24px; color: var(--blue-primary); }
+.modal-header h3 { 
+  font-family: 'Fraunces', serif; 
+  font-size: 22px; 
+  background: var(--grad-blue-pink);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .modal-close {
   background: none;
   border: none;
   font-size: 28px;
   cursor: pointer;
   color: var(--text-dim);
+  transition: 0.2s;
 }
 .modal-close:hover { color: var(--pink-primary); }
 
@@ -690,77 +983,348 @@ footer {
   padding: 24px;
 }
 
-.modal-content-text {
-  font-size: 16px;
+/* ========== ARTICLE CONTENT STYLES - GIỐNG THUY-DAU.HTML ========== */
+.article-content {
+  font-family: 'Nunito', 'DM Sans', sans-serif;
   line-height: 1.6;
-}
-.modal-content-text .ql-align-center {
-  text-align: center !important;
-}
-.modal-content-text .ql-align-right {
-  text-align: right !important;
-}
-.modal-content-text .ql-align-left {
-  text-align: left !important;
-}
-.modal-content-text .ql-align-justify {
-  text-align: justify !important;
-}
-.modal-content-text img { 
-  max-width: 100%; 
-  border-radius: 16px;
-  height: auto;
-}
-.modal-content-text p {
-  margin-bottom: 16px;
-}
-.modal-content-text h1, .modal-content-text h2, .modal-content-text h3, 
-.modal-content-text h4, .modal-content-text h5, .modal-content-text h6 {
-  margin: 20px 0 12px 0;
-  font-family: 'Fraunces', serif;
-}
-.modal-content-text h1 { font-size: 2em; font-weight: bold; }
-.modal-content-text h2 { font-size: 1.5em; font-weight: bold; }
-.modal-content-text h3 { font-size: 1.17em; font-weight: bold; }
-.modal-content-text h4 { font-size: 1em; font-weight: bold; }
-.modal-content-text ul, .modal-content-text ol {
-  margin: 10px 0 10px 25px;
-}
-.modal-content-text blockquote {
-  border-left: 4px solid var(--pink-primary);
-  padding-left: 16px;
-  margin: 16px 0;
   color: var(--text-mid);
 }
 
-.news-modal-stats {
+.article-content * {
+  max-width: 100%;
+}
+
+.article-content .handbook-header {
+  background: linear-gradient(120deg, #f7567c 0%, #ff9a3c 100%);
+  padding: 28px 32px 24px;
+  border-radius: 24px 24px 0 0;
+  margin: -24px -24px 0 0px;
+}
+
+.article-content .handbook-header-top {
   display: flex;
+  align-items: center;
   gap: 16px;
-  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.article-content .handbook-emoji {
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.article-content .handbook-title h1 {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.article-content .handbook-subtitle {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.article-content .handbook-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.article-content .handbook-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+}
+
+.article-content .handbook-image-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  background: #222;
+  max-height: 320px;
+  overflow: hidden;
+  margin: 0 -24px;
+}
+
+.article-content .handbook-image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.article-content .handbook-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.article-content .handbook-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 10px;
+  font-weight: 600;
+}
+
+.article-content .handbook-body {
+  padding: 28px 0 0;
+}
+
+.article-content .handbook-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.article-content .handbook-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-surface);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.article-content .handbook-info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.article-content .handbook-info-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.article-content .handbook-info-text {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.article-content .handbook-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.article-content .handbook-info-card {
+  border-radius: 18px;
+  padding: 20px;
+  border: 1.5px solid var(--border-light);
+  background: var(--card-bg);
+}
+
+.article-content .handbook-info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.article-content .handbook-info-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.article-content .handbook-info-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.article-content .handbook-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.article-content .handbook-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-surface);
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1.5px solid var(--border-light);
+}
+
+.article-content .handbook-step-num {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.article-content .handbook-step-text {
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.article-content .handbook-danger-box {
+  border: 2px solid #ef4444;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  background: rgba(239,68,68,0.07);
+  margin: 24px 0;
+}
+
+.article-content .handbook-defense-box,
+.handbook-defense-box {
+  border: 2px solid #0f766e;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  background: rgba(15,118,110,0.08);
+  margin: -24px 28px;
+}
+
+.article-content .handbook-defense-header,
+.article-content .handbook-danger-header,
+.handbook-defense-header,
+.handbook-danger-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.article-content .handbook-defense-icon,
+.handbook-defense-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #0f766e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.article-content .handbook-defense-title,
+.handbook-defense-title {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #0f766e;
+}
+
+.article-content .handbook-danger-box {
+  border: 2px solid #ef4444;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  background: rgba(239,68,68,0.07);
+  margin: 24px 0;
+}
+
+.article-content .handbook-danger-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.article-content .handbook-danger-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #7f1d1d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.article-content .handbook-danger-title {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #ef4444;
+}
+
+.article-content .handbook-danger-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.article-content .handbook-danger-list li {
+  font-size: 0.9rem;
+  color: #b91c1c;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-content ul {
+  margin: 0.8em 0 0.8em 1.8em;
+  padding-left: 0;
+}
+
+.article-content li {
+  margin: 0.3em 0;
+  line-height: 1.6;
+}
+
+.article-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
   color: var(--text-dim);
-  padding-top: 12px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-light);
   margin-top: 24px;
 }
-.news-modal-stats span {
+
+.article-stats span {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-/* ========== ANIMATIONS ========== */
-@keyframes riseUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.rise {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1), transform 0.7s ease;
-}
-.rise.in {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .loading-spinner {
@@ -768,47 +1332,118 @@ footer {
   padding: 40px;
   color: var(--text-dim);
 }
-.empty-state {
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.post-card-mini {
+  background: var(--bg-surface);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.post-card-mini:hover {
+  transform: translateY(-4px);
+  border-color: var(--pink-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.post-mini-cover {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background: var(--tag-bg);
+}
+
+.post-mini-content {
+  padding: 14px;
+}
+
+.post-mini-title {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: var(--text-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-mini-excerpt {
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.4;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-mini-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-dim);
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.post-mini-stats span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.empty-posts {
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
   color: var(--text-dim);
 }
 
-/* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
-  .two-columns {
-    flex-direction: column;
-  }
-  .handbook-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .two-columns { flex-direction: column; }
+  .category-grid { grid-template-columns: repeat(2, 1fr); }
+  .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .news-card { position: relative; top: 0; }
 }
 
 @media (max-width: 768px) {
   .nav-menu { display: none; }
   .menu-toggle { display: flex; }
-  .hero-h1 { font-size: 48px; }
-  .hero-sub { font-size: 16px; }
-  .handbook-grid {
-    grid-template-columns: 1fr;
-  }
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+  .category-grid { grid-template-columns: 1fr; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .stat-number { font-size: 36px; }
+  .content-section { padding: 90px 16px 40px; }
+  .hero-card { padding: 20px 20px; }
+  .hero-title { font-size: 24px; }
+  .hero-icon { width: 54px; height: 54px; font-size: 28px; }
+  .modal-content { max-width: 95%; }
+  .quiz-hero-content { flex-direction: column; align-items: flex-start; }
+  .quiz-hero-btn { align-self: stretch; justify-content: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .article-content .handbook-image-grid { grid-template-columns: 1fr; max-height: none; }
+  .article-content .handbook-two-col { grid-template-columns: 1fr; }
+  .article-content .handbook-header { padding: 20px 16px; }
+  .article-content .handbook-header-top { flex-direction: column; text-align: center; }
+  .article-content .handbook-badges { justify-content: center; }
 }
 
-@media (max-width: 520px) {
-  .hero-actions { flex-direction: column; align-items: center; }
-  .btn-main, .btn-ghost { width: 100%; justify-content: center; }
-  .footer-inner { flex-direction: column; text-align: center; }
+@media (max-width: 480px) {
   .stats-grid { grid-template-columns: 1fr; }
-  .news-vertical-item { padding: 10px; }
-  .news-vertical-cover { width: 60px; height: 60px; }
+  .news-header h3 { font-size: 18px; }
 }
 </style>
 </head>
@@ -819,13 +1454,13 @@ footer {
     <div class="logo-mark"><i class="fas fa-heartbeat"></i></div>
     <div class="logo-type">EduHealth AI</div>
   </a>
-  
   <div class="nav-menu">
+    <a href="index.html" class="nav-link"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
     <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
     <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
     <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+    <a href="minigame.html" class="nav-link"><i class="fas fa-brain"></i> Minigame</a>
   </div>
-  
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
     <button class="menu-toggle" id="menuToggleBtn"><i class="fas fa-bars"></i> Menu</button>
@@ -834,42 +1469,74 @@ footer {
 
 <div class="mobile-menu-panel" id="mobileMenuPanel">
   <div class="nav-links-mobile">
+    <a href="index.html" class="nav-link-mobile"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
     <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
     <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
     <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+    <a href="minigame.html" class="nav-link-mobile"><i class="fas fa-brain"></i> Minigame</a>
   </div>
 </div>
 
-<section class="hero">
-  <h1 class="hero-h1">EduHealth AI</h1>
-  <div class="hero-sub">🧠 Để EduHealth AI giúp bạn hiểu cơ thể rõ hơn nhé!</div>
-  <div class="hero-actions">
-    <button class="btn-main" onclick="window.location.href='checkin.html'">
-        <i class="fas fa-stethoscope"></i> Check-in sức khỏe
-    </button>
-    <button class="btn-ghost" onclick="document.getElementById('content-section').scrollIntoView({behavior:'smooth'})"><i class="fas fa-newspaper"></i> Khám phá thư viện ↓</button>
-  </div>
-</section>
-
-<!-- CONTENT 2 CỘT: THƯ VIỆN EDUHEALTH + BẢN TIN -->
-<section class="content-section" id="content-section">
+<section class="content-section">
   <div class="two-columns">
-    <!-- Cột trái: Thư viện EduHealth -->
+    <!-- Cột trái: Cẩm nang -->
     <div class="left-col">
-      <div class="section-label rise"><i class="fas fa-book-medical"></i> Thư viện EduHealth</div>
-      <div id="handbookContainer" class="handbook-grid">
-        <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải cẩm nang...</div>
+      <div class="hero-card">
+        <div class="hero-header">
+          <div class="hero-icon">📚</div>
+          <div>
+            <div class="hero-title">Cẩm nang sức khỏe</div>
+            <div class="hero-meta">
+              <span><i class="fas fa-book-open"></i> <span id="totalPostsCount">0</span> bài viết</span>
+              <span><i class="fas fa-layer-group"></i> 6 danh mục</span>
+              <span><i class="fas fa-stethoscope"></i> 30+ bệnh lý</span>
+            </div>
+            <div class="hero-note"><i class="fas fa-shield-alt"></i> Nội dung mang tính giáo dục sức khỏe, không thay thế tư vấn y tế chuyên môn.</div>
+          </div>
+        </div>
+        <div class="hero-desc">Cẩm nang sức khỏe bỏ túi cho học sinh và phụ huynh. Chia sẻ những thông tin hữu ích về các dấu hiệu sức khỏe thường gặp và cách bảo vệ bản thân trong môi trường học đường.</div>
       </div>
+
+      <div class="search-wrapper">
+        <div class="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm bài viết theo tiêu đề hoặc nội dung...">
+          <button class="search-clear" id="searchClearBtn"><i class="fas fa-times-circle"></i> Xóa</button>
+        </div>
+        <div class="search-results-info" id="searchResultsInfo" style="display: none;">
+          <span><i class="fas fa-filter"></i> Đang lọc theo từ khóa: "<strong id="searchKeyword"></strong>"</span>
+          <button class="search-reset-btn" onclick="resetSearch()"><i class="fas fa-undo-alt"></i> Hiển thị tất cả</button>
+        </div>
+      </div>
+      
+      <div class="category-grid" id="categoryGrid"></div>
     </div>
 
-    <!-- Cột phải: Bản tin sức khỏe học đường -->
+    <!-- Cột phải: KHỐI QUIZ + Bản tin -->
     <div class="right-col">
-      <div class="section-label rise"><i class="fas fa-newspaper"></i> Bản tin sức khỏe học đường</div>
-      <div id="newsVerticalContainer" class="news-vertical-list">
-        <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải bản tin...</div>
+      <div class="quiz-hero-card">
+        <div class="quiz-hero-content">
+          <div class="quiz-hero-text">
+            <h4><i class="fas fa-brain"></i> Trắc nghiệm sức khỏe học đường</h4>
+            <p>Kiểm tra kiến thức của bạn về chăm sóc sức khỏe, phòng bệnh và dinh dưỡng với bộ câu hỏi đúng/sai thú vị.</p>
+          </div>
+          <a href="minigame.html" class="quiz-hero-btn">
+            <i class="fas fa-question-circle"></i> Làm bài ngay
+          </a>
+        </div>
       </div>
-      <div class="load-more-btn" id="loadMoreNewsBtn" style="display: none;">
-        <button class="btn-load-more" onclick="loadMoreNews()"><i class="fas fa-arrow-down"></i> Xem thêm bản tin</button>
+
+      <div class="news-card">
+        <div class="news-header">
+          <h3><i class="fas fa-newspaper"></i> Bản tin y tế học đường</h3>
+          <p>Cập nhật tin tức sức khỏe mới nhất</p>
+        </div>
+        <div class="news-list" id="newsList">
+          <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải tin tức...</div>
+        </div>
+        <div class="load-more-btn" id="loadMoreNewsBtn" style="display: none;">
+          <button class="btn-load-more" onclick="loadMoreNews()"><i class="fas fa-arrow-down"></i> Xem thêm bản tin</button>
+        </div>
       </div>
     </div>
   </div>
@@ -886,32 +1553,37 @@ footer {
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-copyright"><i class="far fa-copyright"></i> 2026 EduHealth AI — Nền tảng chăm sóc sức khỏe học đường. EduHealth AI hỗ trợ chăm sóc sức khỏe học đường, không thay thế bác sĩ hay chẩn đoán trực tiếp.</div>
+    <div class="footer-copyright">
+      <i class="far fa-copyright"></i> 2026 EduHealth AI — Nền tảng chăm sóc sức khỏe học đường. Không thay thế bác sĩ.
+    </div>
     <div class="footer-links">
-      <a href="#">Giới thiệu</a>
-      <a href="#">Chính sách bảo mật</a>
-      <a href="#">Hợp tác y tế</a>
+      <a href="dieukhoan.html"><i class="fas fa-file-contract"></i> Điều khoản sử dụng</a>
+      <a href="#"><i class="fas fa-shield-alt"></i> Chính sách bảo mật</a>
       <a href="#"><i class="fas fa-envelope"></i> Liên hệ</a>
     </div>
   </div>
 </footer>
 
-<!-- Modal xem bài viết -->
-<div id="contentModal" class="modal-overlay">
+<div id="categoryModal" class="modal-overlay">
   <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="modalTitle">Bài viết</h3>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-header"><h3 id="categoryModalTitle">Danh sách bài viết</h3><button class="modal-close" onclick="closeCategoryModal()">&times;</button></div>
+    <div class="modal-body" id="categoryModalBody"><div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải...</div></div>
+  </div>
+</div>
+
+<div id="articleModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header"><h3 id="articleModalTitle">Bài viết</h3><button class="modal-close" onclick="closeArticleModal()">&times;</button></div>
+    <div class="modal-body" id="articleModalBody"><div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Đang tải...</div></div>
   </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+    apiKey: "AIzaSyDOYFgLyliWFfNWtXHzxDQrbe_ISgmavno",
     authDomain: "eduhealth-4bcab.firebaseapp.com",
     projectId: "eduhealth-4bcab",
     storageBucket: "eduhealth-4bcab.firebasestorage.app",
@@ -919,264 +1591,360 @@ footer {
     appId: "1:390541255938:web:aa7b5beca0105c28f70e1b",
     measurementId: "G-GSP46EVLYG"
   };
-
   firebase.initializeApp(firebaseConfig);
+
+  // === TH�M �O?N CODE M?I ===
+  // Kh?i t?o App Check v?i reCAPTCHA Enterprise
+  const appCheck = firebase.appCheck();
+  appCheck.activate(
+    new firebase.appCheck.ReCaptchaEnterpriseProvider(
+      '6LfZOsIsAAAAAK_vBWSNgolKHjLsfWxGBicixs37'
+    ),
+    true
+  );
+  // ===============================
+
   const db = firebase.firestore();
 
-  // ========== THƯ VIỆN EDUHEALTH ==========
-  let allHandbook = [];
+  const categories = [
+    { id: 'da_lieu', name: 'I. Da liễu học đường', icon: '🧴', color: 'pink', iconBg: 'pink-bg', previewItems: ['Kẻ chấm đen lì lợm – Mụn đầu đen / Mụn đầu trắng', 'Cục đau khó ưa – Mụn viêm / Mụn bọc', 'Da phản ứng mạnh – Viêm da tiếp xúc / Dị ứng da'] },
+    { id: 'truyen_nhiem', name: 'II. Bệnh truyền nhiễm thường gặp', icon: '🤒', color: 'blue', iconBg: 'blue-bg', previewItems: ['Cơn sốt nhập trường – Cúm mùa', 'Nốt nước lấm drama – Thủy đậu', 'Má sưng bất ngờ – Quai bị'] },
+    { id: 'mat', name: 'III. Sức khỏe mắt và thị lực', icon: '👁️', color: 'purple', iconBg: 'purple-bg', previewItems: ['Tầm xa mờ mịt – Cận thị', 'Nhìn gần cũng không êm – Loạn thị', 'Đôi mắt overtime – Mỏi mắt'] },
+    { id: 'tinh_than', name: 'IV. Sức khỏe tinh thần và giấc ngủ', icon: '🧠', color: 'green', iconBg: 'green-bg', previewItems: ['Stress học tập kéo dài', 'Lo âu trong mùa thi', 'Rối loạn giấc ngủ ở tuổi teen'] },
+    { id: 'tuoi_day_thi', name: 'V. Sức khỏe tuổi dậy thì', icon: '🌱', color: 'orange', iconBg: 'orange-bg', previewItems: ['Thay đổi cơ thể tuổi dậy thì', 'Chăm sóc da tuổi dậy thì', 'Dinh dưỡng cho tuổi dậy thì'] },
+    { id: 'tieu_hoa', name: 'VI. Tiêu hóa - Dinh dưỡng - Thể chất', icon: '🥗', color: 'teal', iconBg: 'teal-bg', previewItems: ['Rối loạn tiêu hóa ở học đường', 'Chế độ ăn uống lành mạnh', 'Tập luyện thể dục thể thao'] }
+  ];
+
+  let allHandbook = [], filteredHandbook = [], allNews = [], displayedNewsCount = 5, currentSearchTerm = '';
+
+  // Hàm tạo HTML nội dung bài viết từ dữ liệu (giống admin)
+  function buildHandbookHTML(data) {
+    // Xử lý triệu chứng
+    let symptomsHtml = '';
+    if (data.symptoms) {
+      const symptomsList = typeof data.symptoms === 'string' ? data.symptoms.split('\n').filter(l => l.trim()) : data.symptoms;
+      if (symptomsList.length) {
+        symptomsHtml = `<ul style="margin: 0.8em 0 0.8em 1.8em;">${symptomsList.map(s => `<li>${escapeHtml(s.trim())}</li>`).join('')}</ul>`;
+      } else if (typeof data.symptoms === 'string' && data.symptoms.trim()) {
+        symptomsHtml = `<p>${escapeHtml(data.symptoms)}</p>`;
+      }
+    }
+
+    // Xử lý dấu hiệu nguy hiểm
+    let dangerHtml = '';
+    if (data.dangerSigns) {
+      const dangerList = typeof data.dangerSigns === 'string' ? data.dangerSigns.split('\n').filter(l => l.trim()) : data.dangerSigns;
+      if (dangerList.length) {
+        dangerHtml = `<div class="handbook-danger-box">
+          <div class="handbook-danger-header">
+            <div class="handbook-danger-icon">⚠️</div>
+            <div class="handbook-danger-title">SOS - Khi nào cần gặp bác sĩ?</div>
+          </div>
+          <ul class="handbook-danger-list">
+            ${dangerList.map(d => `<li><span>⚠️</span> ${escapeHtml(d.trim())}</li>`).join('')}
+          </ul>
+        </div>`;
+      } else if (typeof data.dangerSigns === 'string' && data.dangerSigns.trim()) {
+        dangerHtml = `<div class="handbook-danger-box">
+          <div class="handbook-danger-header">
+            <div class="handbook-danger-icon">⚠️</div>
+            <div class="handbook-danger-title">SOS - Khi nào cần gặp bác sĩ?</div>
+          </div>
+          <p style="color: #b91c1c; font-weight: 600;">${escapeHtml(data.dangerSigns)}</p>
+        </div>`;
+      }
+    }
+
+    // Xử lý 4 bước
+    let stepsHtml = '';
+    const steps = [
+      { num: 1, text: data.step1, color: '#f97316' },
+      { num: 2, text: data.step2, color: '#3b82f6' },
+      { num: 3, text: data.step3, color: '#f59e0b' },
+      { num: 4, text: data.step4, color: '#22c55e' }
+    ].filter(s => s.text && s.text.trim());
+    
+    if (steps.length) {
+      stepsHtml = `<div class="handbook-steps">
+        ${steps.map(s => `<div class="handbook-step">
+          <div class="handbook-step-num" style="background: ${s.color}">${s.num}</div>
+          <div class="handbook-step-text">${escapeHtml(s.text)}</div>
+        </div>`).join('')}
+      </div>`;
+    }
+
+    let defenseHtml = '';
+    if (data.defenseTips && data.defenseTips.trim()) {
+      defenseHtml = `<div class="handbook-defense-box">
+          <div class="handbook-defense-header">
+            <div class="handbook-defense-icon">🛡️</div>
+            <div class="handbook-defense-title">Tips phòng thủ</div>
+          </div>
+          <div class="handbook-info-text">${escapeHtml(data.defenseTips)}</div>
+        </div>`;
+    }
+
+    // Xử lý ảnh grid
+    let imageGridHtml = '';
+    if (data.image1 || data.image2) {
+      const hasBoth = data.image1 && data.image2;
+      imageGridHtml = `<div class="handbook-image-grid" style="display: grid; grid-template-columns: ${hasBoth ? '2fr 1fr' : '1fr'}; gap: 0; background: #222; max-height: 320px; overflow: hidden; margin: 0 -24px;">
+        ${data.image1 ? `<div class="handbook-image-wrap"><img src="${data.image1}" onerror="this.style.background='#ddd'"><div class="handbook-image-caption">${escapeHtml(data.image1Caption || '')}</div></div>` : ''}
+        ${data.image2 ? `<div class="handbook-image-wrap"><img src="${data.image2}" onerror="this.style.background='#ddd'"><div class="handbook-image-caption">${escapeHtml(data.image2Caption || '')}</div></div>` : ''}
+      </div>`;
+    }
+
+    return `
+      <div class="article-content">
+        <div class="handbook-header">
+          <div class="handbook-header-top">
+            <div class="handbook-emoji">${data.emoji || '😟'}</div>
+            <div class="handbook-title">
+              <h1>${escapeHtml(data.title)}</h1>
+              <div class="handbook-subtitle">${escapeHtml(data.scientificName || '')}</div>
+            </div>
+          </div>
+          <div class="handbook-badges">
+            <span class="handbook-badge">⚠️ Cần biết</span>
+            <span class="handbook-badge"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #fff;"></span> Nguy hiểm</span>
+          </div>
+        </div>
+        
+        ${imageGridHtml}
+        
+        <div class="handbook-body">
+          <div class="handbook-info-rows">
+            <div class="handbook-info-row">
+              <div class="handbook-info-icon" style="background: #ede9fe;">💜</div>
+              <div>
+                <div class="handbook-info-label" style="color: #7c3aed;">Cái tên "sang chảnh"</div>
+                <div class="handbook-info-text">${escapeHtml(data.scientificName || '')}</div>
+              </div>
+            </div>
+            <div class="handbook-info-row">
+              <div class="handbook-info-icon" style="background: #fce7f3;">🧬</div>
+              <div>
+                <div class="handbook-info-label" style="color: #db2777;">Nó là gì thế?</div>
+                <div class="handbook-info-text">${escapeHtml(data.shortDesc || '')}</div>
+              </div>
+            </div>
+            <div class="handbook-info-row">
+              <div class="handbook-info-icon" style="background: #fff3e0;">🎭</div>
+              <div>
+                <div class="handbook-info-label" style="color: #ea580c;">"Drama" dễ gặp tại trường</div>
+                <div class="handbook-info-text">${escapeHtml(data.situation || '')}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="handbook-two-col">
+            <div class="handbook-info-card">
+              <div class="handbook-info-card-header">
+                <div class="handbook-info-card-icon" style="background: #3b5ef6; color: white;">⚠</div>
+                <div class="handbook-info-card-title" style="color: #3b5ef6;">Nguyên nhân</div>
+              </div>
+              <div class="handbook-info-text">${escapeHtml(data.cause || '')}</div>
+            </div>
+            <div class="handbook-info-card">
+              <div class="handbook-info-card-header">
+                <div class="handbook-info-card-icon" style="background: #ef4444; color: white;">♥</div>
+                <div class="handbook-info-card-title" style="color: #ef4444;">Check-list dấu hiệu</div>
+              </div>
+              ${symptomsHtml || `<div class="handbook-info-text">${escapeHtml(data.symptoms || '')}</div>`}
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+              <div style="width: 34px; height: 34px; border-radius: 50%; background: #4ade80; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem;">C</div>
+              <div style="font-size: 1.05rem; font-weight: 800; color: #16a34a;">Bí kíp xử lý tại chỗ</div>
+            </div>
+            ${stepsHtml}
+          </div>
+
+          ${defenseHtml}
+
+          ${dangerHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCategories() {
+    const container = document.getElementById('categoryGrid');
+    const dataSource = currentSearchTerm ? filteredHandbook : allHandbook;
+    if (dataSource.length === 0 && currentSearchTerm) {
+      container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--card-bg); border-radius: 32px;">
+        <i class="fas fa-search" style="font-size: 48px; opacity: 0.5; margin-bottom: 16px; display: block;"></i>
+        <h3 style="font-family: 'Fraunces', serif; margin-bottom: 8px;">Không tìm thấy bài viết</h3>
+        <p style="color: var(--text-dim);">Không có bài viết nào phù hợp với từ khóa "<strong>${escapeHtml(currentSearchTerm)}</strong>"</p>
+        <button onclick="resetSearch()" style="margin-top: 20px; background: var(--blue-primary); border: none; color: white; padding: 8px 24px; border-radius: 40px; cursor: pointer;">Xóa tìm kiếm</button>
+      </div>`;
+      document.getElementById('totalPostsCount').innerText = '0';
+      return;
+    }
+    container.innerHTML = categories.map(cat => {
+      const count = dataSource.filter(post => post.category === cat.id).length;
+      return `<div class="category-card ${cat.color}" onclick="openCategoryPosts('${cat.id}', '${cat.name}')">
+        <div class="category-header"><div class="category-icon ${cat.iconBg}">${cat.icon}</div><div class="category-info"><h3>${cat.name}</h3><div class="category-count" id="count-${cat.id}">${count} bài viết</div></div></div>
+        <div class="category-preview"><ul>${cat.previewItems.map(item => `<li><i class="fas fa-circle"></i> ${item}</li>`).join('')}</ul><div class="category-more"><i class="fas fa-arrow-right"></i> Xem tất cả bài viết</div></div>
+      </div>`;
+    }).join('');
+    updateStatsAndCounts();
+  }
+
+  function updateStatsAndCounts() {
+    const dataSource = currentSearchTerm ? filteredHandbook : allHandbook;
+    categories.forEach(cat => { const el = document.getElementById(`count-${cat.id}`); if(el) el.textContent = `${dataSource.filter(p => p.category === cat.id).length} bài viết`; });
+    document.getElementById('totalPostsCount').innerText = dataSource.length;
+  }
 
   async function loadHandbook() {
     try {
-      const querySnapshot = await db.collection('handbook').orderBy('createdAt', 'desc').get();
-      allHandbook = [];
-      querySnapshot.forEach((doc) => {
-        allHandbook.push({ id: doc.id, ...doc.data() });
-      });
-      displayHandbook();
-    } catch (error) {
-      console.error('Lỗi tải cẩm nang:', error);
-      document.getElementById('handbookContainer').innerHTML = '<div class="empty-state">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại sau.</div>';
+      const qs = await db.collection('handbook').orderBy('createdAt', 'desc').get();
+      allHandbook = qs.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      filteredHandbook = [...allHandbook];
+      renderCategories();
+    } catch(e) { console.error(e); }
+  }
+
+  function searchHandbook(keyword) {
+    currentSearchTerm = keyword.trim().toLowerCase();
+    const infoDiv = document.getElementById('searchResultsInfo');
+    const clearBtn = document.getElementById('searchClearBtn');
+    if(!currentSearchTerm) {
+      filteredHandbook = [...allHandbook];
+      infoDiv.style.display = 'none';
+      clearBtn.style.display = 'none';
+    } else {
+      filteredHandbook = allHandbook.filter(p => (p.title && p.title.toLowerCase().includes(currentSearchTerm)) || 
+        (p.shortDesc && p.shortDesc.toLowerCase().includes(currentSearchTerm)) ||
+        (p.symptoms && p.symptoms.toLowerCase().includes(currentSearchTerm)) ||
+        (p.cause && p.cause.toLowerCase().includes(currentSearchTerm)));
+      document.getElementById('searchKeyword').innerText = currentSearchTerm;
+      infoDiv.style.display = 'flex';
+      clearBtn.style.display = 'block';
     }
+    renderCategories();
   }
 
-  function truncateHtml(html, maxLength = 80) {
-    const temp = document.createElement('div');
-    temp.innerHTML = html;
-    const text = temp.textContent || temp.innerText || '';
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-  }
-
-  function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  function displayHandbook() {
-    const container = document.getElementById('handbookContainer');
-    if (allHandbook.length === 0) {
-      container.innerHTML = '<div class="empty-state">📚 Cẩm nang sức khỏe bỏ túi cho học sinh và phụ huynh. Chia sẻ những thông tin hữu ích về các dấu hiệu sức khỏe thường gặp và cách bảo vệ bản thân trong môi trường học đường.</div>';
-      return;
-    }
-
-    container.innerHTML = allHandbook.map(post => `
-      <div class="handbook-card" onclick="openHandbookPost('${post.id}')">
-        <img class="handbook-cover" src="${post.coverImage}" alt="${escapeHtml(post.title)}" onerror="this.src='https://placehold.co/400x200?text=No+Image'">
-        <div class="handbook-content">
-          <h3 class="handbook-card-title">${escapeHtml(post.title)}</h3>
-          <div class="handbook-excerpt">${truncateHtml(post.content || '', 80)}</div>
-          <div class="handbook-stats">
-            <span><i class="far fa-eye"></i> ${post.views || 0}</span>
-            <span><i class="far fa-calendar-alt"></i> ${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span>
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  async function openHandbookPost(postId) {
-    const post = allHandbook.find(p => p.id === postId);
-    if (!post) return;
-
-    await db.collection('handbook').doc(postId).update({
-      views: firebase.firestore.FieldValue.increment(1)
-    });
-    post.views = (post.views || 0) + 1;
-
-    const modal = document.getElementById('contentModal');
-    const modalBody = document.getElementById('modalBody');
-
-    modalBody.innerHTML = `
-      <div class="modal-content-text">${post.content || ''}</div>
-      <div class="news-modal-stats">
-        <span><i class="far fa-eye"></i> ${post.views || 0} lượt xem</span>
-        <span><i class="far fa-calendar-alt"></i> ${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span>
-      </div>
-    `;
-    
-    document.getElementById('modalTitle').innerText = post.title || 'Bài viết cẩm nang';
-    modal.classList.add('active');
-  }
-
-  // ========== BẢN TIN SỨC KHỎE HỌC ĐƯỜNG ==========
-  let allNews = [];
-  let displayedNewsCount = 5;
+  function resetSearch() { document.getElementById('searchInput').value = ''; searchHandbook(''); }
+  function clearSearch() { resetSearch(); }
 
   async function loadNews() {
     try {
-      const querySnapshot = await db.collection('news').orderBy('createdAt', 'desc').get();
-      allNews = [];
-      querySnapshot.forEach((doc) => {
-        allNews.push({ id: doc.id, ...doc.data() });
-      });
+      const qs = await db.collection('news').orderBy('createdAt', 'desc').get();
+      allNews = qs.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       displayedNewsCount = 5;
-      displayNewsVertical();
-    } catch (error) {
-      console.error('Lỗi tải bản tin:', error);
-      document.getElementById('newsVerticalContainer').innerHTML = '<div class="empty-state">⚠️ Lỗi tải dữ liệu.</div>';
-    }
+      displayNews();
+    } catch(e) { document.getElementById('newsList').innerHTML = '<div class="empty-news">⚠️ Lỗi tải dữ liệu</div>'; }
   }
 
-  function displayNewsVertical() {
-    const container = document.getElementById('newsVerticalContainer');
+  function displayNews() {
+    const container = document.getElementById('newsList');
     const newsToShow = allNews.slice(0, displayedNewsCount);
-    
-    if (allNews.length === 0) {
-      container.innerHTML = '<div class="empty-state">📭 Chưa có bản tin y tế nào.</div>';
-      document.getElementById('loadMoreNewsBtn').style.display = 'none';
-      return;
-    }
-    
-    if (newsToShow.length === 0) {
-      container.innerHTML = '<div class="empty-state">📭 Không có bản tin nào</div>';
-      document.getElementById('loadMoreNewsBtn').style.display = 'none';
-      return;
-    }
-    
-    container.innerHTML = newsToShow.map(news => `
-      <div class="news-vertical-item" onclick="openNewsPost('${news.id}')">
-        <img class="news-vertical-cover" src="${news.coverImage}" alt="${escapeHtml(news.title)}" onerror="this.src='https://placehold.co/70x70?text=No+Img'">
-        <div class="news-vertical-info">
-          <h4 class="news-vertical-title">${escapeHtml(news.title)}</h4>
-          <div class="news-vertical-meta">
-            <span><i class="far fa-eye"></i> ${news.views || 0}</span>
-            <span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span>
-          </div>
-        </div>
-      </div>
-    `).join('');
-    
-    if (allNews.length > displayedNewsCount) {
-      document.getElementById('loadMoreNewsBtn').style.display = 'block';
-    } else {
-      document.getElementById('loadMoreNewsBtn').style.display = 'none';
-    }
+    if(allNews.length === 0) { container.innerHTML = '<div class="empty-news"><i class="fas fa-newspaper" style="font-size: 40px; opacity:0.5"></i><p>Chưa có bản tin.</p></div>'; document.getElementById('loadMoreNewsBtn').style.display = 'none'; return; }
+    container.innerHTML = newsToShow.map(n => `<div class="news-item" onclick="openNewsArticle('${n.id}')"><img class="news-item-cover" src="${n.coverImage}" onerror="this.src='https://placehold.co/60x60?text=News'"><div class="news-item-content"><h4 class="news-item-title">${escapeHtml(n.title)}</h4><div class="news-item-meta"><span><i class="far fa-eye"></i> ${n.views||0}</span><span><i class="far fa-calendar-alt"></i> ${n.createdAt ? new Date(n.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span></div></div></div>`).join('');
+    document.getElementById('loadMoreNewsBtn').style.display = allNews.length > displayedNewsCount ? 'block' : 'none';
   }
+  function loadMoreNews() { displayedNewsCount += 5; displayNews(); }
 
-  function loadMoreNews() {
-    displayedNewsCount += 5;
-    displayNewsVertical();
-  }
-
-  async function openNewsPost(newsId) {
-    const news = allNews.find(n => n.id === newsId);
-    if (!news) return;
-    
-    await db.collection('news').doc(newsId).update({
-      views: firebase.firestore.FieldValue.increment(1)
-    });
-    news.views = (news.views || 0) + 1;
-    
-    const modal = document.getElementById('contentModal');
-    const modalBody = document.getElementById('modalBody');
-    
-    modalBody.innerHTML = `
-      <div class="modal-content-text">${news.content || ''}</div>
-      <div class="news-modal-stats">
-        <span><i class="far fa-eye"></i> ${news.views || 0} lượt xem</span>
-        <span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span>
-      </div>
-    `;
-    
-    document.getElementById('modalTitle').innerText = news.title || 'Bản tin y tế';
+  function openCategoryPosts(categoryId, categoryName) {
+    const dataSource = currentSearchTerm ? filteredHandbook : allHandbook;
+    const posts = dataSource.filter(p => p.category === categoryId);
+    const modal = document.getElementById('categoryModal');
+    document.getElementById('categoryModalTitle').innerHTML = `<i class="fas fa-folder-open"></i> ${categoryName}`;
+    const body = document.getElementById('categoryModalBody');
+    if(!posts.length) body.innerHTML = `<div class="empty-posts"><i class="fas fa-book-open" style="font-size:48px;opacity:0.5"></i><p>Chưa có bài viết.</p></div>`;
+    else body.innerHTML = `<div class="posts-grid">${posts.map(p => `<div class="post-card-mini" onclick="openArticle('${p.id}')"><img class="post-mini-cover" src="${p.coverImage}" onerror="this.src='https://placehold.co/400x200?text=No+Image'"><div class="post-mini-content"><h4 class="post-mini-title">${escapeHtml(p.title)}</h4><div class="post-mini-excerpt">${escapeHtml(p.shortDesc || '').substring(0, 80)}...</div><div class="post-mini-stats"><span><i class="far fa-eye"></i> ${p.views||0}</span><span><i class="far fa-calendar-alt"></i> ${p.createdAt ? new Date(p.createdAt.toDate()).toLocaleDateString('vi-VN') : 'N/A'}</span></div></div></div>`).join('')}</div>`;
     modal.classList.add('active');
   }
-
-  function closeModal() {
-    document.getElementById('contentModal').classList.remove('active');
-  }
-
-  // ========== KHỞI TẠO ==========
-  loadHandbook();
-  loadNews();
-
-  // Theme toggle
-  const themeBtn = document.getElementById('themeToggleBtn');
-  const body = document.body;
   
-  function setTheme(theme) {
-    if (theme === 'dark') {
-      body.classList.add('dark');
-      themeBtn.innerHTML = '<i class="fas fa-sun"></i> <span>Chế độ sáng</span>';
-      localStorage.setItem('eduhealth-theme', 'dark');
+  async function openArticle(id) {
+    const post = allHandbook.find(p => p.id === id);
+    if(!post) return;
+    await db.collection('handbook').doc(id).update({ views: firebase.firestore.FieldValue.increment(1) });
+    post.views = (post.views||0)+1;
+    const modal = document.getElementById('articleModal');
+    document.getElementById('articleModalTitle').innerHTML = escapeHtml(post.title);
+    
+    // Sử dụng fullContent nếu có, nếu không thì build từ dữ liệu
+    let contentHtml = '';
+    if (post.fullContent) {
+      contentHtml = post.fullContent;
+      if (post.defenseTips && post.defenseTips.trim() && !contentHtml.includes('Tips phòng thủ')) {
+        contentHtml += `<div class="handbook-defense-box">
+          <div class="handbook-defense-header">
+            <div class="handbook-defense-icon">🛡️</div>
+            <div class="handbook-defense-title">Tips phòng thủ</div>
+          </div>
+          <div class="handbook-info-text">${escapeHtml(post.defenseTips)}</div>
+        </div>`;
+      }
     } else {
-      body.classList.remove('dark');
-      themeBtn.innerHTML = '<i class="fas fa-moon"></i> <span>Chế độ tối</span>';
-      localStorage.setItem('eduhealth-theme', 'light');
+      contentHtml = buildHandbookHTML(post);
     }
+    
+    document.getElementById('articleModalBody').innerHTML = `
+      ${contentHtml}
+      <div class="article-stats">
+        <span><i class="far fa-eye"></i> ${post.views||0}</span>
+        <span><i class="far fa-calendar-alt"></i> ${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span>
+        <span><i class="fas fa-folder"></i> ${getCategoryName(post.category)}</span>
+      </div>
+    `;
+    modal.classList.add('active');
   }
   
-  const savedTheme = localStorage.getItem('eduhealth-theme');
-  if (savedTheme === 'dark') setTheme('dark');
-  else if (savedTheme === 'light') setTheme('light');
-  else {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
-    else setTheme('light');
+  async function openNewsArticle(id) {
+    const news = allNews.find(n => n.id === id);
+    if(!news) return;
+    await db.collection('news').doc(id).update({ views: firebase.firestore.FieldValue.increment(1) });
+    news.views = (news.views||0)+1;
+    const modal = document.getElementById('articleModal');
+    document.getElementById('articleModalTitle').innerHTML = escapeHtml(news.title);
+    document.getElementById('articleModalBody').innerHTML = `<div class="article-content" style="font-family: 'DM Sans', sans-serif;">${news.content||''}</div><div class="article-stats"><span><i class="far fa-eye"></i> ${news.views||0}</span><span><i class="far fa-calendar-alt"></i> ${news.createdAt ? new Date(news.createdAt.toDate()).toLocaleString('vi-VN') : 'N/A'}</span><span><i class="fas fa-newspaper"></i> Bản tin y tế</span></div>`;
+    modal.classList.add('active');
   }
   
-  themeBtn.addEventListener('click', () => {
-    setTheme(body.classList.contains('dark') ? 'light' : 'dark');
-  });
+  function closeCategoryModal() { document.getElementById('categoryModal').classList.remove('active'); }
+  function closeArticleModal() { document.getElementById('articleModal').classList.remove('active'); }
   
+  function getCategoryName(id) { const c = categories.find(c => c.id === id); return c ? c.name : 'Chưa phân loại'; }
+  
+  function escapeHtml(t) { if(!t) return ''; const div = document.createElement('div'); div.textContent = t; return div.innerHTML; }
+
+  document.getElementById('categoryModal').addEventListener('click', e => { if(e.target === document.getElementById('categoryModal')) closeCategoryModal(); });
+  document.getElementById('articleModal').addEventListener('click', e => { if(e.target === document.getElementById('articleModal')) closeArticleModal(); });
+
+  loadHandbook(); loadNews();
+
+  // Theme
+  const themeBtn = document.getElementById('themeToggleBtn');
+  const setTheme = (theme) => {
+    if(theme === 'dark') { document.body.classList.add('dark'); themeBtn.innerHTML = '<i class="fas fa-sun"></i> <span>Chế độ sáng</span>'; localStorage.setItem('eduhealth-theme','dark'); }
+    else { document.body.classList.remove('dark'); themeBtn.innerHTML = '<i class="fas fa-moon"></i> <span>Chế độ tối</span>'; localStorage.setItem('eduhealth-theme','light'); }
+  };
+  const saved = localStorage.getItem('eduhealth-theme');
+  if(saved === 'dark') setTheme('dark'); else if(saved === 'light') setTheme('light'); else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  themeBtn.addEventListener('click', () => setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+
   // Mobile menu
-  const menuToggle = document.getElementById('menuToggleBtn');
-  const mobilePanel = document.getElementById('mobileMenuPanel');
-  if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      mobilePanel.classList.toggle('open');
-      const icon = menuToggle.querySelector('i');
-      if (mobilePanel.classList.contains('open')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-      } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-  }
-  
-  document.querySelectorAll('.nav-link-mobile').forEach(link => {
-    link.addEventListener('click', () => {
-      mobilePanel.classList.remove('open');
-      if (menuToggle) {
-        const icon = menuToggle.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-  });
-  
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('in'), idx * 60);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
-  document.querySelectorAll('.rise').forEach(el => observer.observe(el));
-  
-  // Nav background scroll
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('nav');
-    if (nav) {
-      if (window.scrollY > 40) nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.96)' : 'rgba(255, 255, 255, 0.96)';
-      else nav.style.background = body.classList.contains('dark') ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.92)';
-    }
-  });
-  
-  // Đóng modal khi click ra ngoài
-  document.getElementById('contentModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('contentModal')) closeModal();
-  });
-  
-  // Export functions
-  window.openHandbookPost = openHandbookPost;
-  window.openNewsPost = openNewsPost;
-  window.loadMoreNews = loadMoreNews;
-  window.closeModal = closeModal;
+  const menuToggle = document.getElementById('menuToggleBtn'), mobilePanel = document.getElementById('mobileMenuPanel');
+  if(menuToggle) menuToggle.addEventListener('click', () => { mobilePanel.classList.toggle('open'); const icon = menuToggle.querySelector('i'); icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); });
+  document.querySelectorAll('.nav-link-mobile').forEach(l => l.addEventListener('click', () => { mobilePanel.classList.remove('open'); if(menuToggle){ const icon=menuToggle.querySelector('i'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } }));
+  document.getElementById('searchInput').addEventListener('input', e => searchHandbook(e.target.value));
+
+  window.openCategoryPosts = openCategoryPosts; 
+  window.openArticle = openArticle; 
+  window.openNewsArticle = openNewsArticle;
+  window.closeCategoryModal = closeCategoryModal; 
+  window.closeArticleModal = closeArticleModal;
+  window.loadMoreNews = loadMoreNews; 
+  window.resetSearch = resetSearch; 
+  window.clearSearch = clearSearch;
 </script>
 </body>
 </html>
+
+

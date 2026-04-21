@@ -102,7 +102,7 @@
             font-family: 'Fraunces', serif;
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--text-dark) 0%, var(--blue-primary) 100%);
+            background: linear-gradient(135deg, var(--pink-deep), var(--blue-primary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -393,7 +393,7 @@
         .modal-content {
             background: var(--card-bg);
             border-radius: 32px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             max-height: 85vh;
             display: flex;
@@ -438,11 +438,184 @@
             margin-bottom: 24px;
             border: 2px solid var(--border-light);
         }
+
+        /* ========== CONTENT VIEW STYLES - GIỮ NGUYÊN ĐỊNH DẠNG ========== */
+        .modal-content-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-mid);
+        }
+
+        .modal-content-text * {
+            max-width: 100%;
+        }
+
+        .modal-content-text p {
+            margin-bottom: 1.2em;
+        }
+
+        .modal-content-text h1 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 1.2em 0 0.6em;
+            font-family: 'Fraunces', serif;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 1em 0 0.5em;
+            font-family: 'Fraunces', serif;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 0.8em 0 0.4em;
+            font-family: 'Fraunces', serif;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0.6em 0 0.3em;
+            font-family: 'Fraunces', serif;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text h5, .modal-content-text h6 {
+            font-size: 1em;
+            font-weight: 600;
+            margin: 0.5em 0 0.2em;
+            font-family: 'Fraunces', serif;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text ul, 
+        .modal-content-text ol {
+            margin: 0.8em 0 0.8em 1.8em;
+            padding-left: 0;
+        }
+
+        .modal-content-text li {
+            margin: 0.3em 0;
+            line-height: 1.6;
+        }
+
+        .modal-content-text img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            margin: 1em 0;
+            display: block;
+        }
+
+        .modal-content-text a {
+            color: var(--blue-primary);
+            text-decoration: none;
+        }
+
+        .modal-content-text a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-content-text blockquote {
+            border-left: 4px solid var(--pink-primary);
+            padding-left: 1.2em;
+            margin: 1em 0;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .modal-content-text code {
+            background: var(--tag-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .modal-content-text pre {
+            background: var(--bg-surface);
+            padding: 1em;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
+        .modal-content-text pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .modal-content-text table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+
+        .modal-content-text th,
+        .modal-content-text td {
+            border: 1px solid var(--border-light);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .modal-content-text th {
+            background: var(--bg-surface);
+            font-weight: 600;
+        }
+
+        .modal-content-text hr {
+            border: none;
+            border-top: 1px solid var(--border-light);
+            margin: 1.5em 0;
+        }
+
+        /* Căn lề quan trọng - giữ nguyên style từ Word/Admin */
+        .modal-content-text .ql-align-center {
+            text-align: center !important;
+        }
+
+        .modal-content-text .ql-align-right {
+            text-align: right !important;
+        }
+
+        .modal-content-text .ql-align-left {
+            text-align: left !important;
+        }
+
+        .modal-content-text .ql-align-justify {
+            text-align: justify !important;
+        }
+
+        .modal-content-text .ql-indent-1 { padding-left: 2em !important; }
+        .modal-content-text .ql-indent-2 { padding-left: 4em !important; }
+        .modal-content-text .ql-indent-3 { padding-left: 6em !important; }
+        .modal-content-text .ql-indent-4 { padding-left: 8em !important; }
+        .modal-content-text .ql-indent-5 { padding-left: 10em !important; }
+        .modal-content-text .ql-indent-6 { padding-left: 12em !important; }
+        .modal-content-text .ql-indent-7 { padding-left: 14em !important; }
+        .modal-content-text .ql-indent-8 { padding-left: 16em !important; }
+
+        .modal-content-text strong, 
+        .modal-content-text b {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .modal-content-text em, 
+        .modal-content-text i {
+            font-style: italic;
+        }
+
         .post-content {
             font-size: 16px;
             line-height: 1.6;
         }
-        .post-content img { max-width: 100%; border-radius: 16px; height: auto; }
 
         /* Post Stats inside modal */
         .modal-post-stats {
@@ -579,7 +752,7 @@
             color: var(--text-dim);
         }
 
-        /* Quill alignment styles */
+        /* Quill alignment styles - giữ nguyên định dạng */
         .ql-align-center {
             text-align: center !important;
         }
@@ -602,73 +775,6 @@
         .ql-indent-7 { padding-left: 21em !important; }
         .ql-indent-8 { padding-left: 24em !important; }
 
-        .modal-content-text {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .modal-content-text .ql-align-center {
-            text-align: center !important;
-        }
-        .modal-content-text .ql-align-right {
-            text-align: right !important;
-        }
-        .modal-content-text .ql-align-left {
-            text-align: left !important;
-        }
-        .modal-content-text .ql-align-justify {
-            text-align: justify !important;
-        }
-        .modal-content-text .ql-indent-1 { padding-left: 3em !important; }
-        .modal-content-text .ql-indent-2 { padding-left: 6em !important; }
-        .modal-content-text .ql-indent-3 { padding-left: 9em !important; }
-        .modal-content-text .ql-indent-4 { padding-left: 12em !important; }
-        .modal-content-text .ql-indent-5 { padding-left: 15em !important; }
-        .modal-content-text .ql-indent-6 { padding-left: 18em !important; }
-        .modal-content-text .ql-indent-7 { padding-left: 21em !important; }
-        .modal-content-text .ql-indent-8 { padding-left: 24em !important; }
-        .modal-content-text img { 
-            max-width: 100%; 
-            border-radius: 16px;
-            height: auto;
-        }
-        .modal-content-text p {
-            margin-bottom: 16px;
-        }
-        .modal-content-text h1, .modal-content-text h2, .modal-content-text h3, 
-        .modal-content-text h4, .modal-content-text h5, .modal-content-text h6 {
-            margin: 20px 0 12px 0;
-            font-family: 'Fraunces', serif;
-        }
-        .modal-content-text h1 { font-size: 2em; font-weight: bold; }
-        .modal-content-text h2 { font-size: 1.5em; font-weight: bold; }
-        .modal-content-text h3 { font-size: 1.17em; font-weight: bold; }
-        .modal-content-text h4 { font-size: 1em; font-weight: bold; }
-        .modal-content-text ul, .modal-content-text ol {
-            margin: 10px 0 10px 25px;
-        }
-        .modal-content-text blockquote {
-            border-left: 4px solid var(--pink-primary);
-            padding-left: 16px;
-            margin: 16px 0;
-            color: var(--text-mid);
-        }
-        .modal-content-text table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 16px 0;
-        }
-        .modal-content-text th, .modal-content-text td {
-            border: 1px solid var(--border-light);
-            padding: 8px;
-            text-align: left;
-        }
-        .modal-content-text pre {
-            background: var(--bg-surface);
-            padding: 12px;
-            border-radius: 12px;
-            overflow-x: auto;
-        }
-
         @media (max-width: 768px) {
             .nav-menu { display: none; }
             .menu-toggle { display: flex; }
@@ -677,6 +783,19 @@
             .modal-content { max-width: 95%; max-height: 85vh; }
             .search-filter-bar { flex-direction: column; align-items: stretch; }
             .filter-box { justify-content: center; }
+            .modal-content-text { font-size: 15px; }
+            .modal-content-text h1 { font-size: 1.5em; }
+            .modal-content-text h2 { font-size: 1.3em; }
+            .modal-content-text ul, 
+            .modal-content-text ol {
+                margin-left: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content-text h1 { font-size: 1.3em; }
+            .modal-content-text h2 { font-size: 1.2em; }
+            .modal-content-text h3 { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -687,9 +806,11 @@
             <div class="logo-type">EduHealth AI</div>
         </a>
         <div class="nav-menu">
+            <a href="index.html" class="nav-link"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
             <a href="checkin.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
             <a href="map.html" class="nav-link"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link"><i class="fas fa-comments"></i> Diễn đàn</a>
+            <a href="minigame.html" class="nav-link"><i class="fas fa-brain"></i> Minigame</a>
         </div>
         <div class="nav-right">
             <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i> <span>Chế độ tối</span></button>
@@ -699,9 +820,11 @@
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="nav-links-mobile">
+            <a href="index.html" class="nav-link-mobile"><i class="fas fa-heartbeat"></i> Cẩm nang sức khỏe</a>
             <a href="checkin.html" class="nav-link-mobile"><i class="fas fa-clipboard-list"></i> Check-in sức khỏe</a>
             <a href="map.html" class="nav-link-mobile"><i class="fas fa-hospital-user"></i> Điểm hỗ trợ y tế</a>
             <a href="forum.html" class="nav-link-mobile"><i class="fas fa-comments"></i> Diễn đàn</a>
+            <a href="minigame.html" class="nav-link-mobile"><i class="fas fa-brain"></i> Minigame</a>
         </div>
     </div>
 
@@ -741,9 +864,10 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
+<script>
         const firebaseConfig = {
-            apiKey: "AIzaSyCwwBIP4gtGxz8GTbpBYfAu0YgjfhcS-ps",
+            apiKey: "AIzaSyDOYFgLyliWFfNWtXHzxDQrbe_ISgmavno",
             authDomain: "eduhealth-4bcab.firebaseapp.com",
             projectId: "eduhealth-4bcab",
             storageBucket: "eduhealth-4bcab.firebasestorage.app",
@@ -752,6 +876,18 @@
         };
 
         firebase.initializeApp(firebaseConfig);
+
+        // === TH�M �O?N CODE M?I ===
+        // Kh?i t?o App Check v?i reCAPTCHA Enterprise
+        const appCheck = firebase.appCheck();
+        appCheck.activate(
+          new firebase.appCheck.ReCaptchaEnterpriseProvider(
+            '6LfZOsIsAAAAAK_vBWSNgolKHjLsfWxGBicixs37'
+          ),
+          true
+        );
+        // ===============================
+
         const db = firebase.firestore();
 
         let posts = [];
@@ -1021,11 +1157,12 @@
                 }, 50);
             }
 
+            // Sử dụng class modal-content-text để giữ nguyên định dạng
             modalBody.innerHTML = `
                 <div class="post-content-box">
-                    <div class="post-content modal-content-text">
+                    <div class="modal-content-text">
                         ${videoHtml}
-                        <div style="font-size:16px; line-height:1.6;">${post.content || ''}</div>
+                        <div>${post.content || ''}</div>
                         ${post.type === 'infographic' ? imageHtml : ''}
                         ${quizHtml}
                         ${pollHtml}
@@ -1251,3 +1388,4 @@
     </script>
 </body>
 </html>
+
